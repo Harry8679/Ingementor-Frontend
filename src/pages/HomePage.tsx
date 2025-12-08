@@ -20,10 +20,10 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
+              <div className="bg-linear-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
                 <AcademicCapIcon className="h-8 w-8 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 IngéMentor
               </span>
             </div>
@@ -36,7 +36,7 @@ const HomePage = () => {
               </Link>
               <Link
                 to="/register"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+                className="bg-linear-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
               >
                 S'inscrire gratuitement
               </Link>
@@ -46,7 +46,7 @@ const HomePage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -57,7 +57,7 @@ const HomePage = () => {
               
               <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
                 Réussissez vos études avec les{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   meilleurs professeurs
                 </span>
               </h1>
@@ -70,7 +70,7 @@ const HomePage = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   to="/register" 
-                  className="group bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 text-center flex items-center justify-center"
+                  className="group bg-linear-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 text-center flex items-center justify-center"
                 >
                   Commencer gratuitement
                   <ArrowRightIcon className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ const HomePage = () => {
             </div>
 
             <div className="relative lg:h-[600px] hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-3xl transform rotate-3 opacity-20"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-blue-400 to-indigo-600 rounded-3xl transform rotate-3 opacity-20"></div>
               <img
                 src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=1000&fit=crop"
                 alt="Étudiants heureux"
@@ -133,10 +133,10 @@ const HomePage = () => {
               { number: '50k+', label: 'Cours donnés', icon: CheckCircleIcon },
             ].map((stat, idx) => (
               <div key={idx} className="text-center space-y-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-linear-to-br from-blue-100 to-indigo-100 rounded-xl">
                   <stat.icon className="h-6 w-6 text-blue-600" />
                 </div>
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <div className="text-4xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
@@ -147,7 +147,7 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-20 bg-linear-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl font-bold text-gray-900">
@@ -201,7 +201,7 @@ const HomePage = () => {
                 key={idx}
                 className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-transparent"
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br ${feature.color} rounded-xl mb-6 group-hover:scale-110 transition-transform`}>
+                <div className={`inline-flex items-center justify-center w-14 h-14 bg-linear-to-br ${feature.color} rounded-xl mb-6 group-hover:scale-110 transition-transform`}>
                   <feature.icon className="h-7 w-7 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -250,7 +250,7 @@ const HomePage = () => {
               },
             ].map((step, idx) => (
               <div key={idx} className="relative text-center">
-                <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
+                <div className="relative inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
                   <span className="text-3xl font-bold text-white">{step.step}</span>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
@@ -270,7 +270,7 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Prêt à transformer vos résultats scolaires ?
@@ -297,7 +297,7 @@ const HomePage = () => {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
+                <div className="bg-linear-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
                   <AcademicCapIcon className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">IngéMentor</span>
