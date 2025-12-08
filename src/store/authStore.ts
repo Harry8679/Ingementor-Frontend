@@ -1,26 +1,7 @@
+// src/store/authStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-interface User {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  phone: string | null;
-  roles: string[];
-  userType: 'teacher' | 'student' | 'parent' | 'admin' | 'super_admin';
-  bio?: string;
-  experience?: string;
-  isVerified?: boolean;
-  rating?: string;
-  grade?: {
-    id: number;
-    name: string;
-    level: string;
-  };
-  address?: string;
-}
+import type { User } from '../types/User';
 
 interface AuthState {
   token: string | null;
@@ -37,18 +18,21 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       user: null,
       isAuthenticated: false,
+
       login: (token, user) =>
         set({
           token,
           user,
           isAuthenticated: true,
         }),
+
       logout: () =>
         set({
           token: null,
           user: null,
           isAuthenticated: false,
         }),
+
       updateUser: (user) =>
         set({
           user,
