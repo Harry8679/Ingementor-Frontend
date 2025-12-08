@@ -10,35 +10,38 @@ import {
   ShieldCheckIcon,
   ChatBubbleLeftRightIcon,
   StarIcon,
-} from '@heroicons/react/24/outline';
+  FireIcon,
+  BoltIcon,
+  TrophyIcon,
+} from '@heroicons/react/24/solid';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Navigation */}
-      <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+      <nav className="bg-white/80 backdrop-blur-xl shadow-lg sticky top-0 z-50 border-b border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="bg-linear-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
+              <div className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-2.5 rounded-2xl shadow-lg">
                 <AcademicCapIcon className="h-8 w-8 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 IngéMentor
               </span>
             </div>
             <div className="flex items-center space-x-4">
               <Link
                 to="/login"
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors px-4 py-2"
+                className="text-gray-700 hover:text-blue-600 font-semibold transition-all px-5 py-2.5 rounded-xl hover:bg-blue-50"
               >
                 Connexion
               </Link>
               <Link
                 to="/register"
-                className="bg-linear-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-200"
+                className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-7 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg"
               >
-                S'inscrire gratuitement
+                Commencer gratuitement
               </Link>
             </div>
           </div>
@@ -46,74 +49,84 @@ const HomePage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 py-20 lg:py-32">
+      <section className="relative overflow-hidden pt-20 pb-32">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full border border-blue-200">
-                <SparklesIcon className="h-5 w-5" />
-                <span className="font-semibold text-sm">Plateforme #1 de soutien scolaire</span>
+              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-full shadow-lg">
+                <FireIcon className="h-5 w-5 animate-pulse" />
+                <span className="font-bold text-sm">Plateforme N°1 en France</span>
               </div>
               
-              <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-                Réussissez vos études avec les{' '}
-                <span className="bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  meilleurs professeurs
+              <h1 className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight">
+                Réussis tes études
+                <br />
+                avec les{' '}
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-gradient">
+                  meilleurs profs
                 </span>
               </h1>
               
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Accédez à des milliers de professeurs qualifiés et vérifiés. 
-                Trouvez le prof parfait pour réussir, du CP à la Terminale.
+              <p className="text-xl text-gray-700 leading-relaxed font-medium">
+                Des milliers de professeurs experts pour t'accompagner du CP à la Terminale. 
+                <span className="text-blue-600 font-bold"> Trouve ton match parfait !</span>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   to="/register" 
-                  className="group bg-linear-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-200 text-center flex items-center justify-center"
+                  className="group relative bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-black text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center flex items-center justify-center shadow-xl overflow-hidden"
                 >
-                  Commencer gratuitement
-                  <ArrowRightIcon className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <span className="relative z-10 flex items-center">
+                    Commencer maintenant
+                    <ArrowRightIcon className="h-6 w-6 ml-2 group-hover:translate-x-2 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
                 <Link 
                   to="/register"
-                  className="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg border-2 border-gray-200 hover:border-blue-600 hover:text-blue-600 transition-all duration-200 text-center"
+                  className="bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg border-3 border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 text-center shadow-lg"
                 >
-                  Voir les professeurs
+                  Découvrir les profs
                 </Link>
               </div>
 
-              <div className="flex items-center space-x-8 text-sm text-gray-600 pt-4">
-                <div className="flex items-center space-x-2">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  <span>Sans engagement</span>
+              <div className="flex flex-wrap items-center gap-6 pt-4">
+                <div className="flex items-center space-x-2 bg-green-50 px-4 py-2 rounded-full border-2 border-green-200">
+                  <CheckCircleIcon className="h-5 w-5 text-green-600" />
+                  <span className="font-bold text-green-700 text-sm">Gratuit</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  <span>1er cours offert</span>
+                <div className="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-full border-2 border-blue-200">
+                  <BoltIcon className="h-5 w-5 text-blue-600" />
+                  <span className="font-bold text-blue-700 text-sm">Réponse en 5 min</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  <span>Satisfait ou remboursé</span>
+                <div className="flex items-center space-x-2 bg-purple-50 px-4 py-2 rounded-full border-2 border-purple-200">
+                  <TrophyIcon className="h-5 w-5 text-purple-600" />
+                  <span className="font-bold text-purple-700 text-sm">Note 4.9/5</span>
                 </div>
               </div>
             </div>
 
-            <div className="relative lg:h-[600px] hidden lg:block">
-              <div className="absolute inset-0 bg-linear-to-br from-blue-400 to-indigo-600 rounded-3xl transform rotate-3 opacity-20"></div>
+            <div className="relative lg:h-[650px] hidden lg:block">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-[3rem] transform rotate-6 opacity-20"></div>
               <img
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=1000&fit=crop"
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&h=1200&fit=crop&q=80"
                 alt="Étudiants heureux"
-                className="relative rounded-3xl shadow-2xl object-cover w-full h-full"
+                className="relative rounded-[3rem] shadow-2xl object-cover w-full h-full border-4 border-white"
               />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-green-100 p-3 rounded-xl">
-                    <StarIcon className="h-6 w-6 text-green-600" />
+              <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-3xl shadow-2xl border-4 border-blue-100">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-br from-green-400 to-emerald-500 p-4 rounded-2xl">
+                    <StarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <div className="font-bold text-2xl text-gray-900">4.9/5</div>
-                    <div className="text-sm text-gray-600">Note moyenne</div>
+                    <div className="font-black text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">4.9/5</div>
+                    <div className="text-sm text-gray-600 font-bold">12,000+ avis</div>
                   </div>
                 </div>
               </div>
@@ -123,23 +136,23 @@ const HomePage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white border-y border-gray-100">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: '500+', label: 'Professeurs vérifiés', icon: UserGroupIcon },
-              { number: '10k+', label: 'Élèves satisfaits', icon: AcademicCapIcon },
-              { number: '4.9/5', label: 'Note moyenne', icon: StarIcon },
-              { number: '50k+', label: 'Cours donnés', icon: CheckCircleIcon },
+              { number: '500+', label: 'Professeurs experts', icon: UserGroupIcon, color: 'from-blue-500 to-indigo-500' },
+              { number: '10k+', label: 'Élèves accompagnés', icon: AcademicCapIcon, color: 'from-indigo-500 to-purple-500' },
+              { number: '4.9/5', label: 'Note moyenne', icon: StarIcon, color: 'from-purple-500 to-pink-500' },
+              { number: '50k+', label: 'Cours réalisés', icon: CheckCircleIcon, color: 'from-pink-500 to-rose-500' },
             ].map((stat, idx) => (
-              <div key={idx} className="text-center space-y-3">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-linear-to-br from-blue-100 to-indigo-100 rounded-xl">
-                  <stat.icon className="h-6 w-6 text-blue-600" />
+              <div key={idx} className="text-center group cursor-pointer">
+                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <stat.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-4xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <div className="text-5xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-gray-600 font-bold">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -147,14 +160,17 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-linear-to-b from-white to-gray-50">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Pourquoi choisir IngéMentor ?
+          <div className="text-center mb-20 space-y-4">
+            <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-bold text-sm mb-4">
+              ⚡ Avantages exclusifs
+            </div>
+            <h2 className="text-5xl font-black text-gray-900">
+              Pourquoi IngéMentor ?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              La plateforme la plus complète pour trouver votre professeur idéal
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
+              La plateforme qui transforme vraiment tes résultats
             </p>
           </div>
 
@@ -162,52 +178,52 @@ const HomePage = () => {
             {[
               {
                 icon: ShieldCheckIcon,
-                title: 'Professeurs vérifiés',
-                description: 'Tous nos professeurs sont vérifiés et évalués par la communauté',
-                color: 'from-blue-500 to-blue-600',
+                title: 'Profs vérifiés ✓',
+                description: 'Diplômes validés, expérience prouvée, avis réels',
+                color: 'from-blue-500 to-cyan-500',
               },
               {
-                icon: ClockIcon,
-                title: 'Réservation instantanée',
-                description: 'Réservez votre cours en quelques clics, disponible 7j/7',
-                color: 'from-indigo-500 to-indigo-600',
+                icon: BoltIcon,
+                title: 'Réponse ultra-rapide',
+                description: 'Trouve un prof en moins de 5 minutes chrono',
+                color: 'from-indigo-500 to-blue-500',
               },
               {
                 icon: CurrencyEuroIcon,
-                title: 'Prix transparents',
-                description: 'Tarifs adaptés à tous les budgets, sans frais cachés',
-                color: 'from-purple-500 to-purple-600',
+                title: 'Prix imbattables',
+                description: 'À partir de 15€/h, premier cours gratuit',
+                color: 'from-purple-500 to-pink-500',
               },
               {
                 icon: ChatBubbleLeftRightIcon,
-                title: 'Chat en direct',
-                description: 'Échangez directement avec vos professeurs avant de réserver',
-                color: 'from-pink-500 to-pink-600',
+                title: 'Chat instantané',
+                description: 'Discute avec ton prof avant de réserver',
+                color: 'from-pink-500 to-rose-500',
               },
               {
-                icon: AcademicCapIcon,
-                title: 'Toutes les matières',
-                description: 'Maths, physique, français, anglais... Plus de 20 matières disponibles',
-                color: 'from-cyan-500 to-cyan-600',
+                icon: TrophyIcon,
+                title: 'Résultats garantis',
+                description: '95% de progression moyenne en 3 mois',
+                color: 'from-cyan-500 to-teal-500',
               },
               {
                 icon: CheckCircleIcon,
-                title: 'Satisfait ou remboursé',
-                description: 'Premier cours non satisfaisant ? On vous rembourse',
-                color: 'from-green-500 to-green-600',
+                title: '100% Satisfait',
+                description: 'Pas content ? On te rembourse, point barre',
+                color: 'from-green-500 to-emerald-500',
               },
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-transparent"
+                className="group bg-white p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-transparent hover:-translate-y-2"
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 bg-linear-to-br ${feature.color} rounded-xl mb-6 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className="h-7 w-7 text-white" />
+                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}>
+                  <feature.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-black text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed font-medium">
                   {feature.description}
                 </p>
               </div>
@@ -216,132 +232,114 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Comment ça marche ?
-            </h2>
-            <p className="text-xl text-gray-600">
-              3 étapes simples pour commencer
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '1',
-                title: 'Créez votre compte',
-                description: 'Inscription gratuite en moins de 2 minutes',
-                icon: UserGroupIcon,
-              },
-              {
-                step: '2',
-                title: 'Trouvez votre professeur',
-                description: 'Parcourez les profils et choisissez selon vos besoins',
-                icon: AcademicCapIcon,
-              },
-              {
-                step: '3',
-                title: 'Réservez votre cours',
-                description: 'Planifiez et commencez à progresser immédiatement',
-                icon: SparklesIcon,
-              },
-            ].map((step, idx) => (
-              <div key={idx} className="relative text-center">
-                <div className="relative inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
-                  <span className="text-3xl font-bold text-white">{step.step}</span>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">
-                  {step.description}
-                </p>
-                {idx < 2 && (
-                  <ArrowRightIcon className="hidden md:block absolute top-10 -right-4 h-8 w-8 text-blue-300" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Prêt à transformer vos résultats scolaires ?
+      <section className="relative py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full font-bold text-sm mb-8">
+            🚀 Rejoins 10,000+ élèves
+          </div>
+          <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+            Prêt à cartonner ?
           </h2>
-          <p className="text-xl text-blue-100 mb-10">
-            Rejoignez des milliers d'élèves qui ont déjà trouvé leur professeur idéal
+          <p className="text-2xl text-blue-100 mb-12 font-medium">
+            Inscris-toi gratuitement et trouve ton prof en 5 minutes
           </p>
           <Link
             to="/register"
-            className="inline-flex items-center bg-white text-blue-600 px-10 py-5 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all shadow-2xl hover:scale-105"
+            className="inline-flex items-center bg-white text-blue-600 px-12 py-6 rounded-2xl font-black text-xl hover:bg-gray-50 transition-all shadow-2xl hover:scale-105 hover:shadow-white/20"
           >
-            Créer mon compte gratuitement
-            <ArrowRightIcon className="h-5 w-5 ml-2" />
+            <span>Je me lance maintenant</span>
+            <ArrowRightIcon className="h-6 w-6 ml-3" />
           </Link>
-          <p className="text-blue-100 text-sm mt-6">
-            ✓ Sans engagement • ✓ 1er cours offert • ✓ Inscription en 2 min
-          </p>
+          <div className="flex justify-center items-center space-x-8 text-white text-sm mt-10 font-bold">
+            <span className="flex items-center"><CheckCircleIcon className="h-5 w-5 mr-2" />Inscription en 30 sec</span>
+            <span className="flex items-center"><CheckCircleIcon className="h-5 w-5 mr-2" />Sans carte bancaire</span>
+            <span className="flex items-center"><CheckCircleIcon className="h-5 w-5 mr-2" />Premier cours offert</span>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12">
+      <footer className="bg-gray-900 text-gray-300 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="bg-linear-to-br from-blue-600 to-indigo-600 p-2 rounded-xl">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl">
                   <AcademicCapIcon className="h-6 w-6 text-white" />
                 </div>
-                <span className="text-xl font-bold text-white">IngéMentor</span>
+                <span className="text-2xl font-black text-white">IngéMentor</span>
               </div>
-              <p className="text-sm text-gray-400">
-                La plateforme qui vous accompagne vers la réussite scolaire.
+              <p className="text-sm text-gray-400 font-medium">
+                La plateforme qui transforme tes résultats scolaires.
               </p>
             </div>
             
             <div>
-              <h4 className="font-semibold text-white mb-4">Matières</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Mathématiques</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Physique-Chimie</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Français</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Anglais</a></li>
+              <h4 className="font-black text-white mb-6">Matières populaires</h4>
+              <ul className="space-y-3 text-sm font-medium">
+                <li><a href="#" className="hover:text-blue-400 transition-colors">🔢 Mathématiques</a></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">⚗️ Physique-Chimie</a></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">📚 Français</a></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">🌍 Anglais</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold text-white mb-4">Entreprise</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">À propos</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Devenir professeur</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <h4 className="font-black text-white mb-6">Liens rapides</h4>
+              <ul className="space-y-3 text-sm font-medium">
+                <li><Link to="/register" className="hover:text-blue-400 transition-colors">Devenir professeur</Link></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">Aide & Support</a></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-blue-400 transition-colors">Tarifs</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold text-white mb-4">Légal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Conditions d'utilisation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Mentions légales</a></li>
-              </ul>
+              <h4 className="font-black text-white mb-6">Suivez-nous</h4>
+              <div className="flex space-x-4">
+                {['facebook', 'twitter', 'instagram', 'linkedin'].map((social) => (
+                  <a
+                    key={social}
+                    href="#"
+                    className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all hover:scale-110"
+                  >
+                    <span className="text-lg">📱</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
           
-          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 IngéMentor. Tous droits réservés.</p>
+          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-500 font-medium">
+            <p>&copy; 2024 IngéMentor. Tous droits réservés. Fait avec ❤️ en France</p>
           </div>
         </div>
       </footer>
+
+      <style>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        .bg-grid-pattern {
+          background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+          background-size: 50px 50px;
+        }
+      `}</style>
     </div>
   );
 };
