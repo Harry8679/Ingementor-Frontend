@@ -1,7 +1,7 @@
 // src/store/authStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from '../types/User';
+import type { User } from '../services/api';
 
 interface AuthState {
   token: string | null;

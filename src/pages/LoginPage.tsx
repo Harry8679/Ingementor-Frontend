@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AcademicCapIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
+import axios from 'axios';
 import { authAPI } from '../services/api';
 import { useAuthStore } from '../store/authStore';
 
@@ -33,19 +34,32 @@ const LoginPage = () => {
       login(token, user);
       
       // Rediriger selon le type d'utilisateur
-      if (user.userType === 'teacher') {
-        navigate('/dashboard/teacher');
-      } else if (user.userType === 'student') {
-        navigate('/dashboard/student');
-      } else if (user.userType === 'parent') {
-        navigate('/dashboard/parent');
-      } else {
-        navigate('/dashboard');
+      switch (user.userType) {
+        case 'teacher':
+          navigate('/dashboard/teacher');
+          break;
+        case 'student':
+          navigate('/dashboard/student');
+          break;
+        case 'parent':
+          navigate('/dashboard/parent');
+          break;
+        case 'admin':
+        case 'super_admin':
+          navigate('/dashboard/admin');
+          break;
+        default:
+          navigate('/dashboard');
       }
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || 'Email ou mot de passe incorrect'
-      );
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const errorMessage = err.response?.data?.message || 
+                            err.response?.data?.error ||
+                            'Email ou mot de passe incorrect';
+        setError(errorMessage);
+      } else {
+        setError('Une erreur est survenue lors de la connexion');
+      }
     } finally {
       setLoading(false);
     }
