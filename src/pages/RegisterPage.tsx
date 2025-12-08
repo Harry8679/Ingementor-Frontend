@@ -64,26 +64,41 @@ const RegisterPage = () => {
       setLoading(true);
       setError('');
 
-      const registerData = {
-        userType: userType,
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        phone: data.phone,
-        ...(userType === 'teacher' && {
+      let response;
+
+      if (userType === 'teacher') {
+        response = await authAPI.register({
+          userType: 'teacher',
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
           bio: data.bio,
           experience: data.experience,
-        }),
-        ...(userType === 'parent' && {
+        });
+      } else if (userType === 'student') {
+        response = await authAPI.register({
+          userType: 'student',
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
+          gradeId: data.gradeId!,
+        });
+      } else {
+        response = await authAPI.register({
+          userType: 'parent',
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
           address: data.address,
-        }),
-        ...(userType === 'student' && {
-          gradeId: data.gradeId,
-        }),
-      };
+        });
+      }
 
-      const response = await authAPI.register(registerData as any);
       const { token, user } = response.data;
 
       login(token, user);
@@ -137,7 +152,7 @@ const RegisterPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
