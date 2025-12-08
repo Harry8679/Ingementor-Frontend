@@ -2,10 +2,8 @@ import { Link } from 'react-router-dom';
 import { 
   AcademicCapIcon, 
   UserGroupIcon, 
-  SparklesIcon,
   CheckCircleIcon,
   ArrowRightIcon,
-  ClockIcon,
   CurrencyEuroIcon,
   ShieldCheckIcon,
   ChatBubbleLeftRightIcon,
