@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
 import { useAuthStore } from '../store/authStore';
 
 const API_BASE_URL = 'http://localhost:8002/api';
