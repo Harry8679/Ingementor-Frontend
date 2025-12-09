@@ -15,6 +15,8 @@ import type {
   CreateStudentSubjectData,
   UpdateStudentSubjectData,
   RequestTeacherData,
+  Message,
+  // StudentGradesResponse,
 } from '../types/common.types';
 
 export const studentAPI = {
@@ -63,8 +65,12 @@ export const studentAPI = {
     api.delete(`/api/students/me/subjects/${subjectId}`),
 
   // ==== Grades ====
+  // getGrades: () =>
+  //   api.get<StudentGrade[]>('/api/students/me/grades'),
   getGrades: () =>
-    api.get<StudentGrade[]>('/api/students/me/grades'),
+  api.get<{ grades: StudentGrade[]; total: number }>(
+      "/api/students/me/grades"
+  ),
 
   getGradesBySubject: (subjectId: number) =>
     api.get<StudentGrade[]>(
@@ -78,4 +84,10 @@ export const studentAPI = {
   // ==== Lessons ====
   getLessons: () =>
     api.get<ApiResponse<Lesson[]>>('/api/students/me/lessons'),
+
+  getLessonById: (id: number) =>
+    api.get<ApiResponse<Lesson>>(`/api/students/me/lessons/${id}`),
+
+  getMessages: () =>
+    api.get<ApiResponse<Message[]>>('/api/students/me/messages'),
 };

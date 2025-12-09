@@ -22,7 +22,7 @@ const Grades: React.FC = () => {
       // Ton backend renvoie directement StudentGrade[]
       const data = response.data;
 
-      setGrades(data);
+      setGrades(data.grades);
     } catch (error) {
       console.error('Erreur chargement notes :', error);
     } finally {
@@ -66,13 +66,13 @@ const Grades: React.FC = () => {
                   {grades.map(grade => (
                     <li key={grade.id} className="p-4 bg-white rounded-xl shadow">
                       <p className="font-bold">
-                        {grade.subject.name} — {grade.value}/20
+                        {grade.subject.name} — {grade.grade}/20
                       </p>
                       <p className="text-gray-500 text-sm">
                         Coefficient : {grade.coefficient}
                       </p>
                       <p className="text-gray-400 text-xs">
-                        {new Date(grade.date).toLocaleDateString()}
+                        {new Date(grade.examDate ?? "").toLocaleDateString()}
                       </p>
                     </li>
                   ))}

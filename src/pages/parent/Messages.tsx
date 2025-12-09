@@ -54,14 +54,14 @@ const Messages: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -90,7 +90,7 @@ const Messages: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
                     <EnvelopeIcon className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -101,7 +101,7 @@ const Messages: React.FC = () => {
               </Card>
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-3 rounded-xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-3 rounded-xl">
                     <EnvelopeOpenIcon className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -112,7 +112,7 @@ const Messages: React.FC = () => {
               </Card>
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-3 rounded-xl">
                     <EnvelopeIcon className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -132,7 +132,7 @@ const Messages: React.FC = () => {
                     onClick={() => setActiveTab('inbox')}
                     className={`px-6 py-3 rounded-xl font-bold transition-all ${
                       activeTab === 'inbox'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                        ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
@@ -147,7 +147,7 @@ const Messages: React.FC = () => {
                     onClick={() => setActiveTab('sent')}
                     className={`px-6 py-3 rounded-xl font-bold transition-all ${
                       activeTab === 'sent'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                        ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
@@ -192,7 +192,7 @@ const Messages: React.FC = () => {
                         {/* Avatar */}
                         <div className={`p-3 rounded-full ${
                           !message.isRead && activeTab === 'inbox'
-                            ? 'bg-gradient-to-br from-blue-500 to-indigo-500'
+                            ? 'bg-linear-to-br from-blue-500 to-indigo-500'
                             : 'bg-gray-200'
                         }`}>
                           <UserCircleIcon className={`h-8 w-8 ${

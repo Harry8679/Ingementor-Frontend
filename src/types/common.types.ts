@@ -37,6 +37,11 @@ export interface Subject {
   description?: string;
 }
 
+export interface SubjectMinimal {
+  id: number;
+  name: string;
+}
+
 export interface Grade {
   id: number;
   name: string;
@@ -102,15 +107,21 @@ export interface SendMessageData {
   content: string;
 }
 
-// ==================== GRADE TYPES ====================
+// ==================== GRADE TYPES (BACKEND EXACT) ====================
 export interface StudentGrade {
   id: number;
-  value: number;
+  subject: SubjectMinimal;
+  grade: number;
   coefficient: number;
-  date: string;
-  subject: Subject;
-  student?: Student;
-  notes?: string;
+  examName?: string;
+  examDate?: string;
+  comments?: string;
+  createdAt?: string;
+}
+
+export interface StudentGradesResponse {
+  grades: StudentGrade[];
+  total: number;
 }
 
 export interface CreateGradeData {
@@ -304,7 +315,10 @@ export interface RegisterParentRequest {
   address?: string;
 }
 
-export type RegisterRequest = RegisterTeacherRequest | RegisterStudentRequest | RegisterParentRequest;
+export type RegisterRequest =
+  | RegisterTeacherRequest
+  | RegisterStudentRequest
+  | RegisterParentRequest;
 
 export interface AuthResponse {
   token: string;
@@ -314,12 +328,22 @@ export interface AuthResponse {
 export interface ChildProgress {
   subjects: {
     subject: string;
-    progress: number; // % ou autre
+    progress: number;
   }[];
-  overall: number; // progression globale
+  overall: number;
 }
 
 export interface ChangePasswordResponse {
   success: boolean;
   message: string;
+}
+
+export interface Message {
+  id: number;
+  subject: string;
+  content: string;
+  isRead: boolean;
+  sender?: User;
+  recipient?: User;
+  createdAt: string;
 }

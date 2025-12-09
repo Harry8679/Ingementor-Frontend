@@ -61,7 +61,7 @@ const MessageDetail: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -69,7 +69,7 @@ const MessageDetail: React.FC = () => {
 
   if (!message) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Card>
           <p className="text-gray-600">Message introuvable</p>
           <Button onClick={() => navigate('/dashboard/parent/messages')} className="mt-4">
@@ -81,7 +81,7 @@ const MessageDetail: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -113,7 +113,7 @@ const MessageDetail: React.FC = () => {
             <Card>
               {/* Header du message */}
               <div className="flex items-start gap-4 pb-6 border-b border-gray-200">
-                <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-3 rounded-full">
+                <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-3 rounded-full">
                   <UserCircleIcon className="h-8 w-8 text-white" />
                 </div>
                 <div className="flex-1">
