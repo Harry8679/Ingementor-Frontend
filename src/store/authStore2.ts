@@ -1,6 +1,7 @@
+// src/store/authStore.ts
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from '../types/common.types';
+import type { User } from '../services/api';
 
 interface AuthState {
   token: string | null;
@@ -8,6 +9,7 @@ interface AuthState {
   isAuthenticated: boolean;
   login: (token: string, user: User) => void;
   logout: () => void;
+  updateUser: (user: User) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -16,14 +18,25 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       user: null,
       isAuthenticated: false,
-      login: (token, user) => {
-        localStorage.setItem('token', token);
-        set({ token, user, isAuthenticated: true });
-      },
-      logout: () => {
-        localStorage.removeItem('token');
-        set({ token: null, user: null, isAuthenticated: false });
-      },
+
+      login: (token, user) =>
+        set({
+          token,
+          user,
+          isAuthenticated: true,
+        }),
+
+      logout: () =>
+        set({
+          token: null,
+          user: null,
+          isAuthenticated: false,
+        }),
+
+      updateUser: (user) =>
+        set({
+          user,
+        }),
     }),
     {
       name: 'auth-storage',
