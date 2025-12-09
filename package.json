@@ -13,6 +13,8 @@
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
+    "install": "^0.13.0",
+    "npm": "^11.6.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.68.0",

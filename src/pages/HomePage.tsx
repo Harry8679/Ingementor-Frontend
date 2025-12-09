@@ -30,14 +30,14 @@ const HomePage = () => {
             </div>
             <div className="flex items-center space-x-4">
               <Link
-                to="/login"
+                to="/connexion"
                 className="text-gray-700 hover:text-blue-600 font-semibold transition-all px-5 py-2.5 rounded-xl hover:bg-blue-50"
               >
                 Connexion
               </Link>
               <Link
-                to="/register"
-                className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-7 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg"
+                to="/inscription"
+                className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-7 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 Commencer gratuitement
               </Link>
@@ -48,7 +48,7 @@ const HomePage = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
@@ -56,7 +56,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-full shadow-lg">
+              <div className="inline-flex items-center space-x-2 bg-linear-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-full shadow-lg">
                 <FireIcon className="h-5 w-5 animate-pulse" />
                 <span className="font-bold text-sm">Plateforme N°1 en France</span>
               </div>

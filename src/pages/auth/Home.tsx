@@ -30,13 +30,13 @@ const HomePage = () => {
             </div>
             <div className="flex items-center space-x-4">
               <Link
-                to="/login"
+                to="/connexion"
                 className="text-gray-700 hover:text-blue-600 font-semibold transition-all px-5 py-2.5 rounded-xl hover:bg-blue-50"
               >
                 Connexion
               </Link>
               <Link
-                to="/register"
+                to="/inscription"
                 className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-7 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 Commencer gratuitement
@@ -77,7 +77,7 @@ const HomePage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
-                  to="/register" 
+                  to="/inscription" 
                   className="group relative bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-black text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center flex items-center justify-center shadow-xl overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center">

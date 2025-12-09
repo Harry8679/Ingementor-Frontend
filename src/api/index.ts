@@ -1,18 +1,19 @@
 import axios from 'axios';
+import { useAuthStore } from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8002';
+const API_BASE_URL = 'http://127.0.0.1:8002/api';
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor - Add auth token
+// Intercepteur → ajouter automatiquement le token JWT
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = useAuthStore.getState().token;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -21,13 +22,12 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor - Handle errors
+// Intercepteur → si token expiré → logout automatique
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      useAuthStore.getState().logout();
       window.location.href = '/connexion';
     }
     return Promise.reject(error);

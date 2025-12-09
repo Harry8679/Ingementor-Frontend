@@ -1,10 +1,8 @@
-import api from '../services/api';
-
+import api from './axios';
 import type {
   Teacher,
   Student,
   Subject,
-  Lesson,
   DashboardStats,
   Availability,
   ApiResponse,
@@ -12,10 +10,14 @@ import type {
   UpdatePasswordData,
   CreateAvailabilityData,
   UpdateAvailabilityData,
+  ChangePasswordResponse,
 } from '../types/common.types';
 
 export const teacherAPI = {
-  // ===== PROFILE =====
+
+  // ===========================
+  // PROFIL
+  // ===========================
   getProfile: () =>
     api.get<ApiResponse<Teacher>>('/api/teachers/me'),
 
@@ -23,54 +25,62 @@ export const teacherAPI = {
     api.put<ApiResponse<Teacher>>('/api/teachers/me', data),
 
   updatePassword: (data: UpdatePasswordData) =>
-    api.put('/api/teachers/me/password', data),
+    api.put<ApiResponse<ChangePasswordResponse>>('/api/teachers/me/password', data),
 
-  // ===== STATS =====
+  // ===========================
+  // STATS
+  // ===========================
   getStats: () =>
     api.get<DashboardStats>('/api/teachers/me/stats'),
 
-  // ===== STUDENTS =====
-  getStudents: (status?: string) =>
-    api.get<ApiResponse<Student[]>>('/api/teachers/me/students', {
-      params: { status },
-    }),
+  // ===========================
+  // STUDENTS
+  // ===========================
+  getStudents: () =>
+    api.get<ApiResponse<Student[]>>('/api/teachers/me/students'),
 
-  getStudent: (id: number) =>
+  getStudentDetail: (id: number) =>
     api.get<ApiResponse<Student>>(`/api/teachers/students/${id}`),
 
-  acceptStudent: (relationId: number) =>
-    api.put(`/api/teachers/students/${relationId}/accept`),
+  requestStudent: (studentId: number, subjectId: number, notes?: string) =>
+    api.post(`/api/teachers/students/${studentId}/request`, {
+      subjectId,
+      notes,
+    }),
 
-  rejectStudent: (relationId: number) =>
-    api.put(`/api/teachers/students/${relationId}/reject`),
+  removeStudent: (relationId: number) =>
+    api.delete(`/api/teachers/students/${relationId}`),
 
-  // ===== SUBJECTS =====
+  getAvailableStudents: () =>
+    api.get<ApiResponse<Student[]>>('/api/teachers/students/available'),
+
+  // ===========================
+  // SUBJECTS
+  // ===========================
   getSubjects: () =>
     api.get<ApiResponse<Subject[]>>('/api/teachers/me/subjects'),
 
-  addSubject: (subjectId: number) =>
-    api.post('/api/teachers/me/subjects', { subjectId }),
+  addSubject: (subjectId: number, description?: string) =>
+    api.post('/api/teachers/me/subjects', {
+      subjectId,
+      description,
+    }),
 
-  removeSubject: (subjectId: number) =>
-    api.delete(`/api/teachers/me/subjects/${subjectId}`),
+  removeSubject: (teacherSubjectId: number) =>
+    api.delete(`/api/teachers/me/subjects/${teacherSubjectId}`),
 
-  // ===== AVAILABILITY =====
+  // ===========================
+  // AVAILABILITY
+  // ===========================
   getAvailability: () =>
-    api.get<ApiResponse<Availability[]>>('/api/teachers/me/availability'),
+    api.get<ApiResponse<Availability[]>>('/api/teachers/me/availabilities'),
 
-  createAvailability: (data: CreateAvailabilityData) =>
-    api.post('/api/teachers/me/availability', data),
+  addAvailability: (data: CreateAvailabilityData) =>
+    api.post('/api/teachers/me/availabilities', data),
 
   updateAvailability: (id: number, data: UpdateAvailabilityData) =>
-    api.put(`/api/teachers/me/availability/${id}`, data),
+    api.put(`/api/teachers/me/availabilities/${id}`, data),
 
   deleteAvailability: (id: number) =>
-    api.delete(`/api/teachers/me/availability/${id}`),
-
-  // ===== LESSONS =====
-  getLessons: () =>
-    api.get<ApiResponse<Lesson[]>>('/api/teachers/me/lessons'),
-
-  getUpcomingLessons: () =>
-    api.get<ApiResponse<Lesson[]>>('/api/teachers/me/lessons/upcoming'),
+    api.delete(`/api/teachers/me/availabilities/${id}`),
 };

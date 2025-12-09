@@ -59,7 +59,7 @@ const LoginPage = () => {
             </h2>
             <p className="mt-3 text-base text-gray-600 font-medium">
               Pas encore inscrit ?{' '}
-              <Link to="/register" className="font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
+              <Link to="/inscription" className="font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
                 Créer un compte →
               </Link>
             </p>

@@ -32,7 +32,7 @@ const ForgotPasswordPage = () => {
               <div className="text-6xl mb-4">✅</div>
               <h3 className="text-2xl font-black text-gray-900 mb-2">Email envoyé !</h3>
               <p className="text-gray-600">Vérifie ta boîte mail.</p>
-              <Link to="/login" className="inline-block mt-6 text-blue-600 font-bold">← Retour connexion</Link>
+              <Link to="/connexion" className="inline-block mt-6 text-blue-600 font-bold">← Retour connexion</Link>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -55,7 +55,7 @@ const ForgotPasswordPage = () => {
                 Réinitialiser
               </button>
 
-              <Link to="/login" className="block text-center text-gray-600 hover:text-blue-600 font-medium">
+              <Link to="/connexion" className="block text-center text-gray-600 hover:text-blue-600 font-medium">
                 ← Retour connexion
               </Link>
             </form>

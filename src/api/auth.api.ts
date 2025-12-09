@@ -1,13 +1,43 @@
-import api from './axios';
-import type { LoginRequest, RegisterRequest, AuthResponse } from '../types/auth.types';
+import api from './index';
+import type {
+  LoginRequest,
+  RegisterRequest,
+  AuthResponse,
+} from '../types/common.types';
+import type { AxiosResponse } from 'axios';
 
 export const authAPI = {
-  login: (data: LoginRequest) =>
-    api.post<AuthResponse>('/api/login_check', data),
+  /**
+   * Connexion d'un utilisateur
+   */
+  login: (data: LoginRequest): Promise<AxiosResponse<AuthResponse>> =>
+    api.post<AuthResponse>('/login', data),
 
-  register: (data: RegisterRequest) =>
-    api.post<AuthResponse>('/api/register', data),
+  /**
+   * Inscription (teacher, student ou parent)
+   */
+  register: (data: RegisterRequest): Promise<AxiosResponse<AuthResponse>> =>
+    api.post<AuthResponse>('/register', data),
 
-  me: () =>
+  /**
+   * Récupérer l'utilisateur connecté
+   */
+  me: (): Promise<AxiosResponse<AuthResponse>> =>
     api.get<AuthResponse>('/api/users/me'),
+
+  /**
+   * Mise à jour du profil utilisateur
+   */
+  updateProfile: (
+    data: Partial<{
+      firstName: string;
+      lastName: string;
+      phone: string;
+      bio?: string;
+      experience?: string;
+      address?: string;
+      hourlyRate?: number;
+    }>
+  ): Promise<AxiosResponse<AuthResponse>> =>
+    api.patch<AuthResponse>('/api/users/me', data),
 };

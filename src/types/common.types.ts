@@ -219,6 +219,7 @@ export interface DashboardStats {
   gradesCount?: number;
   unreadMessages?: number;
   averageGrade?: number;
+  childrenCount: number;
   upcomingLessons?: Lesson[];
   recentGrades?: StudentGrade[];
 }
@@ -316,4 +317,9 @@ export interface ChildProgress {
     progress: number; // % ou autre
   }[];
   overall: number; // progression globale
+}
+
+export interface ChangePasswordResponse {
+  success: boolean;
+  message: string;
 }

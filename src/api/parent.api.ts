@@ -1,40 +1,205 @@
-import api from '../services/api';
-// import api from './api';
+import api from "./axios";
 
-import type { Parent, Student, Lesson, DashboardStats, ApiResponse, UpdateProfileData, ChildProgress, Subject } from '../types/common.types';
+import type {
+  Parent,
+  Student,
+  StudentGrade,
+  ApiResponse,
+  UpdateProfileData,
+  UpdatePasswordData,
+  CreateStudentSubjectData,
+  Teacher,
+} from "../types/common.types";
+
+import type {
+  ParentChildRelation,
+  ParentStats,
+  ParentChildSubject,
+  ParentChildTeacher,
+  ParentChildLessonInfo,
+  ParentChildProgress,
+  AllChildrenProgressItem,
+  ParentTeacherDetail,
+} from "../types/parent.types";
 
 export const parentAPI = {
-  // Profil
+  // ==========================
+  // PROFILE
+  // ==========================
   getProfile: () =>
-    api.get<ApiResponse<Parent>>('/api/parents/me'),
+    api.get<ApiResponse<Parent>>("/api/parents/me"),
 
   updateProfile: (data: UpdateProfileData) =>
-    api.put<ApiResponse<Parent>>('/api/parents/me', data),
+    api.put<ApiResponse<Parent>>("/api/parents/me", data),
 
-  // Stats
+  updatePassword: (data: UpdatePasswordData) =>
+    api.put<ApiResponse<{ success: boolean; message: string }>>(
+      "/api/parents/me/password",
+      data
+    ),
+
   getStats: () =>
-    api.get<DashboardStats>('/api/parents/me/stats'),
+    api.get<ApiResponse<ParentStats>>("/api/parents/me/stats"),
 
-  // Enfants
+  // ==========================
+  // CHILDREN
+  // ==========================
   getChildren: () =>
-    api.get<ApiResponse<Student[]>>('/api/parents/me/children'),
+    api.get<
+      ApiResponse<{
+        children: ParentChildRelation[];
+        total: number;
+      }>
+    >("/api/parents/me/children"),
 
-  getChild: (id: number) =>
-    api.get<ApiResponse<Student>>(`/api/parents/children/${id}`),
+  addChild: (data: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phone?: string;
+    gradeId: number;
+    relationship?: string;
+  }) => api.post("/api/parents/me/children", data),
 
-  // Leçons
-  getAllLessons: () =>
-    api.get<ApiResponse<Lesson[]>>('/api/parents/me/lessons/all'),
+  updateChild: (id: number, data: Partial<Student>) =>
+    api.put(`/api/parents/me/children/${id}`, data),
 
-  getUpcomingLessons: () =>
-    api.get<ApiResponse<Lesson[]>>('/api/parents/me/lessons/upcoming'),
+  removeChild: (id: number) =>
+    api.delete(`/api/parents/me/children/${id}`),
 
-  getChildLessons: (childId: number) =>
-    api.get(`/api/parents/children/${childId}/lessons`),
+  getChildDetails: (id: number) =>
+    api.get<
+      ApiResponse<{
+        id: number;
+        relationship: string;
+        student: Student;
+        subjects: ParentChildSubject[];
+        teachers: ParentChildTeacher[];
+        stats: {
+          totalLessons: number;
+          averageGrade: number | null;
+          totalSubjects: number;
+          totalTeachers: number;
+        };
+      }>
+    >(`/api/parents/me/children/${id}/details`),
 
-  getChildProgress: (childId: number) =>
-    api.get<ApiResponse<ChildProgress>>(`/api/parents/children/${childId}/progress`),
-
+  // ==========================
+  // CHILD SUBJECTS
+  // ==========================
   getChildSubjects: (childId: number) =>
-    api.get<ApiResponse<Subject[]>>(`/api/parents/children/${childId}/subjects`),
+    api.get<
+      ApiResponse<{
+        studentName: string;
+        subjects: ParentChildSubject[];
+        total: number;
+      }>
+    >(`/api/parents/children/${childId}/subjects`),
+
+  addSubjectToChild: (childId: number, data: CreateStudentSubjectData) =>
+    api.post(`/api/parents/children/${childId}/subjects`, data),
+
+  updateChildSubject: (
+    childId: number,
+    subjectRelationId: number,
+    data: Partial<CreateStudentSubjectData>
+  ) =>
+    api.put(
+      `/api/parents/children/${childId}/subjects/${subjectRelationId}`,
+      data
+    ),
+
+  removeChildSubject: (childId: number, subjectRelationId: number) =>
+    api.delete(
+      `/api/parents/children/${childId}/subjects/${subjectRelationId}`
+    ),
+
+  // ==========================
+  // CHILD LESSONS
+  // ==========================
+  getChildLessons: (childRelationId: number) =>
+    api.get<
+      ApiResponse<{
+        studentName: string;
+        lessons: ParentChildLessonInfo[];
+        total: number;
+      }>
+    >(`/api/parents/children/${childRelationId}/lessons`),
+
+  getChildUpcomingLessons: (childRelationId: number) =>
+    api.get<
+      ApiResponse<{
+        studentName: string;
+        lessons: ParentChildLessonInfo[];
+        total: number;
+      }>
+    >(`/api/parents/children/${childRelationId}/lessons/upcoming`),
+
+  getAllLessons: () =>
+    api.get<
+      ApiResponse<{
+        lessons: ParentChildLessonInfo[];
+        total: number;
+      }>
+    >("/api/parents/me/lessons/all"),
+
+  getAllUpcomingLessons: () =>
+    api.get<
+      ApiResponse<{
+        lessons: ParentChildLessonInfo[];
+        total: number;
+      }>
+    >("/api/parents/me/lessons/upcoming"),
+
+  // ==========================
+  // CHILD GRADES
+  // ==========================
+  getChildGrades: (childRelationId: number) =>
+    api.get<
+      ApiResponse<{
+        studentName: string;
+        grades: StudentGrade[];
+        generalAverage: number | null;
+        total: number;
+      }>
+    >(`/api/parents/children/${childRelationId}/grades`),
+
+  getChildProgress: (childRelationId: number) =>
+    api.get<ApiResponse<ParentChildProgress>>(
+      `/api/parents/children/${childRelationId}/progress`
+    ),
+
+  getAllChildrenProgress: () =>
+    api.get<
+      ApiResponse<{
+        children: AllChildrenProgressItem[];
+        total: number;
+      }>
+    >("/api/parents/me/children/progress/all"),
+
+  // ==========================
+  // TEACHERS
+  // ==========================
+  getChildTeachers: (childRelationId: number) =>
+    api.get<
+      ApiResponse<{
+        studentName: string;
+        teachers: ParentChildTeacher[];
+        total: number;
+      }>
+    >(`/api/parents/children/${childRelationId}/teachers`),
+
+  getAllTeachers: () =>
+    api.get<
+      ApiResponse<{
+        teachers: Teacher[];
+        total: number;
+      }>
+    >("/api/parents/me/teachers/all"),
+
+  getTeacherDetail: (teacherId: number) =>
+    api.get<ApiResponse<ParentTeacherDetail>>(
+      `/api/parents/teachers/${teacherId}`
+    ),
 };
