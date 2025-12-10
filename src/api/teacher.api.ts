@@ -90,4 +90,8 @@ export const teacherAPI = {
 
   getLessonById: (id: number) =>
     api.get(`/api/teachers/me/lessons/${id}`),
+
+  getMessageById: (messageId: number) =>
+    api.get(`/teacher/messages/${messageId}`),
+
 };
