@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
 import Sidebar from "../../components/layout/Sidebar";
 import Card from "../../components/common/Card";
@@ -12,13 +11,12 @@ import type { Student } from "../../types/common.types";
 const Settings: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<Student | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await studentAPI.getProfile(); // ApiResponse<Student>
-        setProfile(response.data);
+        const response = await studentAPI.getProfile();
+        setProfile(response.data.data); // <-- ICI : le vrai Student
       } catch (error) {
         console.error("Erreur chargement profil :", error);
       } finally {
@@ -31,14 +29,14 @@ const Settings: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
 
       <Navbar />
