@@ -11,6 +11,7 @@ import type {
   CreateAvailabilityData,
   UpdateAvailabilityData,
   ChangePasswordResponse,
+  Lesson,
 } from '../types/common.types';
 
 export const teacherAPI = {
@@ -83,4 +84,7 @@ export const teacherAPI = {
 
   deleteAvailability: (id: number) =>
     api.delete(`/api/teachers/me/availabilities/${id}`),
+
+  getLessons: () =>
+    api.get<ApiResponse<Lesson[]>>("/api/teachers/me/lessons"),
 };
