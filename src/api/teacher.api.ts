@@ -99,6 +99,7 @@ export const teacherAPI = {
     api.get(`/teacher/messages/${messageId}`),
   getMessages: () =>
     api.get<ApiResponse<Message[]>>("/teacher/messages"),
+  
 
   // getStats: () =>
   //   api.get<ApiResponse<DashboardStats>>('/api/teachers/me/stats'),
