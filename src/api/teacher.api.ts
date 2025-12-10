@@ -12,6 +12,7 @@ import type {
   UpdateAvailabilityData,
   ChangePasswordResponse,
   Lesson,
+  Message,
 } from '../types/common.types';
 
 export const teacherAPI = {
@@ -93,5 +94,6 @@ export const teacherAPI = {
 
   getMessageById: (messageId: number) =>
     api.get(`/teacher/messages/${messageId}`),
-
+  getMessages: () =>
+    api.get<ApiResponse<Message[]>>("/teacher/messages"),
 };
