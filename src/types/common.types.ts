@@ -347,3 +347,9 @@ export interface Message {
   recipient?: User;
   createdAt: string;
 }
+
+export interface TeacherStats {
+  totalLessons: number;
+  totalHours: number;
+  studentsCount: number;
+}

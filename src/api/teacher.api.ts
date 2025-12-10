@@ -3,7 +3,7 @@ import type {
   Teacher,
   Student,
   Subject,
-  DashboardStats,
+  // DashboardStats,
   Availability,
   ApiResponse,
   UpdateProfileData,
@@ -13,6 +13,7 @@ import type {
   ChangePasswordResponse,
   Lesson,
   Message,
+  TeacherStats,
 } from '../types/common.types';
 
 export const teacherAPI = {
@@ -32,8 +33,10 @@ export const teacherAPI = {
   // ===========================
   // STATS
   // ===========================
+  // getStats: () =>
+  //   api.get<DashboardStats>('/api/teachers/me/stats'),
   getStats: () =>
-    api.get<DashboardStats>('/api/teachers/me/stats'),
+    api.get<ApiResponse<TeacherStats>>('/api/teachers/me/stats'),
 
   // ===========================
   // STUDENTS
@@ -96,4 +99,7 @@ export const teacherAPI = {
     api.get(`/teacher/messages/${messageId}`),
   getMessages: () =>
     api.get<ApiResponse<Message[]>>("/teacher/messages"),
+
+  // getStats: () =>
+  //   api.get<ApiResponse<DashboardStats>>('/api/teachers/me/stats'),
 };
