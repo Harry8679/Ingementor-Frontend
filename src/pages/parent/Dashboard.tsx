@@ -4,12 +4,13 @@ import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
+
 import { parentAPI } from '../../api/parent.api';
-import type { DashboardStats } from '../../types/common.types';
+import type { ParentStats } from '../../types/parent.types';
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<DashboardStats | null>(null);
+  const [data, setData] = useState<ParentStats | null>(null);
 
   useEffect(() => {
     loadData();
@@ -18,9 +19,9 @@ const Dashboard: React.FC = () => {
   const loadData = async () => {
     try {
       const response = await parentAPI.getStats();
-      setData(response.data); //  <-- CORRECTION
+      setData(response.data.data); // <-- correct, car data est maintenant ParentStats
     } catch (error) {
-      console.error(error);
+      console.error("Erreur chargement statistiques parent:", error);
     } finally {
       setLoading(false);
     }
@@ -28,14 +29,14 @@ const Dashboard: React.FC = () => {
 
   if (loading || !data) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
 
       <div className="flex">
@@ -56,9 +57,9 @@ const Dashboard: React.FC = () => {
               <h2 className="text-2xl font-black text-gray-900 mb-6">Statistiques</h2>
 
               <div className="text-gray-700 space-y-2">
-                <p>Enfants inscrits : <strong>{data.childrenCount}</strong></p>
-                <p>Cours total : <strong>{data.lessonsCount}</strong></p>
-                <p>Messages non lus : <strong>{data.unreadMessages}</strong></p>
+                <p>Enfants inscrits : <strong>{data.totalChildren}</strong></p>
+                <p>Cours total : <strong>{data.totalLessons}</strong></p>
+                <p>Professeurs : <strong>{data.totalTeachers}</strong></p>
               </div>
             </Card>
 
