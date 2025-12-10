@@ -87,4 +87,7 @@ export const teacherAPI = {
 
   getLessons: () =>
     api.get<ApiResponse<Lesson[]>>("/api/teachers/me/lessons"),
+
+  getLessonById: (id: number) =>
+    api.get(`/api/teachers/me/lessons/${id}`),
 };
