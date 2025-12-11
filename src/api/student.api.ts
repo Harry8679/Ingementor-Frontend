@@ -3,7 +3,7 @@ import api from '../services/api';
 import type {
   Student,
   Teacher,
-  StudentSubject,
+  // StudentSubject,
   StudentGrade,
   SubjectProgress,
   Lesson,
@@ -21,8 +21,8 @@ import type {
 
 export const studentAPI = {
   // ==== Profile ====
-  getProfile: () =>
-    api.get<ApiResponse<Student>>('/api/students/me'),
+  // getProfile: () =>
+  //   api.get<ApiResponse<Student>>('/api/students/me'),
 
   updateProfile: (data: UpdateProfileData) =>
     api.put<ApiResponse<Student>>('/api/students/me', data),
@@ -31,14 +31,15 @@ export const studentAPI = {
     api.put('/api/students/me/password', data),
 
   // ==== Stats ====
-  getStats: () =>
-    api.get<DashboardStats>('/api/students/me/stats'),
+  // getStats: () =>
+  //   api.get<DashboardStats>('/api/students/me/stats'),
 
   // ==== Teachers ====
-  getTeachers: (status?: string) =>
-    api.get<ApiResponse<Teacher[]>>('/api/students/me/teachers', {
-      params: { status },
-    }),
+
+  // getTeachers: (status?: string) =>
+  //   api.get<ApiResponse<Teacher[]>>('/api/students/me/teachers', {
+  //     params: { status },
+  //   }),
 
   getTeacher: (id: number) =>
     api.get<ApiResponse<Teacher>>(`/api/students/teachers/${id}`),
@@ -52,8 +53,8 @@ export const studentAPI = {
     api.post('/api/students/me/teachers/request', data),
 
   // ==== Subjects ====
-  getSubjects: () =>
-    api.get<ApiResponse<StudentSubject[]>>('/api/students/me/subjects'),
+  // getSubjects: () =>
+  //   api.get<ApiResponse<StudentSubject[]>>('/api/students/me/subjects'),
 
   addSubject: (data: CreateStudentSubjectData) =>
     api.post('/api/students/me/subjects', data),
@@ -67,10 +68,11 @@ export const studentAPI = {
   // ==== Grades ====
   // getGrades: () =>
   //   api.get<StudentGrade[]>('/api/students/me/grades'),
-  getGrades: () =>
-  api.get<{ grades: StudentGrade[]; total: number }>(
-      "/api/students/me/grades"
-  ),
+  
+  // getGrades: () =>
+  // api.get<{ grades: StudentGrade[]; total: number }>(
+  //     "/api/students/me/grades"
+  // ),
 
   getGradesBySubject: (subjectId: number) =>
     api.get<StudentGrade[]>(
@@ -90,4 +92,10 @@ export const studentAPI = {
 
   getMessages: () =>
     api.get<ApiResponse<Message[]>>('/api/students/me/messages'),
+
+  getStats: () => api.get<DashboardStats>("/students/me/stats"),
+  getProfile: () => api.get("/students/me"),
+  getSubjects: () => api.get("/students/me/subjects"),
+  getTeachers: () => api.get("/students/me/teachers"),
+  getGrades: () => api.get("/students/me/grades"),
 };
