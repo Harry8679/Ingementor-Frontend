@@ -223,16 +223,10 @@ export interface UpdatePasswordData {
 
 // ==================== DASHBOARD STATS ====================
 export interface DashboardStats {
-  studentsCount?: number;
-  teachersCount?: number;
-  lessonsCount?: number;
-  subjectsCount?: number;
-  gradesCount?: number;
-  unreadMessages?: number;
-  averageGrade?: number;
-  childrenCount: number;
-  upcomingLessons?: Lesson[];
-  recentGrades?: StudentGrade[];
+  lessonCount: number;       // Nombre total de cours
+  averageGrade: number;      // Moyenne générale
+  progressScore: number;     // Pourcentage de progression
+  teacherCount: number;      // Nombre de profs reliés à l'élève
 }
 
 // ==================== PROGRESS TYPES ====================
