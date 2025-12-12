@@ -61,6 +61,11 @@ export interface Lesson {
   id: number;
   title: string;
   description?: string;
+
+  /** BEGIN FIX **/
+  scheduledAt: string;   // <-- AJOUT IMPORTANT
+  /** END FIX **/
+
   startTime: string;
   endTime: string;
   status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
@@ -70,6 +75,7 @@ export interface Lesson {
   notes?: string;
   createdAt?: string;
 }
+
 
 export interface CreateLessonData {
   title: string;
