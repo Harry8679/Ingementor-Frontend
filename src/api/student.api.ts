@@ -15,6 +15,7 @@ import type {
   UpdateStudentSubjectData,
   RequestTeacherData,
   Message,
+  PaginatedResponse,
 } from "../types/common.types";
 
 export const studentAPI = {
@@ -87,7 +88,7 @@ export const studentAPI = {
   // LESSONS
   // ============================================
   getLessons: () =>
-    api.get<Lesson[]>("/api/students/me/lessons"),
+    api.get<PaginatedResponse<Lesson>>("/api/students/me/lessons"),
 
   getLessonById: (id: number) =>
     api.get<Lesson>(`/api/students/me/lessons/${id}`),

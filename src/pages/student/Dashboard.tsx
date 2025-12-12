@@ -31,26 +31,29 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const loadData = async () => {
-    try {
-      const [statsRes, lessonsRes] = await Promise.all([
-        studentAPI.getStats(),
-        studentAPI.getLessons(),
-      ]);
+  try {
+    const [statsRes, lessonsRes] = await Promise.all([
+      studentAPI.getStats(),
+      studentAPI.getLessons(),
+    ]);
 
-      setStats(statsRes.data);
-      
-      // Filtrer les cours à venir (status: scheduled)
-      const upcoming = lessonsRes.data['hydra:member']
-        .filter((lesson: Lesson) => lesson.status === 'scheduled')
-        .slice(0, 3); // Les 3 prochains cours
-      
-      setUpcomingLessons(upcoming);
-    } catch (error) {
-      console.error('Erreur chargement dashboard:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setStats(statsRes.data);
+
+    // Assure à TS que c’est un PaginatedResponse<Lesson>
+    const lessons = lessonsRes.data as PaginatedResponse<Lesson>;
+
+    const upcoming = lessons['hydra:member']
+      .filter((lesson) => lesson.status === 'SCHEDULED')
+      .slice(0, 3);
+
+    setUpcomingLessons(upcoming);
+  } catch (error) {
+    console.error('Erreur chargement dashboard:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   if (loading) {
     return (
