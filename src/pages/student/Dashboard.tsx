@@ -18,7 +18,7 @@ import {
   // CheckCircleIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
-import type { DashboardStats, Lesson } from '../../types/common.types';
+import type { DashboardStats, Lesson, PaginatedResponse } from '../../types/common.types';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
