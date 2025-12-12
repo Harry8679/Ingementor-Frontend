@@ -4,11 +4,13 @@ import {
   AcademicCapIcon,
   UserIcon,
   BookOpenIcon,
+  EyeIcon,
+  EyeSlashIcon,
 } from "@heroicons/react/24/solid";
-import { authAPI } from "../../api/auth.api";
 import { useAuthStore } from "../../store/authStore";
 import axios from "axios";
-import type { RegisterPayload } from "../../types/auth.types";
+import type { RegisterRequest } from "../../types/common.types";
+import { authAPI } from "../../api/auth.api";
 
 type UserType = "teacher" | "student" | "parent";
 
@@ -18,6 +20,10 @@ const RegisterPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [userType, setUserType] = useState<UserType>("student");
+  
+  // États pour afficher/cacher les mots de passe
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -32,6 +38,22 @@ const RegisterPage = () => {
     experience: "",
     address: "",
   });
+
+  // ============================================
+  // LISTE DES NIVEAUX SCOLAIRES (6ème → Bac+3)
+  // ============================================
+  const grades = [
+    { id: "1", label: "6ème" },
+    { id: "2", label: "5ème" },
+    { id: "3", label: "4ème" },
+    { id: "4", label: "3ème" },
+    { id: "5", label: "2nde" },
+    { id: "6", label: "1ère" },
+    { id: "7", label: "Terminale" },
+    { id: "8", label: "Bac+1" },
+    { id: "9", label: "Bac+2" },
+    { id: "10", label: "Bac+3" },
+  ];
 
   // ---------------------------------------
   // SUBMIT
@@ -51,7 +73,7 @@ const RegisterPage = () => {
       // ---------------------------------------
       // PAYLOAD TYPÉ DYNAMIQUE
       // ---------------------------------------
-      let payload: RegisterPayload;
+      let payload: RegisterRequest;
 
       if (userType === "student") {
         payload = {
@@ -239,59 +261,96 @@ const RegisterPage = () => {
               />
             </div>
 
-            {/* PASSWORD */}
+            {/* PASSWORD AVEC TOGGLE */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Mot de passe */}
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">
                   Mot de passe *
                 </label>
-                <input
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                    className="w-full px-4 py-4 pr-12 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
 
+              {/* Confirmer mot de passe */}
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">
                   Confirmer *
                 </label>
-                <input
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={(e) =>
-                    setFormData({ ...formData, confirmPassword: e.target.value })
-                  }
-                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={formData.confirmPassword}
+                    onChange={(e) =>
+                      setFormData({ ...formData, confirmPassword: e.target.value })
+                    }
+                    className="w-full px-4 py-4 pr-12 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeSlashIcon className="h-5 w-5" />
+                    ) : (
+                      <EyeIcon className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* ---------------------------------- */}
-            {/* CHAMPS SPÉCIFIQUES PAR USER TYPE  */}
-            {/* ---------------------------------- */}
+            {/* ========================================== */}
+            {/* CHAMPS SPÉCIFIQUES PAR USER TYPE          */}
+            {/* ========================================== */}
+            
+            {/* STUDENT - SELECT NIVEAU */}
             {userType === "student" && (
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">
-                  Niveau (gradeId) *
+                  Niveau scolaire *
                 </label>
-                <input
-                  type="number"
+                <select
                   value={formData.gradeId}
                   onChange={(e) =>
                     setFormData({ ...formData, gradeId: e.target.value })
                   }
-                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl"
+                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium appearance-none cursor-pointer"
                   required
-                />
+                >
+                  <option value="">-- Sélectionne ton niveau --</option>
+                  {grades.map((grade) => (
+                    <option key={grade.id} value={grade.id}>
+                      {grade.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             )}
 
+            {/* TEACHER - BIO & EXPÉRIENCE */}
             {userType === "teacher" && (
               <div className="space-y-4">
                 <div>
@@ -303,13 +362,15 @@ const RegisterPage = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, bio: e.target.value })
                     }
-                    className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl"
+                    className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+                    rows={3}
+                    placeholder="Parle-nous de ton parcours..."
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-bold text-gray-900 mb-2">
-                    Années d’expérience
+                    Années d'expérience
                   </label>
                   <input
                     type="text"
@@ -317,12 +378,14 @@ const RegisterPage = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, experience: e.target.value })
                     }
-                    className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl"
+                    className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+                    placeholder="Ex: 5 ans"
                   />
                 </div>
               </div>
             )}
 
+            {/* PARENT - ADRESSE */}
             {userType === "parent" && (
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">
@@ -334,7 +397,8 @@ const RegisterPage = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
-                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl"
+                  className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-medium"
+                  placeholder="Adresse complète (optionnel)"
                 />
               </div>
             )}

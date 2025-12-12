@@ -1,9 +1,8 @@
-import api from '../services/api';
+import api from "../services/api";
 
 import type {
   Student,
   Teacher,
-  // StudentSubject,
   StudentGrade,
   SubjectProgress,
   Lesson,
@@ -16,48 +15,50 @@ import type {
   UpdateStudentSubjectData,
   RequestTeacherData,
   Message,
-  // StudentGradesResponse,
-} from '../types/common.types';
+} from "../types/common.types";
 
 export const studentAPI = {
-  // ==== Profile ====
-  // getProfile: () =>
-  //   api.get<ApiResponse<Student>>('/api/students/me'),
+  // ============================================
+  // PROFILE
+  // ============================================
+  getProfile: () =>
+    api.get<Student>("/api/students/me"),
 
   updateProfile: (data: UpdateProfileData) =>
-    api.put<ApiResponse<Student>>('/api/students/me', data),
+    api.put<ApiResponse<Student>>("/api/students/me", data),
 
   updatePassword: (data: UpdatePasswordData) =>
-    api.put('/api/students/me/password', data),
+    api.put("/api/students/me/password", data),
 
-  // ==== Stats ====
-  // getStats: () =>
-  //   api.get<DashboardStats>('/api/students/me/stats'),
+  // ============================================
+  // STATS
+  // ============================================
+  getStats: () =>
+    api.get<DashboardStats>("/api/students/me/stats"),
 
-  // ==== Teachers ====
-
-  // getTeachers: (status?: string) =>
-  //   api.get<ApiResponse<Teacher[]>>('/api/students/me/teachers', {
-  //     params: { status },
-  //   }),
+  // ============================================
+  // TEACHERS
+  // ============================================
+  getTeachers: () =>
+    api.get<Teacher[]>("/api/students/me/teachers"),
 
   getTeacher: (id: number) =>
-    api.get<ApiResponse<Teacher>>(`/api/students/teachers/${id}`),
+    api.get<Teacher>(`/api/students/teachers/${id}`),
 
   searchTeachers: (params: TeacherSearchParams) =>
-    api.get<ApiResponse<Teacher[]>>('/api/students/teachers/search', {
-      params,
-    }),
+    api.get<Teacher[]>("/api/students/teachers/search", { params }),
 
   requestTeacher: (data: RequestTeacherData) =>
-    api.post('/api/students/me/teachers/request', data),
+    api.post("/api/students/teachers/request", data),
 
-  // ==== Subjects ====
-  // getSubjects: () =>
-  //   api.get<ApiResponse<StudentSubject[]>>('/api/students/me/subjects'),
+  // ============================================
+  // SUBJECTS
+  // ============================================
+  getSubjects: () =>
+    api.get("/api/students/me/subjects"),
 
   addSubject: (data: CreateStudentSubjectData) =>
-    api.post('/api/students/me/subjects', data),
+    api.post("/api/students/me/subjects", data),
 
   updateSubject: (subjectId: number, data: UpdateStudentSubjectData) =>
     api.put(`/api/students/me/subjects/${subjectId}`, data),
@@ -65,37 +66,35 @@ export const studentAPI = {
   removeSubject: (subjectId: number) =>
     api.delete(`/api/students/me/subjects/${subjectId}`),
 
-  // ==== Grades ====
-  // getGrades: () =>
-  //   api.get<StudentGrade[]>('/api/students/me/grades'),
-  
-  // getGrades: () =>
-  // api.get<{ grades: StudentGrade[]; total: number }>(
-  //     "/api/students/me/grades"
-  // ),
-
-  getGradesBySubject: (subjectId: number) =>
-    api.get<StudentGrade[]>(
-      `/api/students/me/grades/by-subject/${subjectId}`
+  // ============================================
+  // GRADES
+  // ============================================
+  getGrades: () =>
+    api.get<{ grades: StudentGrade[]; total: number }>(
+      "/api/students/me/grades"
     ),
 
-  // ==== Progress ====
-  getProgress: () =>
-    api.get<ApiResponse<SubjectProgress[]>>('/api/students/me/progress'),
+  getGradesBySubject: (subjectId: number) =>
+    api.get(`/api/students/me/grades/by-subject/${subjectId}`),
 
-  // ==== Lessons ====
+  // ============================================
+  // PROGRESS
+  // ============================================
+  getProgress: () =>
+    api.get<SubjectProgress[]>("/api/students/me/progress"),
+
+  // ============================================
+  // LESSONS
+  // ============================================
   getLessons: () =>
-    api.get<ApiResponse<Lesson[]>>('/api/students/me/lessons'),
+    api.get<Lesson[]>("/api/students/me/lessons"),
 
   getLessonById: (id: number) =>
-    api.get<ApiResponse<Lesson>>(`/api/students/me/lessons/${id}`),
+    api.get<Lesson>(`/api/students/me/lessons/${id}`),
 
+  // ============================================
+  // MESSAGES
+  // ============================================
   getMessages: () =>
-    api.get<ApiResponse<Message[]>>('/api/students/me/messages'),
-
-  getStats: () => api.get<DashboardStats>("/students/me/stats"),
-  getProfile: () => api.get("/students/me"),
-  getSubjects: () => api.get("/students/me/subjects"),
-  getTeachers: () => api.get("/students/me/teachers"),
-  getGrades: () => api.get("/students/me/grades"),
+    api.get<Message[]>("/api/students/me/messages"),
 };
