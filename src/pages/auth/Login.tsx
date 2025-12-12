@@ -47,7 +47,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 flex relative overflow-hidden">
       <div className="absolute top-0 -left-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
       <div className="absolute top-0 -right-4 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
 
@@ -55,10 +55,10 @@ const LoginPage = () => {
         <div className="max-w-md w-full">
           <div className="text-center mb-10">
             <Link to="/" className="inline-flex items-center space-x-3 group">
-              <div className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-3 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300">
+              <div className="bg-linear-to-br from-blue-600 via-indigo-600 to-purple-600 p-3 rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300">
                 <AcademicCapIcon className="h-10 w-10 text-white" />
               </div>
-              <span className="text-3xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-3xl font-black bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 IngéMentor
               </span>
             </Link>
@@ -67,7 +67,7 @@ const LoginPage = () => {
             </h2>
             <p className="mt-3 text-base text-gray-600 font-medium">
               Pas encore inscrit ?{' '}
-              <Link to="/inscription" className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              <Link to="/inscription" className="font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
                 Créer un compte →
               </Link>
             </p>
@@ -76,7 +76,7 @@ const LoginPage = () => {
           <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white">
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 text-red-700 px-5 py-4 rounded-2xl font-medium">
+                <div className="bg-linear-to-r from-red-50 to-pink-50 border-2 border-red-200 text-red-700 px-5 py-4 rounded-2xl font-medium">
                   <span className="text-2xl mr-2">⚠️</span>
                   {error}
                 </div>
@@ -126,7 +126,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-4 rounded-2xl font-black text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all disabled:opacity-50"
+                className="w-full bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-4 rounded-2xl font-black text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all disabled:opacity-50"
               >
                 {loading ? 'Connexion...' : (
                   <>
@@ -137,7 +137,7 @@ const LoginPage = () => {
               </button>
             </form>
 
-            <div className="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-5 border-2 border-blue-100">
+            <div className="mt-8 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-5 border-2 border-blue-100">
               <p className="text-xs font-black text-gray-700 mb-3">🎯 Comptes de test :</p>
               <div className="space-y-2 text-xs font-medium text-gray-600">
                 <p><strong>Prof :</strong> prof1@acadomia.com / password</p>
