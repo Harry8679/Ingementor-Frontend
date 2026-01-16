@@ -27,7 +27,7 @@ const LoginPage = () => {
       setError('');
       const response = await authAPI.login(formData);
       const { token, user } = response.data;
-      
+      login(token, user);
       
       switch (user.userType) {
         case 'teacher': navigate('/dashboard/teacher'); break;
