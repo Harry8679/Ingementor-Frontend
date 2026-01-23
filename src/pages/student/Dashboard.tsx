@@ -5,18 +5,7 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { 
-  BookOpenIcon, 
-  AcademicCapIcon, 
-  CalendarIcon, 
-  ChartBarIcon,
-  UserGroupIcon,
-  ClockIcon,
-  FireIcon,
-  TrophyIcon,
-  ArrowTrendingUpIcon,
-  // CheckCircleIcon
-} from '@heroicons/react/24/solid';
+import { BookOpenIcon, AcademicCapIcon, CalendarIcon, ChartBarIcon, UserGroupIcon, ClockIcon, FireIcon, TrophyIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 import type { DashboardStats, Lesson, PaginatedResponse } from '../../types/common.types';
 
