@@ -4,7 +4,7 @@ import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
-import { UserIcon, EnvelopeIcon, PhoneIcon,AcademicCapIcon, CameraIcon } from '@heroicons/react/24/solid';
+import { UserIcon, EnvelopeIcon, PhoneIcon, AcademicCapIcon, CameraIcon } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 import { useAuthStore } from '../../store/authStore';
 
@@ -45,14 +45,22 @@ const Profile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
+  // Helper pour obtenir le niveau - gère le cas où user est de type Student
+  const getGradeName = () => {
+    if (!user) return 'Niveau non défini';
+    // Type assertion pour accéder à grade si user est Student
+    const student = user as any;
+    return student.grade?.name || 'Niveau non défini';
+  };
+
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       <div className="flex">
         <Sidebar />
@@ -80,7 +88,7 @@ const Profile: React.FC = () => {
             <Card>
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
                     <UserIcon className="h-16 w-16 text-white" />
                   </div>
                   {editing && (
@@ -94,7 +102,7 @@ const Profile: React.FC = () => {
                     {user?.firstName} {user?.lastName}
                   </h2>
                   <p className="text-gray-600 font-medium mt-1">
-                    Élève · {user?.grade?.name || 'Niveau non défini'}
+                    Élève · {getGradeName()}
                   </p>
                   <p className="text-sm text-gray-500 mt-2">
                     Membre depuis {new Date(user?.createdAt || '').toLocaleDateString('fr-FR', {
@@ -193,7 +201,7 @@ const Profile: React.FC = () => {
                     <AcademicCapIcon className="absolute left-4 top-4 h-5 w-5 text-gray-400" />
                     <input
                       type="text"
-                      value={user?.grade?.name || 'Non défini'}
+                      value={getGradeName()}
                       disabled
                       className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-2xl font-medium text-gray-500"
                     />
@@ -228,15 +236,15 @@ const Profile: React.FC = () => {
                 Mes statistiques
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+                <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                   <p className="text-sm font-bold text-gray-600">Cours suivis</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0</p>
                 </div>
-                <div className="p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
+                <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
                   <p className="text-sm font-bold text-gray-600">Moyenne</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0/20</p>
                 </div>
-                <div className="p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
+                <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
                   <p className="text-sm font-bold text-gray-600">Progression</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0%</p>
                 </div>
