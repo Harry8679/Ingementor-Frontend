@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
@@ -11,7 +11,7 @@ import type { Student } from '../../types/common.types';
 
 const Profile: React.FC = () => {
   const { user } = useAuthStore();
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -19,18 +19,22 @@ const Profile: React.FC = () => {
     email: '',
     phone: '',
   });
+  // ✅ Loading check simplifié
+  if (!user) {
+    return <div>...<Spinner /></div>;
+  }
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
-        email: user.email || '',
-        phone: user.phone || '',
-      });
-      setLoading(false);
-    }
-  }, [user]);
+//   useEffect(() => {
+//     if (user) {
+//       setFormData({
+//         firstName: user.firstName || '',
+//         lastName: user.lastName || '',
+//         email: user.email || '',
+//         phone: user.phone || '',
+//       });
+//       setLoading(false);
+//     }
+//   }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
