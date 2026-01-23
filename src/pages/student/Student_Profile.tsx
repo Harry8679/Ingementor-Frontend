@@ -11,30 +11,15 @@ import type { Student } from '../../types/common.types';
 
 const StudentProfile: React.FC = () => {
   const { user } = useAuthStore();
-  const [loading] = useState(true);
   const [editing, setEditing] = useState(false);
+  
+  // ✅ Initialisation avec les valeurs de user
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
   });
-  // ✅ Loading check simplifié
-  if (!user) {
-    return <div>...<Spinner /></div>;
-  }
-
-//   useEffect(() => {
-//     if (user) {
-//       setFormData({
-//         firstName: user.firstName || '',
-//         lastName: user.lastName || '',
-//         email: user.email || '',
-//         phone: user.phone || '',
-//       });
-//       setLoading(false);
-//     }
-//   }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,29 +33,27 @@ const StudentProfile: React.FC = () => {
     }
   };
 
-  if (loading) {
+  // ✅ Helper typé correctement
+  const getGradeName = (): string => {
+    if (!user) return 'Niveau non défini';
+    if ('grade' in user) {
+      const student = user as Student;
+      return student.grade?.name || 'Niveau non défini';
+    }
+    return 'Niveau non défini';
+  };
+
+  // ✅ Loading check simplifié
+  if (!user) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
-  // ✅ Helper typé correctement avec type guard
-  const getGradeName = (): string => {
-    if (!user) return 'Niveau non défini';
-    
-    // Type guard pour vérifier si user est un Student
-    if ('grade' in user) {
-      const student = user as Student;
-      return student.grade?.name || 'Niveau non défini';
-    }
-    
-    return 'Niveau non défini';
-  };
-
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       <div className="flex">
         <Sidebar />
@@ -98,24 +81,27 @@ const StudentProfile: React.FC = () => {
             <Card>
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
                     <UserIcon className="h-16 w-16 text-white" />
                   </div>
                   {editing && (
-                    <button className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-lg border-2 border-blue-500 hover:bg-blue-50 transition-all">
+                    <button 
+                      type="button"
+                      className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-lg border-2 border-blue-500 hover:bg-blue-50 transition-all"
+                    >
                       <CameraIcon className="h-5 w-5 text-blue-600" />
                     </button>
                   )}
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-gray-900">
-                    {user?.firstName} {user?.lastName}
+                    {user.firstName} {user.lastName}
                   </h2>
                   <p className="text-gray-600 font-medium mt-1">
                     Élève · {getGradeName()}
                   </p>
                   <p className="text-sm text-gray-500 mt-2">
-                    Membre depuis {new Date(user?.createdAt || '').toLocaleDateString('fr-FR', {
+                    Membre depuis {new Date(user.createdAt || '').toLocaleDateString('fr-FR', {
                       month: 'long',
                       year: 'numeric'
                     })}
@@ -246,15 +232,15 @@ const StudentProfile: React.FC = () => {
                 Mes statistiques
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+                <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                   <p className="text-sm font-bold text-gray-600">Cours suivis</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0</p>
                 </div>
-                <div className="p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
+                <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
                   <p className="text-sm font-bold text-gray-600">Moyenne</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0/20</p>
                 </div>
-                <div className="p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
+                <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
                   <p className="text-sm font-bold text-gray-600">Progression</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0%</p>
                 </div>
