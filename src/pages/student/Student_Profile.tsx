@@ -4,13 +4,7 @@ import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
-import { 
-  UserIcon, 
-  EnvelopeIcon, 
-  PhoneIcon,
-  AcademicCapIcon,
-  CameraIcon
-} from '@heroicons/react/24/solid';
+import { UserIcon, EnvelopeIcon, PhoneIcon,AcademicCapIcon, CameraIcon } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 import { useAuthStore } from '../../store/authStore';
 
