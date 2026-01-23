@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -66,7 +66,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       <div className="flex">
         <Sidebar />
@@ -94,7 +94,7 @@ const Profile: React.FC = () => {
             <Card>
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <div className="w-32 h-32 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
                     <UserIcon className="h-16 w-16 text-white" />
                   </div>
                   {editing && (
@@ -242,15 +242,15 @@ const Profile: React.FC = () => {
                 Mes statistiques
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+                <div className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                   <p className="text-sm font-bold text-gray-600">Cours suivis</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
+                <div className="p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
                   <p className="text-sm font-bold text-gray-600">Moyenne</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0/20</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
+                <div className="p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
                   <p className="text-sm font-bold text-gray-600">Progression</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0%</p>
                 </div>
