@@ -27,8 +27,19 @@ export const authAPI = {
   /**
    * Inscription (teacher, student ou parent)
    */
-  register: (data: RegisterRequest): Promise<AxiosResponse<AuthResponse>> =>
-    api.post<AuthResponse>('/register', data),
+  // register: (data: RegisterRequest): Promise<AxiosResponse<AuthResponse>> =>
+  //   api.post<AuthResponse>('/register', data),
+  register: async (data: RegisterRequest): Promise<AxiosResponse> => {
+    const response = await api.post('/register', data);
+    
+    // ✅ AJOUT : Sauvegarder le token
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    
+    return response;
+  },
 
   /**
    * Récupérer l'utilisateur connecté
