@@ -15,6 +15,12 @@ import {
 import { studentAPI } from '../../api/student.api';
 import type { Teacher } from '../../types/common.types';
 
+// ✅ Interface pour la réponse Hydra
+interface HydraResponse<T> {
+  'hydra:member': T[];
+  'hydra:totalItems'?: number;
+}
+
 const Teachers: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -28,7 +34,9 @@ const Teachers: React.FC = () => {
   const loadTeachers = async () => {
     try {
       const response = await studentAPI.getTeachers();
-      setTeachers(response.data['hydra:member'] || []);
+      // ✅ Type-safe avec l'interface HydraResponse
+      const data = response.data as HydraResponse<Teacher>;
+      setTeachers(data['hydra:member'] || []);
     } catch (error) {
       console.error('Erreur chargement professeurs:', error);
     } finally {
