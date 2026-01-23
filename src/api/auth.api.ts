@@ -10,8 +10,19 @@ export const authAPI = {
   /**
    * Connexion d'un utilisateur
    */
-  login: (data: LoginRequest): Promise<AxiosResponse<AuthResponse>> =>
-    api.post<AuthResponse>('/login', data),
+  // login: (data: LoginRequest): Promise<AxiosResponse<AuthResponse>> =>
+  //   api.post<AuthResponse>('/login', data),
+  login: async (data: LoginRequest): Promise<AxiosResponse> => {
+    const response = await api.post('/login', data);
+    
+    // ✅ AJOUT : Sauvegarder le token
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    
+    return response;
+  },
 
   /**
    * Inscription (teacher, student ou parent)
