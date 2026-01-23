@@ -7,6 +7,7 @@ import Spinner from '../../components/common/Spinner';
 import { UserIcon, EnvelopeIcon, PhoneIcon, AcademicCapIcon, CameraIcon } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 import { useAuthStore } from '../../store/authStore';
+import type { Student } from '../../types/common.types';
 
 const Profile: React.FC = () => {
   const { user } = useAuthStore();
@@ -51,12 +52,17 @@ const Profile: React.FC = () => {
     );
   }
 
-  // Helper pour obtenir le niveau - gère le cas où user est de type Student
-  const getGradeName = () => {
+  // ✅ Helper typé correctement avec type guard
+  const getGradeName = (): string => {
     if (!user) return 'Niveau non défini';
-    // Type assertion pour accéder à grade si user est Student
-    const student = user as any;
-    return student.grade?.name || 'Niveau non défini';
+    
+    // Type guard pour vérifier si user est un Student
+    if ('grade' in user) {
+      const student = user as Student;
+      return student.grade?.name || 'Niveau non défini';
+    }
+    
+    return 'Niveau non défini';
   };
 
   return (
