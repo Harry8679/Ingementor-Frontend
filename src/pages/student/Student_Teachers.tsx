@@ -35,7 +35,7 @@ const Teachers: React.FC = () => {
     try {
       const response = await studentAPI.getTeachers();
       // ✅ Type-safe avec l'interface HydraResponse
-      const data = response.data as HydraResponse<Teacher>;
+      const data = response.data as unknown as HydraResponse<Teacher>;
       setTeachers(data['hydra:member'] || []);
     } catch (error) {
       console.error('Erreur chargement professeurs:', error);
