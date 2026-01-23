@@ -7,6 +7,7 @@ import TeacherDashboard from './pages/teacher/Dashboard';
 import StudentDashboard from './pages/student/Dashboard';
 import ParentDashboard from './pages/parent/Dashboard';
 import StudentProfile from './pages/student/Student_Profile';
+import StudentTeachers from './pages/student/Student_Teachers';
 
 function App() {
   return (

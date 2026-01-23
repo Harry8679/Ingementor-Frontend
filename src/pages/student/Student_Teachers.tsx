@@ -5,13 +5,7 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { 
-  UserGroupIcon, 
-  EnvelopeIcon,
-  AcademicCapIcon,
-  StarIcon,
-  MagnifyingGlassIcon
-} from '@heroicons/react/24/solid';
+import { UserGroupIcon, EnvelopeIcon, AcademicCapIcon, StarIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 import type { Teacher } from '../../types/common.types';
 
