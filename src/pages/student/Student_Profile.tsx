@@ -242,7 +242,7 @@ const Profile: React.FC = () => {
                   <p className="text-sm font-bold text-gray-600">Moyenne</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0/20</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
+                <div className="p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100">
                   <p className="text-sm font-bold text-gray-600">Progression</p>
                   <p className="text-3xl font-black text-gray-900 mt-2">0%</p>
                 </div>
