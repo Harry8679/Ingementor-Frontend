@@ -6,6 +6,7 @@ import RegisterPage from './pages/auth/Register';
 import TeacherDashboard from './pages/teacher/Dashboard';
 import StudentDashboard from './pages/student/Dashboard';
 import ParentDashboard from './pages/parent/Dashboard';
+import StudentProfile from './pages/student/Student_Profile';
 
 function App() {
   return (
