@@ -9,7 +9,7 @@ import { studentAPI } from '../../api/student.api';
 import { useAuthStore } from '../../store/authStore';
 import type { Student } from '../../types/common.types';
 
-const Profile: React.FC = () => {
+const StudentProfile: React.FC = () => {
   const { user } = useAuthStore();
   const [loading] = useState(true);
   const [editing, setEditing] = useState(false);
@@ -267,4 +267,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default StudentProfile;
