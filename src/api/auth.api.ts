@@ -11,13 +11,13 @@ export const authAPI = {
    * Connexion d'un utilisateur
    */
   login: (data: LoginRequest): Promise<AxiosResponse<AuthResponse>> =>
-    api.post<AuthResponse>('/login', data),
+    api.post<AuthResponse>('/api/login', data),
 
   /**
    * Inscription (teacher, student ou parent)
    */
   register: (data: RegisterRequest): Promise<AxiosResponse<AuthResponse>> =>
-    api.post<AuthResponse>('/register', data),
+    api.post<AuthResponse>('/api/register', data),
 
   /**
    * Récupérer l'utilisateur connecté
