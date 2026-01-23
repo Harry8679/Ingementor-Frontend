@@ -21,7 +21,7 @@ interface HydraResponse<T> {
   'hydra:totalItems'?: number;
 }
 
-const Teachers: React.FC = () => {
+const StudentTeachers: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -231,4 +231,4 @@ const Teachers: React.FC = () => {
   );
 };
 
-export default Teachers;
+export default StudentTeachers;
