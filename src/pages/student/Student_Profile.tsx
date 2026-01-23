@@ -46,14 +46,14 @@ const StudentProfile: React.FC = () => {
   // ✅ Loading check simplifié
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       <div className="flex">
         <Sidebar />
@@ -81,7 +81,7 @@ const StudentProfile: React.FC = () => {
             <Card>
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <div className="w-32 h-32 bg-linear-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
                     <UserIcon className="h-16 w-16 text-white" />
                   </div>
                   {editing && (
