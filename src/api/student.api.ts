@@ -40,14 +40,16 @@ export const studentAPI = {
   // ============================================
   // TEACHERS
   // ============================================
+  // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Teacher>
   getTeachers: () =>
-    api.get<Teacher[]>("/api/students/me/teachers"),
+    api.get<PaginatedResponse<Teacher>>("/api/students/me/teachers"),
 
   getTeacher: (id: number) =>
     api.get<Teacher>(`/api/students/teachers/${id}`),
 
+  // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Teacher>
   searchTeachers: (params: TeacherSearchParams) =>
-    api.get<Teacher[]>("/api/students/teachers/search", { params }),
+    api.get<PaginatedResponse<Teacher>>("/api/students/teachers/search", { params }),
 
   requestTeacher: (data: RequestTeacherData) =>
     api.post("/api/students/teachers/request", data),
@@ -87,6 +89,7 @@ export const studentAPI = {
   // ============================================
   // LESSONS
   // ============================================
+  // ✅ BON : Déjà avec PaginatedResponse<Lesson>
   getLessons: () =>
     api.get<PaginatedResponse<Lesson>>("/api/students/me/lessons"),
 
@@ -96,6 +99,27 @@ export const studentAPI = {
   // ============================================
   // MESSAGES
   // ============================================
+  // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Message>
   getMessages: () =>
-    api.get<Message[]>("/api/students/me/messages"),
+    api.get<PaginatedResponse<Message>>("/api/students/me/messages"),
+    
+  // ✅ AJOUTÉ : getMessage individuel
+  getMessage: (id: number) =>
+    api.get<Message>(`/api/students/me/messages/${id}`),
+    
+  // ✅ AJOUTÉ : sendMessage
+  sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
+    api.post<Message>("/api/students/me/messages", data),
+    
+  // ✅ AJOUTÉ : markAsRead
+  markAsRead: (id: number) =>
+    api.put(`/api/students/me/messages/${id}/read`),
+    
+  // ✅ AJOUTÉ : deleteMessage
+  deleteMessage: (id: number) =>
+    api.delete(`/api/students/me/messages/${id}`),
+    
+  // ✅ AJOUTÉ : getSentMessages
+  getSentMessages: () =>
+    api.get<PaginatedResponse<Message>>("/api/students/me/messages/sent"),
 };
