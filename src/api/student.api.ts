@@ -91,7 +91,7 @@ export const studentAPI = {
   // ============================================
   // ✅ BON : Déjà avec PaginatedResponse<Lesson>
   getLessons: () =>
-    api.get<PaginatedResponse<Lesson>>("/api/students/me/lessons"),
+    api.get<PaginatedResponse<Lesson>>("/api/api/students/me/lessons"),
 
   getLessonById: (id: number) =>
     api.get<Lesson>(`/api/students/me/lessons/${id}`),
