@@ -13,7 +13,7 @@ export const authAPI = {
   // login: (data: LoginRequest): Promise<AxiosResponse<AuthResponse>> =>
   //   api.post<AuthResponse>('/login', data),
   login: async (data: LoginRequest): Promise<AxiosResponse> => {
-    const response = await api.post('/login', data);
+    const response = await api.post('/api/login', data);
     
     // ✅ AJOUT : Sauvegarder le token
     if (response.data.token) {

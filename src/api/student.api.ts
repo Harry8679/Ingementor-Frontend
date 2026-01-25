@@ -59,7 +59,7 @@ export const studentAPI = {
   // ============================================
   getSubjects: () =>
     api.get("/api/students/me/subjects"),
-
+  
   addSubject: (data: CreateStudentSubjectData) =>
     api.post("/api/students/me/subjects", data),
 
