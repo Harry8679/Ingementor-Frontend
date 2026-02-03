@@ -32,6 +32,7 @@ import type {
   Teacher,
   Parent,
 } from '../types/common.types';
+import type { ApiStudentGradesResponse } from '../types/student.types';
 
 // ==================== AUTH API ====================
 export const authAPI = {
@@ -156,7 +157,7 @@ export const studentAPI = {
     api.delete(`/api/students/me/subjects/${subjectId}`),
 
   getGrades: () =>
-    api.get<StudentGrade[]>('/api/students/me/grades'),
+    api.get<ApiStudentGradesResponse[]>('/api/students/me/grades'),
 
   getGradesBySubject: (subjectId: number) =>
     api.get(`/api/students/me/grades/by-subject/${subjectId}`),
