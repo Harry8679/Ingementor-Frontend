@@ -246,7 +246,8 @@ const Grades: React.FC = () => {
                     return (
                       <div key={subject} className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                         <h3 className="text-sm font-bold text-gray-700 mb-2">{subject}</h3>
-                        <p className="text-3xl font-black text-gray-900 mb-2">{avg}/20</p>
+                        {/* <p className="text-3xl font-black text-gray-900 mb-2">{avg}/20</p> */}
+                        <p className="text-3xl font-black text-gray-900 mb-2">{avg.toFixed(1)}/20</p>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
                             className="bg-linear-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all"
