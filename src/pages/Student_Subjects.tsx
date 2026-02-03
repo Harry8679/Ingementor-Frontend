@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Sidebar from '../../components/layout/Sidebar';
-import Card from '../../components/common/Card';
-import Button from '../../components/common/Button';
-import Spinner from '../../components/common/Spinner';
+// import Navbar from '../../components/layout/Navbar';
+// import Sidebar from '../../components/layout/Sidebar';
+// import Card from '../../components/common/Card';
+// import Button from '../../components/common/Button';
+// import Spinner from '../../components/common/Spinner';
 import { 
   BookOpenIcon, 
   PlusIcon,
@@ -12,7 +12,7 @@ import {
   ClockIcon,
   StarIcon
 } from '@heroicons/react/24/solid';
-import { studentAPI } from '../../api/student.api';
+// import { studentAPI } from '../../api/student.api';
 
 interface Subject {
   id: number;
