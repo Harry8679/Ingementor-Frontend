@@ -11,12 +11,12 @@ import Spinner from '../../components/common/Spinner';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
-import { mapApiGradesToStudentGrades, type ApiStudentGradesResponse } from '../../types/student.types';
-// import type { StudentGrade } from '../../types/student.types';
+import { mapApiGradesToStudentGrades } from '../../types/student.types';
+import type { StudentGrade } from '../../types/student.types';
 
 const Grades: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [grades, setGrades] = useState<ApiStudentGradesResponse[]>([]);
+  const [grades, setGrades] = useState<StudentGrade[]>([]);
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
 
   useEffect(() => {

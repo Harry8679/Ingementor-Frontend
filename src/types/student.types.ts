@@ -48,14 +48,14 @@ export interface ApiStudentGradesResponse {
 /**
  * Note utilisée par l’UI
  */
-// export interface StudentGrade {
-//   id: number;
-//   subject: string;
-//   grade: number;
-//   maxGrade: number;
-//   date: string;
-//   comment?: string;
-// }
+export interface StudentGrade {
+  id: number;
+  subject: string;
+  grade: number;
+  maxGrade: number;
+  date: string;
+  comment?: string;
+}
 
 /**
  * Statistiques étudiant (dashboard)
@@ -111,13 +111,3 @@ export const mapApiGradesToStudentGrades = (
   apiGrades: ApiStudentGrade[]
 ): StudentGrade[] =>
   apiGrades.map(mapApiGradeToStudentGrade);
-
-  export interface StudentGrade {
-  id: number;
-  subject: string;
-  grade: number;
-  maxGrade: number;
-  date: string;
-  comment?: string;
-  teacher?: string;
-}
