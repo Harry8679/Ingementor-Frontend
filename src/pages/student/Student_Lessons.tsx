@@ -14,16 +14,17 @@ import {
 //   XCircleIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
+import type { Lesson } from '../../types/common.types';
 
-interface Lesson {
-  id: number;
-  subject: { name: string };
-  teacher: { firstName: string; lastName: string };
-  scheduledAt: string;
-  duration: number;
-  status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
-  notes?: string;
-}
+// interface Lesson {
+//   id: number;
+//   subject: { name: string };
+//   teacher: { firstName: string; lastName: string };
+//   scheduledAt: string;
+//   duration: number;
+//   status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+//   notes?: string;
+// }
 
 const Lessons: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -37,8 +38,9 @@ const Lessons: React.FC = () => {
   const loadLessons = async () => {
     try {
       const response = await studentAPI.getLessons();
-      const data = response.data as any;
-      setLessons(data['hydra:member'] || []);
+    //   const data = response.data as any;
+    //   setLessons(data['hydra:member'] || []);
+    setLessons(response.data['hydra:member']);
     } catch (error) {
       console.error('Erreur chargement cours:', error);
     } finally {
@@ -83,7 +85,7 @@ const Lessons: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Animated blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -118,7 +120,7 @@ const Lessons: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Cours à venir</p>
                     <p className="text-4xl font-black text-gray-900">{upcomingLessons}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <CalendarIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -130,7 +132,7 @@ const Lessons: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Cours complétés</p>
                     <p className="text-4xl font-black text-gray-900">{completedLessons}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <CheckCircleIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -142,7 +144,7 @@ const Lessons: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Total cours</p>
                     <p className="text-4xl font-black text-gray-900">{lessons.length}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <BookOpenIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -214,19 +216,20 @@ const Lessons: React.FC = () => {
                 {filteredLessons.map((lesson) => {
                   const color = getStatusColor(lesson.status);
                   const date = new Date(lesson.scheduledAt);
+                  const duration = (new Date(lesson.endTime).getTime() - new Date(lesson.startTime).getTime()) / 60000;
                   
                   return (
                     <Card key={lesson.id}>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 flex-1">
-                          <div className={`bg-gradient-to-br from-${color}-500 to-${color}-600 p-4 rounded-2xl`}>
+                          <div className={`bg-linear-to-br from-${color}-500 to-${color}-600 p-4 rounded-2xl`}>
                             <BookOpenIcon className="h-8 w-8 text-white" />
                           </div>
                           
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-1">
                               <h3 className="text-xl font-black text-gray-900">
-                                {lesson.subject.name}
+                                {lesson.subject?.name ?? 'Matière inconnue'}
                               </h3>
                               <span className={`px-3 py-1 bg-${color}-100 text-${color}-700 text-xs font-bold rounded-full`}>
                                 {getStatusLabel(lesson.status)}
@@ -236,7 +239,7 @@ const Lessons: React.FC = () => {
                             <div className="flex items-center gap-4 text-sm text-gray-600">
                               <span className="flex items-center gap-1 font-medium">
                                 <UserIcon className="h-4 w-4" />
-                                {lesson.teacher.firstName} {lesson.teacher.lastName}
+                                {lesson.teacher ? `${lesson.teacher.firstName} ${lesson.teacher.lastName}`: 'Professeur inconnu'}
                               </span>
                               <span className="flex items-center gap-1 font-medium">
                                 <CalendarIcon className="h-4 w-4" />
@@ -252,7 +255,7 @@ const Lessons: React.FC = () => {
                                 {date.toLocaleTimeString('fr-FR', { 
                                   hour: '2-digit', 
                                   minute: '2-digit' 
-                                })} ({lesson.duration}min)
+                                })} ({duration} min)
                               </span>
                             </div>
                             
