@@ -14,17 +14,6 @@ import Card from '../components/common/Card';
 import { mapApiGradesToStudentGrades } from '../types/student.types';
 import type { StudentGrade } from '../types/student.types';
 
-
-interface Grade {
-  id: number;
-  subject: string;
-  grade: number;
-  maxGrade: number;
-  date: string;
-  comment?: string;
-  teacher?: string;
-}
-
 const Grades: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [grades, setGrades] = useState<StudentGrade[]>([]);
@@ -48,12 +37,6 @@ const Grades: React.FC = () => {
     }
 };
 
-
-//   const calculateAverage = (gradesList: Grade[]) => {
-//     if (gradesList.length === 0) return 0;
-//     const sum = gradesList.reduce((acc, g) => acc + (g.grade / g.maxGrade) * 20, 0);
-//     return (sum / gradesList.length).toFixed(1);
-//   };
   const calculateAverage = (gradesList: StudentGrade[]): number => {
     if (gradesList.length === 0) return 0;
     const sum = gradesList.reduce(
@@ -240,7 +223,7 @@ const Grades: React.FC = () => {
                   {subjects.map((subject) => {
                     const subjectGrades = grades.filter(g => g.subject === subject);
                     const avg = calculateAverage(subjectGrades);
-                    const percentage = parseFloat(avg) / 20 * 100;
+                    const percentage = (avg / 20) * 100;
                     
                     return (
                       <div key={subject} className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
