@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { BookOpenIcon, PlusIcon, TrashIcon, AcademicCapIcon, ClockIcon, StarIcon } from '@heroicons/react/24/solid';
-import { studentAPI } from '../api/student.api';
-import Spinner from '../components/common/Spinner';
-import Navbar from '../components/layout/Navbar';
-import Sidebar from '../components/layout/Sidebar';
-import Button from '../components/common/Button';
-import Card from '../components/common/Card';
+import { studentAPI } from '../../api/student.api';
+import Spinner from '../../components/common/Spinner';
+import Navbar from '../../components/layout/Navbar';
+import Sidebar from '../../components/layout/Sidebar';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
 
 interface Subject {
   id: number;
