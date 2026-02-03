@@ -37,7 +37,6 @@ const Grades: React.FC = () => {
   const loadGrades = async () => {
     try {
         const response = await studentAPI.getGrades();
-
         setGrades(
         mapApiGradesToStudentGrades(response.data.grades)
         // mapApiGradesToStudentGrades(response.data.grades)

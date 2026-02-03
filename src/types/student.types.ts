@@ -111,3 +111,13 @@ export const mapApiGradesToStudentGrades = (
   apiGrades: ApiStudentGrade[]
 ): StudentGrade[] =>
   apiGrades.map(mapApiGradeToStudentGrade);
+
+  export interface StudentGrade {
+  id: number;
+  subject: string;
+  grade: number;
+  maxGrade: number;
+  date: string;
+  comment?: string;
+  teacher?: string;
+}
