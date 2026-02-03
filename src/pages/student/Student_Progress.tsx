@@ -7,7 +7,7 @@ import {
   ChartBarIcon,
   TrophyIcon,
   FireIcon,
-  ArrowTrendingUpIcon,
+//   ArrowTrendingUpIcon,
   CalendarIcon,
   AcademicCapIcon
 } from '@heroicons/react/24/solid';
