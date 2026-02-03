@@ -3,7 +3,7 @@ import api from "../services/api";
 import type {
   Student,
   Teacher,
-  StudentGrade,
+  // StudentGrade,
   SubjectProgress,
   Lesson,
   DashboardStats,
@@ -17,6 +17,7 @@ import type {
   Message,
   PaginatedResponse,
 } from "../types/common.types";
+import type { ApiStudentGradesResponse } from "../types/student.types";
 
 export const studentAPI = {
   // ============================================
@@ -73,9 +74,13 @@ export const studentAPI = {
   // GRADES
   // ============================================
   getGrades: () =>
-    api.get<{ grades: StudentGrade[]; total: number }>(
-      "/api/students/me/grades"
-    ),
+  api.get<ApiStudentGradesResponse>(
+    "/api/students/me/grades"
+  ),
+  // getGrades: () =>
+  //   api.get<{ grades: StudentGrade[]; total: number }>(
+  //     "/api/students/me/grades"
+  //   ),
 
   getGradesBySubject: (subjectId: number) =>
     api.get(`/api/students/me/grades/by-subject/${subjectId}`),

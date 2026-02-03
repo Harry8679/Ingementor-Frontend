@@ -157,7 +157,7 @@ export const studentAPI = {
     api.delete(`/api/students/me/subjects/${subjectId}`),
 
   getGrades: () =>
-    api.get<ApiStudentGradesResponse[]>('/api/students/me/grades'),
+    api.get<ApiStudentGradesResponse>('/api/students/me/grades'),
 
   getGradesBySubject: (subjectId: number) =>
     api.get(`/api/students/me/grades/by-subject/${subjectId}`),

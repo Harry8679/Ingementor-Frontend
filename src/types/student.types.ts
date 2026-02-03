@@ -55,6 +55,7 @@ export interface StudentGrade {
   maxGrade: number;
   date: string;
   comment?: string;
+  teacher?: string;
 }
 
 /**
