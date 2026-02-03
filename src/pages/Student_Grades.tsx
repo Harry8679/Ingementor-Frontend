@@ -57,14 +57,14 @@ const Grades: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Animated blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-green-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -93,7 +93,7 @@ const Grades: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Moyenne générale</p>
                     <p className="text-4xl font-black text-gray-900">{average}/20</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -105,7 +105,7 @@ const Grades: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Nombre de notes</p>
                     <p className="text-4xl font-black text-gray-900">{grades.length}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <ChartBarIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -122,7 +122,7 @@ const Grades: React.FC = () => {
                       }/20
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
                     <TrophyIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -137,7 +137,7 @@ const Grades: React.FC = () => {
                       <ArrowTrendingUpIcon className="h-6 w-6 text-green-600" />
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <ArrowTrendingUpIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -183,7 +183,7 @@ const Grades: React.FC = () => {
                     return (
                       <div 
                         key={grade.id}
-                        className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-2xl border-2 border-gray-100 hover:border-gray-200 transition-all"
+                        className="flex items-center justify-between p-4 bg-linear-to-r from-gray-50 to-white rounded-2xl border-2 border-gray-100 hover:border-gray-200 transition-all"
                       >
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
@@ -228,12 +228,12 @@ const Grades: React.FC = () => {
                     const percentage = parseFloat(avg) / 20 * 100;
                     
                     return (
-                      <div key={subject} className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+                      <div key={subject} className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                         <h3 className="text-sm font-bold text-gray-700 mb-2">{subject}</h3>
                         <p className="text-3xl font-black text-gray-900 mb-2">{avg}/20</p>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all"
+                            className="bg-linear-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all"
                             style={{ width: `${percentage}%` }}
                           ></div>
                         </div>
