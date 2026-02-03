@@ -50,10 +50,18 @@ const Grades: React.FC = () => {
 };
 
 
-  const calculateAverage = (gradesList: Grade[]) => {
+//   const calculateAverage = (gradesList: Grade[]) => {
+//     if (gradesList.length === 0) return 0;
+//     const sum = gradesList.reduce((acc, g) => acc + (g.grade / g.maxGrade) * 20, 0);
+//     return (sum / gradesList.length).toFixed(1);
+//   };
+  const calculateAverage = (gradesList: StudentGrade[]): number => {
     if (gradesList.length === 0) return 0;
-    const sum = gradesList.reduce((acc, g) => acc + (g.grade / g.maxGrade) * 20, 0);
-    return (sum / gradesList.length).toFixed(1);
+    const sum = gradesList.reduce(
+        (acc, g) => acc + (g.grade / g.maxGrade) * 20,
+        0
+    );
+    return sum / gradesList.length;
   };
 
   const filteredGrades = selectedSubject === 'all' 
