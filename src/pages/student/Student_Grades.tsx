@@ -6,13 +6,13 @@ import {
   ArrowTrendingUpIcon,
 //   ArrowTrendingDownIcon
 } from '@heroicons/react/24/solid';
-import { studentAPI } from '../api/student.api';
-import Spinner from '../components/common/Spinner';
-import Navbar from '../components/layout/Navbar';
-import Sidebar from '../components/layout/Sidebar';
-import Card from '../components/common/Card';
-import { mapApiGradesToStudentGrades } from '../types/student.types';
-import type { StudentGrade } from '../types/student.types';
+import { studentAPI } from '../../api/student.api';
+import Spinner from '../../components/common/Spinner';
+import Navbar from '../../components/layout/Navbar';
+import Sidebar from '../../components/layout/Sidebar';
+import Card from '../../components/common/Card';
+import { mapApiGradesToStudentGrades } from '../../types/student.types';
+import type { StudentGrade } from '../../types/student.types';
 
 const Grades: React.FC = () => {
   const [loading, setLoading] = useState(true);
