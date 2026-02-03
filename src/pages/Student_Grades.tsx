@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Sidebar from '../../components/layout/Sidebar';
-import Card from '../../components/common/Card';
-import Spinner from '../../components/common/Spinner';
 import { 
   AcademicCapIcon,
   ChartBarIcon,
   TrophyIcon,
   ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon
+//   ArrowTrendingDownIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 
