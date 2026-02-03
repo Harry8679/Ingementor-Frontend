@@ -11,7 +11,7 @@ import {
   UserIcon,
   PlusIcon,
   CheckCircleIcon,
-  XCircleIcon
+//   XCircleIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
 
@@ -58,7 +58,7 @@ const Lessons: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
