@@ -49,14 +49,14 @@ const Messages: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Animated blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -91,7 +91,7 @@ const Messages: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Messages non lus</p>
                     <p className="text-4xl font-black text-gray-900">{unreadCount}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
                     <EnvelopeIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -103,7 +103,7 @@ const Messages: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Messages lus</p>
                     <p className="text-4xl font-black text-gray-900">{messages.length - unreadCount}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <EnvelopeOpenIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -115,7 +115,7 @@ const Messages: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Total messages</p>
                     <p className="text-4xl font-black text-gray-900">{messages.length}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <CheckCircleIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -186,7 +186,7 @@ const Messages: React.FC = () => {
                       onClick={() => navigate(`/dashboard/student/messages/${message.id}`)}
                     >
                       <div className="flex items-start gap-4">
-                        <div className="bg-gradient-to-br from-orange-500 to-red-500 p-3 rounded-full flex-shrink-0">
+                        <div className="bg-linear-to-br from-orange-500 to-red-500 p-3 rounded-full shrink-0">
                           <UserIcon className="h-6 w-6 text-white" />
                         </div>
                         
@@ -209,7 +209,7 @@ const Messages: React.FC = () => {
                               </p>
                             </div>
                             
-                            <div className="text-right flex-shrink-0 ml-4">
+                            <div className="text-right shrink-0 ml-4">
                               <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
                                 <ClockIcon className="h-3 w-3" />
                                 {date.toLocaleDateString('fr-FR', { 
