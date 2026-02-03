@@ -12,20 +12,14 @@ import {
   AcademicCapIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
+// import type { SubjectProgress } from '../../types/common.types';
+import type { StudentSubjectProgress } from '../../types/student.types';
+import { mapApiProgressToUi } from '../../types/student.types';
 
-interface SubjectProgress {
-  subjectId: number;
-  subjectName: string;
-  progress: number;
-  lessonCount: number;
-  completedLessons: number;
-  averageGrade: number;
-  lastActivity: string;
-}
 
 const Progress: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState<SubjectProgress[]>([]);
+  const [progress, setProgress] = useState<StudentSubjectProgress[]>([]);
 
   useEffect(() => {
     loadProgress();
@@ -34,7 +28,11 @@ const Progress: React.FC = () => {
   const loadProgress = async () => {
     try {
       const response = await studentAPI.getProgress();
-      setProgress(response.data || []);
+    //   setProgress(response.data || []);
+    setProgress(
+        (response.data || []).map(mapApiProgressToUi)
+    );
+
     } catch (error) {
       console.error('Erreur chargement progression:', error);
     } finally {
@@ -51,14 +49,14 @@ const Progress: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Animated blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -87,7 +85,7 @@ const Progress: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Progression globale</p>
                     <p className="text-4xl font-black text-gray-900">{overallProgress}%</p>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <ChartBarIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -99,7 +97,7 @@ const Progress: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Cours complétés</p>
                     <p className="text-4xl font-black text-gray-900">{completedLessons}/{totalLessons}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -111,7 +109,7 @@ const Progress: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Matières actives</p>
                     <p className="text-4xl font-black text-gray-900">{progress.length}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <TrophyIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -126,7 +124,7 @@ const Progress: React.FC = () => {
                       <FireIcon className="h-6 w-6 text-orange-600" />
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
                     <FireIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -146,7 +144,7 @@ const Progress: React.FC = () => {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-4">
                     <div 
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-4 rounded-full transition-all"
+                      className="bg-linear-to-r from-purple-500 to-pink-500 h-4 rounded-full transition-all"
                       style={{ width: `${overallProgress}%` }}
                     ></div>
                   </div>
@@ -158,7 +156,7 @@ const Progress: React.FC = () => {
                     <span className="text-sm font-black text-blue-600">92%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-4">
-                    <div className="bg-gradient-to-r from-blue-500 to-indigo-500 h-4 rounded-full" style={{ width: '92%' }}></div>
+                    <div className="bg-linear-to-r from-blue-500 to-indigo-500 h-4 rounded-full" style={{ width: '92%' }}></div>
                   </div>
                 </div>
 
@@ -168,7 +166,7 @@ const Progress: React.FC = () => {
                     <span className="text-sm font-black text-green-600">88%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-4">
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-500 h-4 rounded-full" style={{ width: '88%' }}></div>
+                    <div className="bg-linear-to-r from-green-500 to-emerald-500 h-4 rounded-full" style={{ width: '88%' }}></div>
                   </div>
                 </div>
               </div>
@@ -213,7 +211,7 @@ const Progress: React.FC = () => {
                       
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div 
-                          className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all"
+                          className="bg-linear-to-r from-blue-500 to-indigo-500 h-3 rounded-full transition-all"
                           style={{ width: `${subject.progress}%` }}
                         ></div>
                       </div>
@@ -230,25 +228,25 @@ const Progress: React.FC = () => {
                 Réalisations
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border-2 border-yellow-200">
+                <div className="text-center p-4 bg-linear-to-br from-yellow-50 to-orange-50 rounded-2xl border-2 border-yellow-200">
                   <div className="text-4xl mb-2">🏆</div>
                   <p className="text-sm font-black text-gray-900">Premier cours</p>
                   <p className="text-xs text-gray-600 mt-1">Complété</p>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200">
+                <div className="text-center p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-200">
                   <div className="text-4xl mb-2">📚</div>
                   <p className="text-sm font-black text-gray-900">Assidu</p>
                   <p className="text-xs text-gray-600 mt-1">7 jours de suite</p>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-200">
+                <div className="text-center p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-200">
                   <div className="text-4xl mb-2">⭐</div>
                   <p className="text-sm font-black text-gray-900">Excellent</p>
                   <p className="text-xs text-gray-600 mt-1">Moyenne &gt;16</p>
                 </div>
                 
-                <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 opacity-50">
+                <div className="text-center p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 opacity-50">
                   <div className="text-4xl mb-2">🎯</div>
                   <p className="text-sm font-black text-gray-900">Expert</p>
                   <p className="text-xs text-gray-600 mt-1">100% complété</p>

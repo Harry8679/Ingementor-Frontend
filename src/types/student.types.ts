@@ -1,3 +1,5 @@
+import type { SubjectProgress } from './common.types';
+
 /* ============================================================
    STUDENT TYPES
    ------------------------------------------------------------
@@ -112,3 +114,26 @@ export const mapApiGradesToStudentGrades = (
   apiGrades: ApiStudentGrade[]
 ): StudentGrade[] =>
   apiGrades.map(mapApiGradeToStudentGrade);
+
+// UI TYPE (frontend)
+export interface StudentSubjectProgress {
+  subjectId: number;
+  subjectName: string;
+  progress: number;
+  lessonCount: number;
+  completedLessons: number;
+  averageGrade: number;
+  lastActivity: string;
+}
+
+export const mapApiProgressToUi = (
+  api: SubjectProgress
+): StudentSubjectProgress => ({
+  subjectId: api.subject.id,
+  subjectName: api.subject.name,
+  progress: api.gradesCount > 0 ? Math.round(api.averageGrade * 5) : 0,
+  lessonCount: api.gradesCount,
+  completedLessons: api.gradesCount,
+  averageGrade: api.averageGrade,
+  lastActivity: api.lastGrade?.createdAt ?? new Date().toISOString(),
+});
