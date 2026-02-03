@@ -7,6 +7,10 @@ import {
 //   ArrowTrendingDownIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../api/student.api';
+import Spinner from '../components/common/Spinner';
+import Navbar from '../components/layout/Navbar';
+import Sidebar from '../components/layout/Sidebar';
+import Card from '../components/common/Card';
 
 interface Grade {
   id: number;
