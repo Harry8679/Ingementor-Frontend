@@ -12,6 +12,7 @@ import {
   ClockIcon,
   StarIcon
 } from '@heroicons/react/24/solid';
+import { studentAPI } from '../api/student.api';
 // import { studentAPI } from '../../api/student.api';
 
 interface Subject {
