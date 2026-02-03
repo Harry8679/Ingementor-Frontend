@@ -11,6 +11,10 @@ import Spinner from '../components/common/Spinner';
 import Navbar from '../components/layout/Navbar';
 import Sidebar from '../components/layout/Sidebar';
 import Card from '../components/common/Card';
+// import { mapApiGradesToStudentGrades, type StudentGrade } from '../types/student.types';
+import { mapApiGradesToStudentGrades } from '../types/student.types';
+import type { StudentGrade } from '../types/student.types';
+
 
 interface Grade {
   id: number;
@@ -24,7 +28,8 @@ interface Grade {
 
 const Grades: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [grades, setGrades] = useState<Grade[]>([]);
+//   const [grades, setGrades] = useState<Grade[]>([]);
+  const [grades, setGrades] = useState<StudentGrade[]>([]);
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
 
   useEffect(() => {
@@ -33,14 +38,19 @@ const Grades: React.FC = () => {
 
   const loadGrades = async () => {
     try {
-      const response = await studentAPI.getGrades();
-      setGrades(response.data.grades || []);
+        const response = await studentAPI.getGrades();
+
+        setGrades(
+        mapApiGradesToStudentGrades(response.data.grades)
+        // mapApiGradesToStudentGrades(response.data.grades)
+        );
     } catch (error) {
-      console.error('Erreur chargement notes:', error);
+        console.error('Erreur chargement notes:', error);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
+
 
   const calculateAverage = (gradesList: Grade[]) => {
     if (gradesList.length === 0) return 0;
