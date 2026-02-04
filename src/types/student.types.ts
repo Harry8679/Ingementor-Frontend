@@ -134,17 +134,17 @@ export interface StudentSubjectProgress {
   lastActivity: string;
 }
 
-export const mapApiProgressToUi = (
-  api: SubjectProgress
-): StudentSubjectProgress => ({
-  subjectId: api.subject.id,
-  subjectName: api.subject.name,
-  progress: api.gradesCount > 0 ? Math.round(api.averageGrade * 5) : 0,
-  lessonCount: api.gradesCount,
-  completedLessons: api.gradesCount,
-  averageGrade: api.averageGrade,
-  lastActivity: api.lastGrade?.createdAt ?? new Date().toISOString(),
-});
+// export const mapApiProgressToUi = (
+//   api: SubjectProgress
+// ): StudentSubjectProgress => ({
+//   subjectId: api.subject.id,
+//   subjectName: api.subject.name,
+//   progress: api.gradesCount > 0 ? Math.round(api.averageGrade * 5) : 0,
+//   lessonCount: api.gradesCount,
+//   completedLessons: api.gradesCount,
+//   averageGrade: api.averageGrade,
+//   lastActivity: api.lastGrade?.createdAt ?? new Date().toISOString(),
+// });
 
 /**
  * Progression par matière (API)
