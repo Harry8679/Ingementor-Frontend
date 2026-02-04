@@ -12,7 +12,6 @@ import {
   AcademicCapIcon
 } from '@heroicons/react/24/solid';
 import { studentAPI } from '../../api/student.api';
-// import type { SubjectProgress } from '../../types/common.types';
 import type { StudentSubjectProgress } from '../../types/student.types';
 import { mapApiProgressToUi } from '../../types/student.types';
 
