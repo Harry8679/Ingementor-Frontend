@@ -26,7 +26,6 @@ const Progress: React.FC = () => {
   const loadProgress = async () => {
     try {
       const response = await studentAPI.getProgress();
-    //   setProgress(response.data || []);
     setProgress(
         (response.data || []).map(mapApiProgressToUi)
     );
