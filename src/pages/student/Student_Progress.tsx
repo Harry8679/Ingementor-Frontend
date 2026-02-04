@@ -26,9 +26,12 @@ const Progress: React.FC = () => {
   const loadProgress = async () => {
     try {
       const response = await studentAPI.getProgress();
-    setProgress(
-        (response.data || []).map(mapApiProgressToUi)
-    );
+      setProgress(
+        (response.data.subjects || []).map(mapApiProgressToUi)
+      );
+    // setProgress(
+    //     (response.data || []).map(mapApiProgressToUi)
+    // );
 
     } catch (error) {
       console.error('Erreur chargement progression:', error);
