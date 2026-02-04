@@ -17,7 +17,7 @@ import type {
   Message,
   PaginatedResponse,
 } from "../types/common.types";
-import type { ApiStudentGradesResponse, ApiStudentProgressResponse } from "../types/student.types";
+import type { ApiMessagesResponse, ApiStudentGradesResponse, ApiStudentProgressResponse } from "../types/student.types";
 
 export const studentAPI = {
   // ============================================
@@ -102,7 +102,7 @@ export const studentAPI = {
   // ============================================
   // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Message>
   getMessages: () =>
-    api.get<PaginatedResponse<Message>>("/api/messages"),
+    api.get<ApiMessagesResponse>("/api/messages"),
     
   // ✅ AJOUTÉ : getMessage individuel
   getMessage: (id: number) =>
