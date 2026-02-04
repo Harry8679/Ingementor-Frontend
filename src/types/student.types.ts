@@ -23,6 +23,14 @@ export interface ApiSubject {
 }
 
 /**
+ * Note utilisée dans la progression
+ */
+export interface ApiProgressGrade {
+  grade: number;
+  date: string | null;
+}
+
+/**
  * Note telle que renvoyée par l’API
  */
 export interface ApiStudentGrade {
