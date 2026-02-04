@@ -98,29 +98,57 @@ export const studentAPI = {
     api.get<Lesson>(`/api/students/me/lessons/${id}`),
 
   // ============================================
-  // MESSAGES
-  // ============================================
-  // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Message>
-  getMessages: () =>
-    api.get<PaginatedResponse<Message>>("/api/students/me/messages"),
+// MESSAGES
+// ============================================
+
+getMessages: () =>
+  api.get<{ messages: Message[]; total: number; unreadCount: number }>(
+    "/api/messages"
+  ),
+
+getMessage: (id: number) =>
+  api.get<Message>(`/api/messages/${id}`),
+
+sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
+  api.post("/api/messages", data),
+
+markAsRead: (id: number) =>
+  api.put(`/api/messages/${id}/read`),
+
+deleteMessage: (id: number) =>
+  api.delete(`/api/messages/${id}`),
+
+getSentMessages: () =>
+  api.get<{ messages: Message[]; total: number }>(
+    "/api/messages/sent"
+  ),
+
+
+//   // ============================================
+//   // MESSAGES
+//   // ============================================
+//   // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Message>
+//   getMessages: () =>
+//     api.get<PaginatedResponse<Message>>("/api/students/me/messages"),
     
-  // ✅ AJOUTÉ : getMessage individuel
-  getMessage: (id: number) =>
-    api.get<Message>(`/api/students/me/messages/${id}`),
+//   // ✅ AJOUTÉ : getMessage individuel
+//   getMessage: (id: number) =>
+//     api.get<Message>(`/api/students/me/messages/${id}`),
     
-  // ✅ AJOUTÉ : sendMessage
-  sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
-    api.post<Message>("/api/students/me/messages", data),
+//   // ✅ AJOUTÉ : sendMessage
+//   sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
+//     api.post<Message>("/api/students/me/messages", data),
     
-  // ✅ AJOUTÉ : markAsRead
-  markAsRead: (id: number) =>
-    api.put(`/api/students/me/messages/${id}/read`),
+//   // ✅ AJOUTÉ : markAsRead
+//   markAsRead: (id: number) =>
+//     api.put(`/api/students/me/messages/${id}/read`),
     
-  // ✅ AJOUTÉ : deleteMessage
-  deleteMessage: (id: number) =>
-    api.delete(`/api/students/me/messages/${id}`),
+//   // ✅ AJOUTÉ : deleteMessage
+//   deleteMessage: (id: number) =>
+//     api.delete(`/api/students/me/messages/${id}`),
     
-  // ✅ AJOUTÉ : getSentMessages
-  getSentMessages: () =>
-    api.get<PaginatedResponse<Message>>("/api/students/me/messages/sent"),
+//   // ✅ AJOUTÉ : getSentMessages
+//   getSentMessages: () =>
+//     api.get<PaginatedResponse<Message>>("/api/students/me/messages/sent"),
+// 
 };
