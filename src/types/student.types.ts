@@ -282,13 +282,6 @@ export interface StudentProfile {
   createdAt: string;
 }
 
-/**
- * Convertit une liste de notes API en notes UI
- */
-export const mapApiGradesToStudentGrades = (
-  apiGrades: ApiStudentGrade[]
-): StudentGrade[] =>
-  apiGrades.map(mapApiGradeToStudentGrade);
 
 /**
  * Convertit la progression API en progression UI
