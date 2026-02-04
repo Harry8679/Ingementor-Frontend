@@ -29,9 +29,6 @@ const Progress: React.FC = () => {
       setProgress(
         (response.data.subjects || []).map(mapApiProgressToUi)
       );
-    // setProgress(
-    //     (response.data || []).map(mapApiProgressToUi)
-    // );
 
     } catch (error) {
       console.error('Erreur chargement progression:', error);
