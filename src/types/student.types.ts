@@ -282,6 +282,13 @@ export interface StudentProfile {
   createdAt: string;
 }
 
+export interface ApiMessagesResponse {
+  messages: Message[];
+  total: number;
+  unreadCount: number;
+}
+
+
 
 /**
  * Convertit la progression API en progression UI
