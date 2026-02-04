@@ -145,3 +145,15 @@ export const mapApiProgressToUi = (
   averageGrade: api.averageGrade,
   lastActivity: api.lastGrade?.createdAt ?? new Date().toISOString(),
 });
+
+/**
+ * Progression par matière (API)
+ */
+export interface ApiStudentSubjectProgress {
+  subject: ApiSubject;
+  grades: ApiProgressGrade[];
+  average: number | null;
+  gradeCount: number;
+  needHelp: boolean;
+  priority: number;
+}
