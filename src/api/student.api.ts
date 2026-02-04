@@ -98,31 +98,32 @@ export const studentAPI = {
     api.get<Lesson>(`/api/students/me/lessons/${id}`),
 
   // ============================================
-// MESSAGES
-// ============================================
-
-getMessages: () =>
-  api.get<{ messages: Message[]; total: number; unreadCount: number }>(
-    "/api/messages"
-  ),
-
-getMessage: (id: number) =>
-  api.get<Message>(`/api/messages/${id}`),
-
-sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
-  api.post("/api/messages", data),
-
-markAsRead: (id: number) =>
-  api.put(`/api/messages/${id}/read`),
-
-deleteMessage: (id: number) =>
-  api.delete(`/api/messages/${id}`),
-
-getSentMessages: () =>
-  api.get<{ messages: Message[]; total: number }>(
-    "/api/messages/sent"
-  ),
-
+  // MESSAGES
+  // ============================================
+  // ✅ CORRIGÉ : Devrait retourner PaginatedResponse<Message>
+  getMessages: () =>
+    api.get<PaginatedResponse<Message>>("/api/messages"),
+    
+  // ✅ AJOUTÉ : getMessage individuel
+  getMessage: (id: number) =>
+    api.get<Message>(`/api/messages/${id}`),
+    
+  // ✅ AJOUTÉ : sendMessage
+  sendMessage: (data: { recipientId: number; subject: string; content: string }) =>
+    api.post<Message>("/api/messages", data),
+    
+  // ✅ AJOUTÉ : markAsRead
+  markAsRead: (id: number) =>
+    api.put(`/api/messages/${id}/read`),
+    
+  // ✅ AJOUTÉ : deleteMessage
+  deleteMessage: (id: number) =>
+    api.delete(`/api/messages/${id}`),
+    
+  // ✅ AJOUTÉ : getSentMessages
+  getSentMessages: () =>
+    api.get<PaginatedResponse<Message>>("/api/students/me/messages/sent"),
+};
 
 //   // ============================================
 //   // MESSAGES
@@ -150,5 +151,4 @@ getSentMessages: () =>
 //   // ✅ AJOUTÉ : getSentMessages
 //   getSentMessages: () =>
 //     api.get<PaginatedResponse<Message>>("/api/students/me/messages/sent"),
-// 
-};
+// };
