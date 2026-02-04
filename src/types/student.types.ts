@@ -1,5 +1,7 @@
 // import type { SubjectProgress } from './common.types';
 
+import type { Message } from "./common.types";
+
 /* ============================================================
    STUDENT TYPES
    ------------------------------------------------------------
