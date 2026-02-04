@@ -4,7 +4,7 @@ import type {
   Student,
   Teacher,
   // StudentGrade,
-  SubjectProgress,
+  // SubjectProgress,
   Lesson,
   DashboardStats,
   ApiResponse,
@@ -17,7 +17,7 @@ import type {
   Message,
   PaginatedResponse,
 } from "../types/common.types";
-import type { ApiStudentGradesResponse } from "../types/student.types";
+import type { ApiStudentGradesResponse, ApiStudentProgressResponse } from "../types/student.types";
 
 export const studentAPI = {
   // ============================================
@@ -89,7 +89,7 @@ export const studentAPI = {
   // PROGRESS
   // ============================================
   getProgress: () =>
-    api.get<SubjectProgress[]>("/api/students/me/progress"),
+    api.get<ApiStudentProgressResponse>("/api/students/me/progress"),
 
   // ============================================
   // LESSONS
