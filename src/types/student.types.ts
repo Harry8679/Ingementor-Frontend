@@ -282,24 +282,6 @@ export interface StudentProfile {
   createdAt: string;
 }
 
-/* ===========================
-   MAPPERS (API → UI)
-   =========================== */
-
-/**
- * Convertit une note API en note UI
- */
-export const mapApiGradeToStudentGrade = (
-  apiGrade: ApiStudentGrade
-): StudentGrade => ({
-  id: apiGrade.id,
-  subject: apiGrade.subject.name,
-  grade: apiGrade.grade,
-  maxGrade: 20,
-  date: apiGrade.examDate,
-  comment: apiGrade.comments,
-});
-
 /**
  * Convertit une liste de notes API en notes UI
  */
