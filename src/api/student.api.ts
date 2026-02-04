@@ -77,10 +77,6 @@ export const studentAPI = {
   api.get<ApiStudentGradesResponse>(
     "/api/students/me/grades"
   ),
-  // getGrades: () =>
-  //   api.get<{ grades: StudentGrade[]; total: number }>(
-  //     "/api/students/me/grades"
-  //   ),
 
   getGradesBySubject: (subjectId: number) =>
     api.get(`/api/students/me/grades/by-subject/${subjectId}`),
