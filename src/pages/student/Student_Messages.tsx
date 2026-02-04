@@ -29,8 +29,6 @@ const Messages: React.FC = () => {
   const loadMessages = async () => {
     try {
       const response = await studentAPI.getMessages();
-    //   const data = response.data as any;
-    //   setMessages(data['hydra:member'] || []);
     setMessages(response.data['hydra:member']);
     } catch (error) {
       console.error('Erreur chargement messages:', error);
