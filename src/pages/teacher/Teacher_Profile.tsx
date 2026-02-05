@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { useAuthStore } from '../../store/authStore';
 
-const Profile: React.FC = () => {
+const TeacherProfile: React.FC = () => {
   const { user } = useAuthStore();
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -273,4 +273,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default TeacherProfile;
