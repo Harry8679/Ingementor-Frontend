@@ -26,7 +26,7 @@ interface Student {
   attendance: number;
 }
 
-const Students: React.FC = () => {
+const TeacherStudents: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [students, setStudents] = useState<Student[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -323,4 +323,4 @@ const Students: React.FC = () => {
   );
 };
 
-export default Students;
+export default TeacherStudents;
