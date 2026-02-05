@@ -29,6 +29,13 @@ const Lessons: React.FC = () => {
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [filter, setFilter] = useState<'all' | 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'>('all');
 
+  const FILTERS: Array<'all' | 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'> = [
+    'all',
+    'SCHEDULED',
+    'COMPLETED',
+    'CANCELLED',
+  ];
+
   useEffect(() => {
     setLessons([
       { id: 1, subject: 'Mathématiques', student: 'Jean Dupont', date: '2026-02-05', time: '14:00', duration: 60, status: 'SCHEDULED' },
@@ -108,11 +115,24 @@ const Lessons: React.FC = () => {
 
             <Card>
               <div className="flex gap-2 mb-6">
-                {['all', 'SCHEDULED', 'COMPLETED', 'CANCELLED'].map((f) => (
+                {/* {['all', 'SCHEDULED', 'COMPLETED', 'CANCELLED'].map((f) => (
                   <button key={f} onClick={() => setFilter(f as any)}
                     className={`px-4 py-2 rounded-xl font-bold ${filter === f ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
                     {f === 'all' ? 'Tous' : getStatusLabel(f)}
                   </button>
+                ))} */}
+                {FILTERS.map((f) => (
+                    <button
+                        key={f}
+                        onClick={() => setFilter(f)}
+                        className={`px-4 py-2 rounded-xl font-bold ${
+                        filter === f
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-100 text-gray-600'
+                        }`}
+                    >
+                        {f === 'all' ? 'Tous' : getStatusLabel(f)}
+                    </button>
                 ))}
               </div>
             </Card>
