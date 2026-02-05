@@ -5,7 +5,7 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import { ClockIcon, CalendarIcon, PlusIcon } from '@heroicons/react/24/solid';
 
-const Availability: React.FC = () => {
+const TeacherAvailability: React.FC = () => {
   const [availabilities] = useState([
     { id: 1, day: 'Lundi', start: '09:00', end: '18:00', active: true },
     { id: 2, day: 'Mardi', start: '09:00', end: '18:00', active: true },
@@ -116,4 +116,4 @@ const Availability: React.FC = () => {
   );
 };
 
-export default Availability;
+export default TeacherAvailability;
