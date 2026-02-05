@@ -84,14 +84,14 @@ const Subjects: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -121,7 +121,7 @@ const Subjects: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <BookOpenIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -133,7 +133,7 @@ const Subjects: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -147,7 +147,7 @@ const Subjects: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <CurrencyEuroIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -179,7 +179,7 @@ const Subjects: React.FC = () => {
                       {/* Header */}
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="bg-gradient-to-br from-purple-500 to-indigo-500 p-3 rounded-xl">
+                          <div className="bg-linear-to-br from-purple-500 to-indigo-500 p-3 rounded-xl">
                             <BookOpenIcon className="h-6 w-6 text-white" />
                           </div>
                           <div>
@@ -268,7 +268,7 @@ const Subjects: React.FC = () => {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div 
-                          className="bg-gradient-to-r from-purple-500 to-indigo-500 h-3 rounded-full transition-all"
+                          className="bg-linear-to-r from-purple-500 to-indigo-500 h-3 rounded-full transition-all"
                           style={{ width: `${percentage}%` }}
                         ></div>
                       </div>
