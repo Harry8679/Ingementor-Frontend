@@ -6,7 +6,7 @@ import Button from '../../components/common/Button';
 import { ClockIcon, CalendarIcon, PlusIcon } from '@heroicons/react/24/solid';
 
 const Availability: React.FC = () => {
-  const [availabilities, setAvailabilities] = useState([
+  const [availabilities] = useState([
     { id: 1, day: 'Lundi', start: '09:00', end: '18:00', active: true },
     { id: 2, day: 'Mardi', start: '09:00', end: '18:00', active: true },
     { id: 3, day: 'Mercredi', start: '09:00', end: '12:00', active: true },
