@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
@@ -25,8 +25,8 @@ interface Lesson {
 }
 
 const Lessons: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [lessons, setLessons] = useState<Lesson[]>([]);
+//   const [loading, setLoading] = useState(true);
+//   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [filter, setFilter] = useState<'all' | 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'>('all');
 
   const FILTERS: Array<'all' | 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'> = [
@@ -36,14 +36,23 @@ const Lessons: React.FC = () => {
     'CANCELLED',
   ];
 
-  useEffect(() => {
-    setLessons([
-      { id: 1, subject: 'Mathématiques', student: 'Jean Dupont', date: '2026-02-05', time: '14:00', duration: 60, status: 'SCHEDULED' },
-      { id: 2, subject: 'Physique', student: 'Marie Martin', date: '2026-02-05', time: '16:00', duration: 90, status: 'SCHEDULED' },
-      { id: 3, subject: 'Mathématiques', student: 'Pierre Bernard', date: '2026-02-04', time: '10:00', duration: 60, status: 'COMPLETED' },
-    ]);
-    setLoading(false);
-  }, []);
+  const [lessons] = useState<Lesson[]>([
+  { id: 1, subject: 'Mathématiques', student: 'Jean Dupont', date: '2026-02-05', time: '14:00', duration: 60, status: 'SCHEDULED' },
+  { id: 2, subject: 'Physique', student: 'Marie Martin', date: '2026-02-05', time: '16:00', duration: 90, status: 'SCHEDULED' },
+  { id: 3, subject: 'Mathématiques', student: 'Pierre Bernard', date: '2026-02-04', time: '10:00', duration: 60, status: 'COMPLETED' },
+]);
+
+const [loading] = useState(false);
+
+
+//   useEffect(() => {
+//     setLessons([
+//       { id: 1, subject: 'Mathématiques', student: 'Jean Dupont', date: '2026-02-05', time: '14:00', duration: 60, status: 'SCHEDULED' },
+//       { id: 2, subject: 'Physique', student: 'Marie Martin', date: '2026-02-05', time: '16:00', duration: 90, status: 'SCHEDULED' },
+//       { id: 3, subject: 'Mathématiques', student: 'Pierre Bernard', date: '2026-02-04', time: '10:00', duration: 60, status: 'COMPLETED' },
+//     ]);
+//     setLoading(false);
+//   }, []);
 
   const filteredLessons = filter === 'all' ? lessons : lessons.filter(l => l.status === filter);
   const getStatusColor = (status: string) => status === 'SCHEDULED' ? 'blue' : status === 'COMPLETED' ? 'green' : 'red';
