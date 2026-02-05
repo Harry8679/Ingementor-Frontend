@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -81,7 +81,7 @@ const Profile: React.FC = () => {
             <Card>
               <div className="flex items-center gap-6">
                 <div className="relative">
-                  <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
+                  <div className="w-32 h-32 bg-linear-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
                     <span className="text-5xl font-black text-white">
                       {user.firstName?.[0]}{user.lastName?.[0]}
                     </span>
@@ -248,7 +248,7 @@ const Profile: React.FC = () => {
                 {['Mathématiques', 'Physique', 'Chimie'].map((subject) => (
                   <span
                     key={subject}
-                    className="px-4 py-2 bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-xl text-sm font-bold text-gray-900"
+                    className="px-4 py-2 bg-linear-to-br from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-xl text-sm font-bold text-gray-900"
                   >
                     {subject}
                   </span>
