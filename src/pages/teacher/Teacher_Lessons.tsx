@@ -24,7 +24,7 @@ interface Lesson {
   status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
 }
 
-const Lessons: React.FC = () => {
+const TeacherLessons: React.FC = () => {
 //   const [loading, setLoading] = useState(true);
 //   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [filter, setFilter] = useState<'all' | 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'>('all');
@@ -191,4 +191,4 @@ const [loading] = useState(false);
   );
 };
 
-export default Lessons;
+export default TeacherLessons;
