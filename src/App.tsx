@@ -39,6 +39,17 @@ function App() {
         <Route path="/dashboard/student/lessons" element={<StudentLessons />} />
         <Route path="/dashboard/student/messages" element={<StudentMessages />} />
         <Route path="/dashboard/student/settings" element={<StudentSettings />} />
+
+        {/* Teacher Routes */}
+        <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
+        <Route path="/dashboard/teacher/profile" element={<TeacherProfile />} />
+        <Route path="/dashboard/teacher/students" element={<TeacherStudents />} />
+        <Route path="/dashboard/teacher/subjects" element={<TeacherSubjects />} />
+        <Route path="/dashboard/teacher/lessons" element={<TeacherLessons />} />
+        <Route path="/dashboard/teacher/availability" element={<TeacherAvailability />} />
+        <Route path="/dashboard/teacher/messages" element={<TeacherMessages />} />
+        <Route path="/dashboard/teacher/statistics" element={<TeacherStatistics />} />
+        <Route path="/dashboard/teacher/settings" element={<TeacherSettings />} />
       </Routes>
     </BrowserRouter>
   );
