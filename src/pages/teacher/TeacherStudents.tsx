@@ -96,14 +96,14 @@ const Students: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -132,7 +132,7 @@ const Students: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <UserGroupIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -144,7 +144,7 @@ const Students: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -156,7 +156,7 @@ const Students: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <CalendarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -168,7 +168,7 @@ const Students: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
                     <ChartBarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -243,7 +243,7 @@ const Students: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 flex-1">
                         {/* Avatar */}
-                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-16 h-16 bg-linear-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center shrink-0">
                           <span className="text-xl font-black text-white">
                             {student.firstName[0]}{student.lastName[0]}
                           </span>
