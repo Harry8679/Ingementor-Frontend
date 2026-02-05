@@ -60,14 +60,14 @@ const [loading] = useState(false);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -87,7 +87,7 @@ const [loading] = useState(false);
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <CalendarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -99,7 +99,7 @@ const [loading] = useState(false);
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <CheckCircleIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -111,7 +111,7 @@ const [loading] = useState(false);
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-red-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-red-500 to-pink-500 p-4 rounded-2xl">
                     <XCircleIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -153,7 +153,7 @@ const [loading] = useState(false);
                   <Card key={lesson.id}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 flex-1">
-                        <div className={`bg-gradient-to-br from-${color}-500 to-${color}-600 p-4 rounded-2xl`}>
+                        <div className={`bg-linear-to-br from-${color}-500 to-${color}-600 p-4 rounded-2xl`}>
                           <BookOpenIcon className="h-8 w-8 text-white" />
                         </div>
                         <div>
