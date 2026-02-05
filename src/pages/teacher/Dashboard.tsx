@@ -67,14 +67,14 @@ const Dashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       {/* Animated blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -116,7 +116,7 @@ const Dashboard: React.FC = () => {
                       +3 ce mois
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <UserGroupIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
                       Excellent !
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
                       Top prof !
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
                     <TrophyIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -173,7 +173,7 @@ const Dashboard: React.FC = () => {
                       +12% vs mois dernier
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <ChartBarIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -201,10 +201,10 @@ const Dashboard: React.FC = () => {
                   {[1, 2, 3].map((i) => (
                     <div 
                       key={i}
-                      className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 transition-all cursor-pointer"
+                      className="flex items-center justify-between p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 transition-all cursor-pointer"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
+                        <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
                           <BookOpenIcon className="h-6 w-6 text-white" />
                         </div>
                         <div>
@@ -247,9 +247,9 @@ const Dashboard: React.FC = () => {
                   {[1, 2, 3].map((i) => (
                     <div 
                       key={i}
-                      className="flex items-start gap-3 p-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer"
+                      className="flex items-start gap-3 p-4 bg-linear-to-r from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 hover:border-orange-300 transition-all cursor-pointer"
                     >
-                      <div className="bg-gradient-to-br from-orange-500 to-red-500 p-2 rounded-full">
+                      <div className="bg-linear-to-br from-orange-500 to-red-500 p-2 rounded-full">
                         <UserGroupIcon className="h-5 w-5 text-white" />
                       </div>
                       <div className="flex-1">
@@ -282,7 +282,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-black text-blue-600">32/35</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-blue-500 to-indigo-500 h-3 rounded-full" style={{ width: '91%' }}></div>
+                      <div className="bg-linear-to-r from-blue-500 to-indigo-500 h-3 rounded-full" style={{ width: '91%' }}></div>
                     </div>
                   </div>
 
@@ -292,7 +292,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-black text-green-600">96%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full" style={{ width: '96%' }}></div>
+                      <div className="bg-linear-to-r from-green-500 to-emerald-500 h-3 rounded-full" style={{ width: '96%' }}></div>
                     </div>
                   </div>
 
@@ -302,7 +302,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-black text-purple-600">100%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full" style={{ width: '100%' }}></div>
+                      <div className="bg-linear-to-r from-purple-500 to-pink-500 h-3 rounded-full" style={{ width: '100%' }}></div>
                     </div>
                   </div>
                 </div>
@@ -316,7 +316,7 @@ const Dashboard: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     onClick={() => navigate('/dashboard/teacher/students')}
-                    className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all text-left"
+                    className="p-4 bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all text-left"
                   >
                     <UserGroupIcon className="h-6 w-6 text-blue-600 mb-2" />
                     <p className="text-sm font-black text-gray-900">Mes élèves</p>
@@ -325,7 +325,7 @@ const Dashboard: React.FC = () => {
 
                   <button
                     onClick={() => navigate('/dashboard/teacher/subjects')}
-                    className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all text-left"
+                    className="p-4 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all text-left"
                   >
                     <BookOpenIcon className="h-6 w-6 text-green-600 mb-2" />
                     <p className="text-sm font-black text-gray-900">Matières</p>
@@ -334,7 +334,7 @@ const Dashboard: React.FC = () => {
 
                   <button
                     onClick={() => navigate('/dashboard/teacher/availability')}
-                    className="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all text-left"
+                    className="p-4 bg-linear-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all text-left"
                   >
                     <CalendarIcon className="h-6 w-6 text-purple-600 mb-2" />
                     <p className="text-sm font-black text-gray-900">Disponibilités</p>
@@ -343,7 +343,7 @@ const Dashboard: React.FC = () => {
 
                   <button
                     onClick={() => navigate('/dashboard/teacher/statistics')}
-                    className="p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 hover:border-orange-300 hover:shadow-lg transition-all text-left"
+                    className="p-4 bg-linear-to-br from-orange-50 to-red-50 rounded-2xl border-2 border-orange-100 hover:border-orange-300 hover:shadow-lg transition-all text-left"
                   >
                     <ChartBarIcon className="h-6 w-6 text-orange-600 mb-2" />
                     <p className="text-sm font-black text-gray-900">Statistiques</p>
