@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
@@ -7,9 +7,9 @@ import Spinner from '../../components/common/Spinner';
 import { 
   UserIcon,
   CameraIcon,
-  AcademicCapIcon,
-  BriefcaseIcon,
-  MapPinIcon,
+//   AcademicCapIcon,
+//   BriefcaseIcon,
+//   MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
   StarIcon
