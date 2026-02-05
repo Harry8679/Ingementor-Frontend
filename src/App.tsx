@@ -15,6 +15,7 @@ import StudentProgress from './pages/student/Student_Progress';
 import StudentLessons from './pages/student/Student_Lessons';
 import StudentMessages from './pages/student/Student_Messages';
 import StudentSettings from './pages/student/Student_Settings';
+import TeacherProfile from './pages/teacher/Teacher_Profile';
 
 function App() {
   return (
