@@ -23,7 +23,7 @@ interface Subject {
   lessonCount: number;
 }
 
-const Subjects: React.FC = () => {
+const TeacherSubjects: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -315,4 +315,4 @@ const Subjects: React.FC = () => {
   );
 };
 
-export default Subjects;
+export default TeacherSubjects;
