@@ -17,6 +17,7 @@ import StudentMessages from './pages/student/Student_Messages';
 import StudentSettings from './pages/student/Student_Settings';
 import TeacherProfile from './pages/teacher/Teacher_Profile';
 import TeacherStudents from './pages/teacher/TeacherStudents';
+import TeacherSubjects from './pages/teacher/Teacher_Subject';
 
 function App() {
   return (
