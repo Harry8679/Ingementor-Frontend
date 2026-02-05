@@ -278,6 +278,26 @@ const Subjects: React.FC = () => {
               </div>
             </Card>
           </div>
+          {showAddModal && (
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                <Card className="w-full max-w-lg">
+                <h2 className="text-2xl font-black mb-4">Ajouter une matière</h2>
+
+                <p className="text-gray-600 mb-6">
+                    Formulaire à venir…
+                </p>
+
+                <div className="flex justify-end gap-2">
+                    <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+                    Annuler
+                    </Button>
+                    <Button disabled>
+                    Enregistrer
+                    </Button>
+                </div>
+                </Card>
+            </div>
+          )}
         </main>
       </div>
 
