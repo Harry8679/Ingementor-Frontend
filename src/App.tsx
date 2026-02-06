@@ -34,6 +34,7 @@ import ParentTeachers from './pages/parent/Parent_Teachers';
 import ParentMessages from './pages/parent/Parent_Messages';
 import ParentPayments from './pages/parent/Parent_Payments';
 import ParentSettings from './pages/parent/Parent_Settings';
+import ParentDashboard from './pages/parent/Parent_Dahboard';
 
 function App() {
   return (
