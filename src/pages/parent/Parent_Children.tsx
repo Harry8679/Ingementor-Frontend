@@ -3,7 +3,7 @@ import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
-import { UserGroupIcon, PlusIcon, AcademicCapIcon, CalendarIcon, ChartBarIcon } from '@heroicons/react/24/solid';
+import { UserGroupIcon, PlusIcon, AcademicCapIcon, CalendarIcon } from '@heroicons/react/24/solid';
 
 interface Child {
   id: number;
