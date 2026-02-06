@@ -96,6 +96,22 @@ const TeacherStatistics: React.FC = () => {
                     </div>
                   );
                 })} */}
+                {revenueData.map(({ month, value }) => (
+                    <div key={month}>
+                        <div className="flex justify-between mb-2">
+                        <span className="text-sm font-bold text-gray-700">{month}</span>
+                        <span className="text-sm font-black text-purple-600">
+                            {value}€
+                        </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                            className="bg-gradient-to-r from-purple-500 to-indigo-500 h-3 rounded-full"
+                            style={{ width: `${(value / 5000) * 100}%` }}
+                        />
+                        </div>
+                    </div>
+                ))}
               </div>
             </Card>
 
