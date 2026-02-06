@@ -6,7 +6,7 @@ import { ChartBarIcon, CurrencyEuroIcon, AcademicCapIcon, TrophyIcon } from '@he
 
 const TeacherStatistics: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -23,7 +23,7 @@ const TeacherStatistics: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <ChartBarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -35,7 +35,7 @@ const TeacherStatistics: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <CurrencyEuroIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -47,7 +47,7 @@ const TeacherStatistics: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -59,7 +59,7 @@ const TeacherStatistics: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-yellow-500 to-orange-500 p-4 rounded-2xl">
                     <TrophyIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -82,7 +82,7 @@ const TeacherStatistics: React.FC = () => {
                         <span className="text-sm font-black text-purple-600">{Math.round(value)}€</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-3">
-                        <div className="bg-gradient-to-r from-purple-500 to-indigo-500 h-3 rounded-full" style={{ width: `${(value/5000)*100}%` }}></div>
+                        <div className="bg-linear-to-r from-purple-500 to-indigo-500 h-3 rounded-full" style={{ width: `${(value/5000)*100}%` }}></div>
                       </div>
                     </div>
                   );
@@ -117,8 +117,8 @@ const TeacherStatistics: React.FC = () => {
                     { name: 'Jean Dupont', avg: 14.5, lessons: 12 },
                     { name: 'Pierre Bernard', avg: 12.3, lessons: 8 }
                   ].map((student, i) => (
-                    <div key={student.name} className="p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border-2 border-yellow-100 flex items-center gap-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                    <div key={student.name} className="p-4 bg-linear-to-r from-yellow-50 to-orange-50 rounded-xl border-2 border-yellow-100 flex items-center gap-4">
+                      <div className="w-8 h-8 bg-linear-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
                         <span className="text-white font-black">{i + 1}</span>
                       </div>
                       <div className="flex-1">
