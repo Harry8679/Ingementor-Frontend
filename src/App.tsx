@@ -21,6 +21,7 @@ import TeacherSubjects from './pages/teacher/Teacher_Subject';
 import TeacherLessons from './pages/teacher/Teacher_Lessons';
 import TeacherAvailability from './pages/teacher/Teacher_Availability';
 import TeacherMessages from './pages/teacher/Teacher_Messages';
+import TeacherStatistics from './pages/teacher/Teacher_Statistics';
 
 function App() {
   return (
