@@ -19,6 +19,7 @@ import TeacherProfile from './pages/teacher/Teacher_Profile';
 import TeacherStudents from './pages/teacher/TeacherStudents';
 import TeacherSubjects from './pages/teacher/Teacher_Subject';
 import TeacherLessons from './pages/teacher/Teacher_Lessons';
+import TeacherAvailability from './pages/teacher/Teacher_Availability';
 
 function App() {
   return (
