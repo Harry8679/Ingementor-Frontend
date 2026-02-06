@@ -7,6 +7,9 @@ import { CogIcon, BellIcon, MoonIcon, GlobeAltIcon, ShieldCheckIcon } from '@her
 import { useAuthStore } from '../../store/authStore';
 
 const TeacherSettings: React.FC = () => {
+  type NotificationKey = 'email' | 'push' | 'lessons' | 'messages';
+  type NotificationsState = Record<NotificationKey, boolean>;
+
   const { user } = useAuthStore();
   const [notifications, setNotifications] = useState({ email: true, push: false, lessons: true, messages: true });
   const [darkMode, setDarkMode] = useState(false);
