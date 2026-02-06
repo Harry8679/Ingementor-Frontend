@@ -4,7 +4,7 @@ import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import { ChartBarIcon, CurrencyEuroIcon, AcademicCapIcon, TrophyIcon } from '@heroicons/react/24/solid';
 
-const Statistics: React.FC = () => {
+const TeacherStatistics: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -148,4 +148,4 @@ const Statistics: React.FC = () => {
   );
 };
 
-export default Statistics;
+export default TeacherStatistics;
