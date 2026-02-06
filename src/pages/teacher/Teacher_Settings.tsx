@@ -15,6 +15,16 @@ const TeacherSettings: React.FC = () => {
   const [notifications, setNotifications] = useState<NotificationsState>({ email: true, push: false, lessons: true, messages: true });
   const [darkMode, setDarkMode] = useState(false);
 
+  const NOTIFICATIONS: Array<{
+    key: NotificationKey;
+    label: string;
+    desc: string;
+    }> = [
+        { key: 'email', label: 'Notifications par email', desc: 'Recevez des notifications par email' },
+        { key: 'push', label: 'Notifications push', desc: 'Recevez des notifications sur votre appareil' },
+        { key: 'lessons', label: 'Cours et rendez-vous', desc: 'Rappels de cours' },
+        { key: 'messages', label: 'Nouveaux messages', desc: 'Notifications de messages' },
+  ];
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
