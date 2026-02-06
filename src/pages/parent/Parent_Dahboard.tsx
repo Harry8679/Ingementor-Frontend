@@ -206,7 +206,7 @@ const Dashboard: React.FC = () => {
         </main>
       </div>
 
-      <style>{\`
+      <style>{`
         @keyframes blob {
           0% { transform: translate(0px, 0px) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.1); }
@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
         }
         .animate-blob { animation: blob 7s infinite; }
         .animation-delay-2000 { animation-delay: 2s; }
-      \`}</style>
+      `}</style>
     </div>
   );
 };
