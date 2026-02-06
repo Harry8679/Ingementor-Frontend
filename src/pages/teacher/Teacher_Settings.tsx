@@ -79,26 +79,6 @@ const TeacherSettings: React.FC = () => {
                 <BellIcon className="h-7 w-7 text-purple-600" />
                 <h2 className="text-2xl font-black text-gray-900">Notifications</h2>
               </div>
-              
-              {/* <div className="space-y-4">
-                {[
-                  { key: 'email', label: 'Notifications par email', desc: 'Recevez des notifications par email' },
-                  { key: 'push', label: 'Notifications push', desc: 'Recevez des notifications sur votre appareil' },
-                  { key: 'lessons', label: 'Cours et rendez-vous', desc: 'Rappels de cours' },
-                  { key: 'messages', label: 'Nouveaux messages', desc: 'Notifications de messages' }
-                ].map((notif) => (
-                  <div key={notif.key} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                    <div>
-                      <p className="text-sm font-bold text-gray-900">{notif.label}</p>
-                      <p className="text-xs text-gray-600 mt-1">{notif.desc}</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" checked={(notifications as any)[notif.key]} onChange={() => setNotifications({...notifications, [notif.key]: !(notifications as any)[notif.key]})} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
-                    </label>
-                  </div>
-                ))}
-              </div> */}
               {NOTIFICATIONS.map((notif) => (
                 <div key={notif.key} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                     <div>
