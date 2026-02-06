@@ -6,7 +6,7 @@ import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { 
-  UserGroupIcon, AcademicCapIcon, CalendarIcon, ChartBarIcon,
+  UserGroupIcon, AcademicCapIcon, CalendarIcon,
   BookOpenIcon, ClockIcon, ArrowTrendingUpIcon, BellIcon
 } from '@heroicons/react/24/solid';
 
