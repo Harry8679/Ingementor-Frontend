@@ -71,9 +71,9 @@ const TeacherAvailability: React.FC = () => {
                         <p className="text-sm font-black text-gray-900">{avail.day}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <input type="time" value={avail.start} className="px-3 py-2 border-2 border-gray-200 rounded-lg font-medium" />
+                        <input type="time" value={avail.start} className="px-3 py-2 border-2 border-gray-200 rounded-lg font-medium" readOnly />
                         <span className="text-gray-600">à</span>
-                        <input type="time" value={avail.end} className="px-3 py-2 border-2 border-gray-200 rounded-lg font-medium" />
+                        <input type="time" value={avail.end} className="px-3 py-2 border-2 border-gray-200 rounded-lg font-medium" readOnly />
                       </div>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
