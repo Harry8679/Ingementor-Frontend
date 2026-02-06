@@ -10,7 +10,7 @@ import {
   BookOpenIcon,
   UserIcon,
   CheckCircleIcon,
-  XCircleIcon
+//   XCircleIcon
 } from '@heroicons/react/24/solid';
 
 interface Lesson {
