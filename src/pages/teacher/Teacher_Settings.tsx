@@ -11,8 +11,11 @@ const TeacherSettings: React.FC = () => {
   type NotificationsState = Record<NotificationKey, boolean>;
 
   const { user } = useAuthStore();
-  const [notifications, setNotifications] = useState({ email: true, push: false, lessons: true, messages: true });
+//   const [notifications, setNotifications] = useState({ email: true, push: false, lessons: true, messages: true });
   const [darkMode, setDarkMode] = useState(false);
+
+  const [notifications, setNotifications] = useState<NotificationsState>({ email: true, push: false, lessons: true, messages: true });
+
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
