@@ -67,14 +67,14 @@ const Dashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-pink-50 to-rose-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-pink-50 to-rose-50 flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-pink-50 to-rose-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-pink-50 to-rose-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Enfants suivis</p>
                     <p className="text-4xl font-black text-gray-900">{stats.childrenCount}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-pink-500 to-rose-500 p-4 rounded-2xl">
                     <UserGroupIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -113,7 +113,7 @@ const Dashboard: React.FC = () => {
                       <ArrowTrendingUpIcon className="h-4 w-4 mr-1" />+0.3 vs mois dernier
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -125,7 +125,7 @@ const Dashboard: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Cours ce mois</p>
                     <p className="text-4xl font-black text-gray-900">{stats.totalLessons}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <BookOpenIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
                     <p className="text-sm font-bold text-gray-600 mb-1">Notifications</p>
                     <p className="text-4xl font-black text-gray-900">{stats.notifications}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-orange-500 to-red-500 p-4 rounded-2xl">
                     <BellIcon className="h-8 w-8 text-white" />
                   </div>
                 </div>
@@ -153,10 +153,10 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {children.map((child) => (
-                  <div key={child.id} className="p-4 bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl border-2 border-pink-100 hover:border-pink-300 transition-all cursor-pointer"
+                  <div key={child.id} className="p-4 bg-linear-to-r from-pink-50 to-rose-50 rounded-2xl border-2 border-pink-100 hover:border-pink-300 transition-all cursor-pointer"
                     onClick={() => navigate(`/dashboard/parent/children/${child.id}`)}>
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+                      <div className="w-16 h-16 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
                         <span className="text-2xl font-black text-white">{child.firstName[0]}</span>
                       </div>
                       <div className="flex-1">
@@ -182,9 +182,9 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="space-y-3">
                 {upcomingLessons.map((lesson) => (
-                  <div key={lesson.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
+                  <div key={lesson.id} className="flex items-center justify-between p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100">
                     <div className="flex items-center gap-4">
-                      <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
+                      <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-3 rounded-xl">
                         <BookOpenIcon className="h-6 w-6 text-white" />
                       </div>
                       <div>
