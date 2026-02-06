@@ -6,7 +6,7 @@ import Button from '../../components/common/Button';
 import { CogIcon, BellIcon, MoonIcon, GlobeAltIcon, ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { useAuthStore } from '../../store/authStore';
 
-const Settings: React.FC = () => {
+const TeacherSettings: React.FC = () => {
   const { user } = useAuthStore();
   const [notifications, setNotifications] = useState({ email: true, push: false, lessons: true, messages: true });
   const [darkMode, setDarkMode] = useState(false);
@@ -154,4 +154,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default TeacherSettings;
