@@ -4,7 +4,7 @@ import LoginPage from './pages/auth/Login';
 import RegisterPage from './pages/auth/Register';
 import TeacherDashboard from './pages/teacher/Dashboard';
 import StudentDashboard from './pages/student/Dashboard';
-import ParentDashboard from './pages/parent/Dashboard';
+// import ParentDashboard from './pages/parent/Dashboard';
 
 // Student Pages
 import StudentProfile from './pages/student/Student_Profile';

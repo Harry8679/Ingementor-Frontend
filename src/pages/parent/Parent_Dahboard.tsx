@@ -35,7 +35,7 @@ interface UpcomingLesson {
   time: string;
 }
 
-const Dashboard: React.FC = () => {
+const ParentDashboard: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
   const [stats, setStats] = useState<DashboardStats>({
@@ -220,4 +220,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default ParentDashboard;
