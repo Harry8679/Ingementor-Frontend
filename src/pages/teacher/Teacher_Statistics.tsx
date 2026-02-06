@@ -13,7 +13,7 @@ const TeacherStatistics: React.FC = () => {
     { month: 'Mai', value: 4800 },
     { month: 'Juin', value: 4500 },
   ];
-  
+
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -82,7 +82,7 @@ const TeacherStatistics: React.FC = () => {
             <Card>
               <h2 className="text-2xl font-black text-gray-900 mb-6">Évolution des revenus</h2>
               <div className="space-y-4">
-                {['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'].map((month, i) => {
+                {/* {['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'].map((month, i) => {
                   const value = 3000 + Math.random() * 2000;
                   return (
                     <div key={month}>
@@ -95,7 +95,7 @@ const TeacherStatistics: React.FC = () => {
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </Card>
 
