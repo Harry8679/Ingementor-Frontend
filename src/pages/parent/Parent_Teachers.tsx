@@ -17,7 +17,7 @@ interface Teacher {
   children: string[];
 }
 
-const Teachers: React.FC = () => {
+const ParentTeachers: React.FC = () => {
   const [teachers] = useState<Teacher[]>([
     { id: 1, firstName: 'Pierre', lastName: 'Martin', subject: 'Mathématiques', email: 'p.martin@school.fr', phone: '06 12 34 56 78', rating: 4.8, studentCount: 24, children: ['Emma'] },
     { id: 2, firstName: 'Sophie', lastName: 'Dubois', subject: 'Physique-Chimie', email: 's.dubois@school.fr', phone: '06 23 45 67 89', rating: 4.9, studentCount: 18, children: ['Lucas'] },
@@ -150,4 +150,4 @@ const Teachers: React.FC = () => {
   );
 };
 
-export default Teachers;
+export default ParentTeachers;
