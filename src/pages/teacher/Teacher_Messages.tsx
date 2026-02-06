@@ -5,7 +5,7 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import { EnvelopeIcon, PlusIcon, UserIcon, ClockIcon } from '@heroicons/react/24/solid';
 
-const Messages: React.FC = () => {
+const TeacherMessages: React.FC = () => {
   const [messages] = useState([
     { id: 1, from: 'Jean Dupont', subject: 'Question sur le cours', content: 'Bonjour, j\'ai une question...', date: '2026-02-04', unread: true },
     { id: 2, from: 'Marie Martin', subject: 'Demande de report', content: 'Serait-il possible de...', date: '2026-02-03', unread: true },
@@ -102,4 +102,4 @@ const Messages: React.FC = () => {
   );
 };
 
-export default Messages;
+export default TeacherMessages;
