@@ -15,7 +15,7 @@ interface Message {
   childName: string;
 }
 
-const Messages: React.FC = () => {
+const ParentMessages: React.FC = () => {
   const [messages] = useState<Message[]>([
     { id: 1, from: 'M. Martin (Prof. Math)', subject: 'Résultats du contrôle', content: 'Bonjour, Emma a obtenu une excellente note...', date: '2026-02-04', read: false, childName: 'Emma' },
     { id: 2, from: 'Mme Dubois (Prof. Physique)', subject: 'Devoirs à rendre', content: 'Lucas doit rendre son devoir pour...', date: '2026-02-03', read: false, childName: 'Lucas' },
@@ -113,4 +113,4 @@ const Messages: React.FC = () => {
   );
 };
 
-export default Messages;
+export default ParentMessages;
