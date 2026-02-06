@@ -23,7 +23,7 @@ const Children: React.FC = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-pink-50 to-rose-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-pink-50 to-rose-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
@@ -43,7 +43,7 @@ const Children: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-pink-500 to-rose-500 p-4 rounded-2xl">
                     <UserGroupIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -55,7 +55,7 @@ const Children: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
                     <AcademicCapIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -69,7 +69,7 @@ const Children: React.FC = () => {
 
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-gradient-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
                     <CalendarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
@@ -88,7 +88,7 @@ const Children: React.FC = () => {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+                        <div className="w-20 h-20 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
                           <span className="text-3xl font-black text-white">{child.firstName[0]}</span>
                         </div>
                         <div>
