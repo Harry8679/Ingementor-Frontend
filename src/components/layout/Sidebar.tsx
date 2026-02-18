@@ -1,15 +1,30 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { 
-  HomeIcon, UserIcon, BookOpenIcon, CalendarIcon,
-  ChatBubbleLeftRightIcon, ChartBarIcon, UserGroupIcon,
-  ClockIcon, Cog6ToothIcon, AcademicCapIcon 
+  HomeIcon, 
+  UserIcon, 
+  BookOpenIcon, 
+  CalendarIcon,
+  ChatBubbleLeftRightIcon, 
+  ChartBarIcon, 
+  UserGroupIcon,
+  ClockIcon, 
+  Cog6ToothIcon, 
+  AcademicCapIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/solid';
-import { useAuthStore } from '../../store/authStore';
 
 const Sidebar: React.FC = () => {
-  const { user } = useAuthStore();
+  const location = useLocation();
 
+  // Détection automatique du rôle depuis l'URL
+  const userRole = location.pathname.includes('/teacher') 
+    ? 'teacher' 
+    : location.pathname.includes('/parent')
+    ? 'parent'
+    : 'student';
+
+  // Liens pour les enseignants (9 liens)
   const teacherLinks = [
     { to: '/dashboard/teacher', icon: HomeIcon, label: 'Dashboard' },
     { to: '/dashboard/teacher/profile', icon: UserIcon, label: 'Profil' },
@@ -18,10 +33,11 @@ const Sidebar: React.FC = () => {
     { to: '/dashboard/teacher/availability', icon: ClockIcon, label: 'Disponibilités' },
     { to: '/dashboard/teacher/lessons', icon: CalendarIcon, label: 'Cours' },
     { to: '/dashboard/teacher/messages', icon: ChatBubbleLeftRightIcon, label: 'Messages' },
-    { to: '/dashboard/teacher/stats', icon: ChartBarIcon, label: 'Statistiques' },
+    { to: '/dashboard/teacher/statistics', icon: ChartBarIcon, label: 'Statistiques' },
     { to: '/dashboard/teacher/settings', icon: Cog6ToothIcon, label: 'Paramètres' },
   ];
 
+  // Liens pour les élèves (9 liens)
   const studentLinks = [
     { to: '/dashboard/student', icon: HomeIcon, label: 'Dashboard' },
     { to: '/dashboard/student/profile', icon: UserIcon, label: 'Profil' },
@@ -34,22 +50,40 @@ const Sidebar: React.FC = () => {
     { to: '/dashboard/student/settings', icon: Cog6ToothIcon, label: 'Paramètres' },
   ];
 
+  // Liens pour les parents (8 liens)
   const parentLinks = [
     { to: '/dashboard/parent', icon: HomeIcon, label: 'Dashboard' },
-    { to: '/dashboard/parent/profile', icon: UserIcon, label: 'Profil' },
     { to: '/dashboard/parent/children', icon: UserGroupIcon, label: 'Mes enfants' },
-    { to: '/dashboard/parent/lessons', icon: CalendarIcon, label: 'Tous les cours' },
+    { to: '/dashboard/parent/grades', icon: AcademicCapIcon, label: 'Notes' },
+    { to: '/dashboard/parent/lessons', icon: CalendarIcon, label: 'Cours' },
+    { to: '/dashboard/parent/teachers', icon: UserIcon, label: 'Professeurs' },
     { to: '/dashboard/parent/messages', icon: ChatBubbleLeftRightIcon, label: 'Messages' },
-    { to: '/dashboard/parent/stats', icon: ChartBarIcon, label: 'Statistiques' },
+    { to: '/dashboard/parent/payments', icon: CurrencyDollarIcon, label: 'Paiements' },
     { to: '/dashboard/parent/settings', icon: Cog6ToothIcon, label: 'Paramètres' },
   ];
 
+  // Retourne les liens appropriés selon le rôle
   const getLinks = () => {
-    switch (user?.userType) {
-      case 'teacher': return teacherLinks;
-      case 'student': return studentLinks;
-      case 'parent': return parentLinks;
-      default: return [];
+    switch (userRole) {
+      case 'teacher': 
+        return teacherLinks;
+      case 'parent': 
+        return parentLinks;
+      case 'student': 
+        return studentLinks;
+      default: 
+        return studentLinks;
+    }
+  };
+
+  // Retourne les classes CSS pour le lien actif selon le rôle
+  const getActiveClasses = () => {
+    if (userRole === 'teacher') {
+      return 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg';
+    } else if (userRole === 'parent') {
+      return 'bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-lg';
+    } else {
+      return 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg';
     }
   };
 
@@ -63,7 +97,7 @@ const Sidebar: React.FC = () => {
             className={({ isActive }) =>
               `flex items-center space-x-3 px-4 py-3 rounded-xl font-bold transition-all ${
                 isActive
-                  ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                  ? getActiveClasses()
                   : 'text-gray-700 hover:bg-gray-100'
               }`
             }
