@@ -5,6 +5,10 @@ import { useAuthStore } from '../store/authStore';
 export default function DashboardRedirect() {
   const { user, isAuthenticated } = useAuthStore();
 
+    // DEBUG - À supprimer après
+  console.log('🔍 User:', user);
+  console.log('🔍 userType:', user?.userType);
+
   // Si pas connecté, redirige vers login
   if (!isAuthenticated || !user) {
     return <Navigate to="/connexion" replace />;
