@@ -45,6 +45,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/connexion" element={<LoginPage />} />
         <Route path="/inscription" element={<RegisterPage />} />
+
+        <Route path="/dashboard" element={<DashboardRedirect />} />
         
         {/* Dashboard Routes */}
         <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
