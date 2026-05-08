@@ -2,6 +2,12 @@
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 
+// Type étendu pour inclure roles
+interface UserWithRoles {
+  roles?: string[];
+  userType?: string;
+}
+
 export default function DashboardRedirect() {
   const { user, isAuthenticated } = useAuthStore();
 
@@ -11,8 +17,9 @@ export default function DashboardRedirect() {
     return <Navigate to="/connexion" replace />;
   }
 
-  // Utilise roles (qui est correct) au lieu de userType
-  const roles: string[] = (user as any).roles || [];
+  // Cast vers le type avec roles
+  const userWithRoles = user as UserWithRoles;
+  const roles: string[] = userWithRoles.roles || [];
 
   if (roles.includes('ROLE_TEACHER')) {
     return <Navigate to="/dashboard/teacher" replace />;
