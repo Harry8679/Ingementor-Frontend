@@ -5,23 +5,23 @@ import { useAuthStore } from '../store/authStore';
 export default function DashboardRedirect() {
   const { user, isAuthenticated } = useAuthStore();
 
-    // DEBUG - À supprimer après
   console.log('🔍 User:', user);
-  console.log('🔍 userType:', user?.userType);
 
-  // Si pas connecté, redirige vers login
   if (!isAuthenticated || !user) {
     return <Navigate to="/connexion" replace />;
   }
 
-  // Redirige selon le userType
-  switch (user.userType) {
-    case 'teacher':
-      return <Navigate to="/dashboard/teacher" replace />;
-    case 'parent':
-      return <Navigate to="/dashboard/parent" replace />;
-    case 'student':
-    default:
-      return <Navigate to="/dashboard/student" replace />;
+  // Utilise roles (qui est correct) au lieu de userType
+  const roles: string[] = (user as any).roles || [];
+
+  if (roles.includes('ROLE_TEACHER')) {
+    return <Navigate to="/dashboard/teacher" replace />;
   }
+  
+  if (roles.includes('ROLE_PARENT')) {
+    return <Navigate to="/dashboard/parent" replace />;
+  }
+  
+  // Par défaut : student
+  return <Navigate to="/dashboard/student" replace />;
 }
