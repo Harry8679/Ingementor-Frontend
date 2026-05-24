@@ -237,11 +237,11 @@ export default function SuperAdminDashboard() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
+            <div className="flex justify-between items-center p-4 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl">
               <span className="text-gray-600">Chiffre d'affaires total</span>
               <span className="text-2xl font-bold text-green-600">{stats?.revenue.total || '0,00 €'}</span>
             </div>
-            <div className="flex justify-between items-center p-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl">
+            <div className="flex justify-between items-center p-4 bg-linear-to-r from-orange-50 to-red-50 rounded-xl">
               <span className="text-gray-600">Marge agence</span>
               <span className="text-2xl font-bold text-orange-600">{stats?.revenue.agency_margin || '0,00 €'}</span>
             </div>
@@ -273,7 +273,7 @@ export default function SuperAdminDashboard() {
             {admins.map((admin) => (
               <div key={admin.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-white text-sm font-medium">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-teal-500 text-white text-sm font-medium">
                     {admin.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
@@ -306,7 +306,7 @@ export default function SuperAdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             to="/dashboard/super-admin/coupons"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl hover:from-red-100 hover:to-orange-100 transition-colors border border-red-100"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-red-50 to-orange-50 rounded-xl hover:from-red-100 hover:to-orange-100 transition-colors border border-red-100"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <Ticket className="h-5 w-5 text-red-600" />
@@ -318,7 +318,7 @@ export default function SuperAdminDashboard() {
           </Link>
           <Link
             to="/dashboard/super-admin/purchases"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl hover:from-purple-100 hover:to-indigo-100 transition-colors border border-purple-100"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-xl hover:from-purple-100 hover:to-indigo-100 transition-colors border border-purple-100"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <CreditCard className="h-5 w-5 text-purple-600" />
@@ -330,7 +330,7 @@ export default function SuperAdminDashboard() {
           </Link>
           <Link
             to="/dashboard/super-admin/pricing"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl hover:from-green-100 hover:to-emerald-100 transition-colors border border-green-100"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl hover:from-green-100 hover:to-emerald-100 transition-colors border border-green-100"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <DollarSign className="h-5 w-5 text-green-600" />
@@ -342,7 +342,7 @@ export default function SuperAdminDashboard() {
           </Link>
           <Link
             to="/dashboard/super-admin/payouts"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl hover:from-blue-100 hover:to-cyan-100 transition-colors border border-blue-100"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl hover:from-blue-100 hover:to-cyan-100 transition-colors border border-blue-100"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <CreditCard className="h-5 w-5 text-blue-600" />
