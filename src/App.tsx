@@ -36,7 +36,7 @@ import ParentSettings from './pages/parent/Parent_Settings';
 import ParentDashboard from './pages/parent/Parent_Dashboard';
 
 // Admin Pages
-import AdminLayout from './pages/admin/AdminLayout';
+import AdminLayout from './pages/admin/AdminLayout.tsx';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 import DashboardRedirect from './components/DashboardRedirect';
