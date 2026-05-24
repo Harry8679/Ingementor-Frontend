@@ -176,7 +176,7 @@ export default function AdminDashboard() {
         <div className="flex gap-3">
           <Link
             to="/dashboard/admin/coupons"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-xl font-medium shadow-lg shadow-cyan-500/30 hover:shadow-xl transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-cyan-500 to-teal-500 text-white rounded-xl font-medium shadow-lg shadow-cyan-500/30 hover:shadow-xl transition-all"
           >
             <Ticket className="h-5 w-5" />
             Créer des coupons
@@ -198,7 +198,7 @@ export default function AdminDashboard() {
                 <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
               </div>
               <div className={`p-3 rounded-xl ${stat.bgColor} group-hover:scale-110 transition-transform`}>
-                <stat.icon className={`h-6 w-6 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`} style={{ color: stat.color.includes('blue') ? '#3b82f6' : stat.color.includes('purple') ? '#8b5cf6' : stat.color.includes('pink') ? '#ec4899' : '#06b6d4' }} />
+                <stat.icon className={`h-6 w-6 bg-linear-to-r ${stat.color} bg-clip-text text-transparent`} style={{ color: stat.color.includes('blue') ? '#3b82f6' : stat.color.includes('purple') ? '#8b5cf6' : stat.color.includes('pink') ? '#ec4899' : '#06b6d4' }} />
               </div>
             </div>
             <div className="mt-4 flex items-center text-sm text-cyan-600 group-hover:text-cyan-700">
@@ -220,11 +220,11 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl">
+            <div className="flex justify-between items-center p-4 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl">
               <span className="text-gray-600">Chiffre d'affaires</span>
               <span className="text-2xl font-bold text-green-600">{stats?.revenue.total || '0,00 €'}</span>
             </div>
-            <div className="flex justify-between items-center p-4 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-xl">
+            <div className="flex justify-between items-center p-4 bg-linear-to-r from-cyan-50 to-teal-50 rounded-xl">
               <span className="text-gray-600">Marge agence</span>
               <span className="text-2xl font-bold text-cyan-600">{stats?.revenue.agency_margin || '0,00 €'}</span>
             </div>
@@ -259,7 +259,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             to="/dashboard/admin/associations"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-cyan-50 to-teal-50 rounded-xl hover:from-cyan-100 hover:to-teal-100 transition-colors"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-cyan-50 to-teal-50 rounded-xl hover:from-cyan-100 hover:to-teal-100 transition-colors"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <Link2 className="h-5 w-5 text-cyan-600" />
@@ -271,7 +271,7 @@ export default function AdminDashboard() {
           </Link>
           <Link
             to="/dashboard/admin/coupons"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl hover:from-purple-100 hover:to-indigo-100 transition-colors"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-purple-50 to-indigo-50 rounded-xl hover:from-purple-100 hover:to-indigo-100 transition-colors"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <Ticket className="h-5 w-5 text-purple-600" />
@@ -283,7 +283,7 @@ export default function AdminDashboard() {
           </Link>
           <Link
             to="/dashboard/admin/pricing"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl hover:from-green-100 hover:to-emerald-100 transition-colors"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-green-50 to-emerald-50 rounded-xl hover:from-green-100 hover:to-emerald-100 transition-colors"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <DollarSign className="h-5 w-5 text-green-600" />
@@ -295,7 +295,7 @@ export default function AdminDashboard() {
           </Link>
           <Link
             to="/dashboard/admin/purchases"
-            className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl hover:from-blue-100 hover:to-indigo-100 transition-colors"
+            className="flex items-center gap-3 p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl hover:from-blue-100 hover:to-indigo-100 transition-colors"
           >
             <div className="p-2 bg-white rounded-lg shadow-sm">
               <Calendar className="h-5 w-5 text-blue-600" />
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
               activity.recent_students.map((student) => (
                 <div key={student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 text-white text-sm font-medium">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-indigo-500 text-white text-sm font-medium">
                       {student.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
