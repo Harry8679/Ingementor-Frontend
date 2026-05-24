@@ -3,7 +3,7 @@ import {
   UserCog,
   Plus,
   Search,
-  MoreVertical,
+//   MoreVertical,
   Edit,
   Trash2,
   Mail,
