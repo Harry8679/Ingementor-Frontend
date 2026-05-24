@@ -63,7 +63,7 @@ export default function AdminLayout() {
   const isSuperAdmin = adminUser?.roles?.includes('ROLE_SUPER_ADMIN') ?? false;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-cyan-50 to-teal-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-cyan-50 to-teal-50">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
@@ -81,10 +81,10 @@ export default function AdminLayout() {
         {/* Logo */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-gray-100">
           <Link to="/dashboard/admin" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 shadow-lg">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-cyan-500 to-teal-600 shadow-lg">
               <Shield className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-linear-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent">
               IngéMentor
             </span>
           </Link>
@@ -100,8 +100,8 @@ export default function AdminLayout() {
         <div className="px-6 py-3 border-b border-gray-100">
           <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
             isSuperAdmin 
-              ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white' 
-              : 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white'
+              ? 'bg-linear-to-r from-red-500 to-orange-500 text-white' 
+              : 'bg-linear-to-r from-cyan-500 to-teal-500 text-white'
           }`}>
             <Shield className="h-3.5 w-3.5" />
             {isSuperAdmin ? 'Super Admin' : 'Admin'}
@@ -120,7 +120,7 @@ export default function AdminLayout() {
                     onClick={() => setSidebarOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'
+                        ? 'bg-linear-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/30'
                         : 'text-gray-600 hover:bg-cyan-50 hover:text-cyan-700'
                     }`}
                   >
@@ -173,8 +173,8 @@ export default function AdminLayout() {
               >
                 <div className={`flex h-9 w-9 items-center justify-center rounded-full text-white font-semibold text-sm ${
                   isSuperAdmin 
-                    ? 'bg-gradient-to-br from-red-500 to-orange-500' 
-                    : 'bg-gradient-to-br from-cyan-500 to-teal-500'
+                    ? 'bg-linear-to-br from-red-500 to-orange-500' 
+                    : 'bg-linear-to-br from-cyan-500 to-teal-500'
                 }`}>
                   {adminUser?.firstName?.[0]}{adminUser?.lastName?.[0]}
                 </div>
