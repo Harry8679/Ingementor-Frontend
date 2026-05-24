@@ -2,7 +2,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 
-// Type étendu pour inclure roles
 interface UserWithRoles {
   roles?: string[];
   userType?: string;
@@ -17,9 +16,17 @@ export default function DashboardRedirect() {
     return <Navigate to="/connexion" replace />;
   }
 
-  // Cast vers le type avec roles
   const userWithRoles = user as UserWithRoles;
   const roles: string[] = userWithRoles.roles || [];
+
+  // Ordre de priorité : SuperAdmin > Admin > Teacher > Parent > Student
+  if (roles.includes('ROLE_SUPER_ADMIN')) {
+    return <Navigate to="/dashboard/super-admin" replace />;
+  }
+
+  if (roles.includes('ROLE_ADMIN')) {
+    return <Navigate to="/dashboard/admin" replace />;
+  }
 
   if (roles.includes('ROLE_TEACHER')) {
     return <Navigate to="/dashboard/teacher" replace />;
@@ -29,6 +36,5 @@ export default function DashboardRedirect() {
     return <Navigate to="/dashboard/parent" replace />;
   }
   
-  // Par défaut : student
   return <Navigate to="/dashboard/student" replace />;
 }
