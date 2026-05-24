@@ -165,7 +165,7 @@ export default function SuperAdminAdmins() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all"
         >
           <Plus className="h-5 w-5" />
           Nouvel Admin
@@ -234,7 +234,7 @@ export default function SuperAdminAdmins() {
                 <tr key={admin.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-white font-medium">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-teal-500 text-white font-medium">
                         {admin.firstName[0]}{admin.lastName[0]}
                       </div>
                       <div>
@@ -419,7 +419,7 @@ export default function SuperAdminAdmins() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl hover:shadow-lg"
+                  className="flex-1 px-4 py-2 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl hover:shadow-lg"
                 >
                   Créer l'admin
                 </button>
