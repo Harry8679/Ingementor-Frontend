@@ -17,7 +17,7 @@ import {
   ChevronDown,
   DollarSign,
   BarChart3,
-  Shield,
+//   Shield,
   ShieldCheck,
   UserCog,
   Database,
