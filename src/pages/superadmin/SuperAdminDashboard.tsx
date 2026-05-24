@@ -152,7 +152,7 @@ export default function SuperAdminDashboard() {
             <h1 className="text-3xl font-bold text-gray-900">
               Dashboard Super Admin
             </h1>
-            <span className="px-3 py-1 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-red-500/30">
+            <span className="px-3 py-1 bg-linear-to-r from-red-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg shadow-red-500/30">
               🔥 FULL ACCESS
             </span>
           </div>
@@ -170,7 +170,7 @@ export default function SuperAdminDashboard() {
           </Link>
           <Link
             to="/dashboard/super-admin/coupons"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all"
           >
             <Ticket className="h-5 w-5" />
             Gérer Coupons
@@ -179,7 +179,7 @@ export default function SuperAdminDashboard() {
       </div>
 
       {/* Super Admin Alert */}
-      <div className="bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-6 text-white shadow-xl shadow-red-500/20">
+      <div className="bg-linear-to-r from-red-500 to-orange-500 rounded-2xl p-6 text-white shadow-xl shadow-red-500/20">
         <div className="flex items-start gap-4">
           <div className="p-3 bg-white/20 rounded-xl">
             <ShieldCheck className="h-8 w-8" />
