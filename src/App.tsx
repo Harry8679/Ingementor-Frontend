@@ -34,6 +34,11 @@ import ParentMessages from './pages/parent/Parent_Messages';
 import ParentPayments from './pages/parent/Parent_Payments';
 import ParentSettings from './pages/parent/Parent_Settings';
 import ParentDashboard from './pages/parent/Parent_Dashboard';
+
+// Admin Pages
+import AdminLayout from './pages/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+
 import DashboardRedirect from './components/DashboardRedirect';
 
 
@@ -47,6 +52,17 @@ function App() {
         <Route path="/inscription" element={<RegisterPage />} />
 
         <Route path="/dashboard" element={<DashboardRedirect />} />
+        
+        {/* Admin Routes */}
+        <Route path="/dashboard/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          {/* Pages admin à venir */}
+        </Route>
+
+        {/* Super Admin Routes (même layout que Admin) */}
+        <Route path="/dashboard/super-admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+        </Route>
         
         {/* Dashboard Routes */}
         <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
