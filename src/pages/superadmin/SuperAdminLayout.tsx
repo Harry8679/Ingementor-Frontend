@@ -66,7 +66,7 @@ export default function SuperAdminLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-orange-50 to-red-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-orange-50 to-red-50">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
@@ -84,10 +84,10 @@ export default function SuperAdminLayout() {
         {/* Logo */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-gray-100">
           <Link to="/dashboard/super-admin" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-orange-600 shadow-lg">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-red-500 to-orange-600 shadow-lg">
               <ShieldCheck className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-linear-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
               IngéMentor
             </span>
           </Link>
@@ -101,7 +101,7 @@ export default function SuperAdminLayout() {
 
         {/* Role badge */}
         <div className="px-6 py-3 border-b border-gray-100">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-linear-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30">
             <ShieldCheck className="h-3.5 w-3.5" />
             Super Admin
           </div>
@@ -119,7 +119,7 @@ export default function SuperAdminLayout() {
                     onClick={() => setSidebarOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30'
+                        ? 'bg-linear-to-r from-red-500 to-orange-500 text-white shadow-lg shadow-red-500/30'
                         : 'text-gray-600 hover:bg-orange-50 hover:text-orange-700'
                     }`}
                   >
@@ -196,7 +196,7 @@ export default function SuperAdminLayout() {
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 transition-colors"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-orange-500 text-white font-semibold text-sm shadow-lg shadow-red-500/30">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-red-500 to-orange-500 text-white font-semibold text-sm shadow-lg shadow-red-500/30">
                   {adminUser?.firstName?.[0]}{adminUser?.lastName?.[0]}
                 </div>
                 <div className="hidden md:block text-left">
@@ -213,9 +213,9 @@ export default function SuperAdminLayout() {
                     onClick={() => setUserMenuOpen(false)}
                   />
                   <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white shadow-lg ring-1 ring-black/5 z-50">
-                    <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-red-50 to-orange-50 rounded-t-xl">
+                    <div className="p-4 border-b border-gray-100 bg-linear-to-r from-red-50 to-orange-50 rounded-t-xl">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-orange-500 text-white font-semibold">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-red-500 to-orange-500 text-white font-semibold">
                           {adminUser?.firstName?.[0]}{adminUser?.lastName?.[0]}
                         </div>
                         <div>
