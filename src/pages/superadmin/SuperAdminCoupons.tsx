@@ -213,7 +213,7 @@ export default function SuperAdminCoupons() {
             <RefreshCw className="h-4 w-4" />
             Actualiser
           </button>
-          <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30">
+          <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30">
             <Plus className="h-5 w-5" />
             Créer Coupon
           </button>
