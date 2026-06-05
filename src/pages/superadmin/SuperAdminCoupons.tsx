@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import {
   Ticket,
   Search,
-  Filter,
-  MoreVertical,
+//   Filter,
+//   MoreVertical,
   Edit,
   XCircle,
   CheckCircle,
@@ -11,7 +11,7 @@ import {
   AlertCircle,
   Eye,
   RefreshCw,
-  Download,
+//   Download,
   Plus,
 } from 'lucide-react';
 import api from '../../services/api';
