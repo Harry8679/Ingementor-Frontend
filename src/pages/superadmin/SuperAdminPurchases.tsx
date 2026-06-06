@@ -398,7 +398,7 @@ export default function SuperAdminPurchases() {
               <button
                 onClick={handleConfirmRefund}
                 disabled={!refundReason.trim()}
-                className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 bg-linear-to-r from-purple-500 to-indigo-500 text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Confirmer le remboursement
               </button>
