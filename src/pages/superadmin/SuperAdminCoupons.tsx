@@ -240,7 +240,7 @@ export default function SuperAdminCoupons() {
                 onClick={() => setStatusFilter(status)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                   statusFilter === status
-                    ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white'
+                    ? 'bg-linear-to-r from-red-500 to-orange-500 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
