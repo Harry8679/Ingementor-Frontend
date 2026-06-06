@@ -443,7 +443,7 @@ export default function SuperAdminPayouts() {
             </div>
             <div className="p-6 space-y-4">
               <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-white font-medium">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-purple-500 to-indigo-500 text-white font-medium">
                   {selectedPayout.teacher.fullName.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
@@ -510,7 +510,7 @@ export default function SuperAdminPayouts() {
                     setShowDetailModal(false);
                     handleProcessSingle(selectedPayout);
                   }}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl"
+                  className="flex-1 px-4 py-2 bg-linear-to-r from-green-500 to-emerald-500 text-white rounded-xl"
                 >
                   Traiter le paiement
                 </button>
