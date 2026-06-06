@@ -146,7 +146,7 @@ export default function SuperAdminPricing() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30"
         >
           <Plus className="h-5 w-5" />
           Nouveau tarif
@@ -154,7 +154,7 @@ export default function SuperAdminPricing() {
       </div>
 
       {/* Info box */}
-      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6">
+      <div className="bg-linear-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6">
         <div className="flex items-start gap-4">
           <div className="p-2 bg-green-100 rounded-lg">
             <DollarSign className="h-6 w-6 text-green-600" />
