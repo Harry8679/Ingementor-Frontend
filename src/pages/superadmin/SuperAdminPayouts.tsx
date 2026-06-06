@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  CreditCard,
+//   CreditCard,
   Search,
   CheckCircle,
   Clock,
@@ -261,7 +261,7 @@ export default function SuperAdminPayouts() {
 
       {/* Batch action bar */}
       {selectedPayouts.length > 0 && (
-        <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl p-4 text-white flex items-center justify-between">
+        <div className="bg-linear-to-r from-green-500 to-emerald-500 rounded-2xl p-4 text-white flex items-center justify-between">
           <div className="flex items-center gap-4">
             <CheckCircle className="h-6 w-6" />
             <div>
@@ -307,7 +307,7 @@ export default function SuperAdminPayouts() {
                 onClick={() => setStatusFilter(status)}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                   statusFilter === status
-                    ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white'
+                    ? 'bg-linear-to-r from-red-500 to-orange-500 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
