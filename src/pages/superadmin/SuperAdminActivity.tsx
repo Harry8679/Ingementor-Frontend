@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import {
   Activity,
   Search,
-  Filter,
+//   Filter,
   RefreshCw,
   User,
   Ticket,
   CreditCard,
-  Settings,
+//   Settings,
   UserCog,
   DollarSign,
   LogIn,
@@ -69,6 +69,7 @@ export default function SuperAdminActivity() {
 
   useEffect(() => {
     fetchLogs();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityFilter, actionFilter]);
 
   const fetchLogs = async (loadMore = false) => {
