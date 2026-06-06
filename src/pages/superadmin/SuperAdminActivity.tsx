@@ -327,7 +327,7 @@ export default function SuperAdminActivity() {
       {/* Activity timeline */}
       <div className="bg-white rounded-2xl shadow-sm p-6">
         <div className="space-y-4">
-          {filteredLogs.map((log, index) => {
+          {filteredLogs.map((log) => {
             const actionConfig = actionTypeConfig[log.actionType];
             const ActionIcon = actionConfig.icon;
             const entityInfo = entityConfig[log.entity];
