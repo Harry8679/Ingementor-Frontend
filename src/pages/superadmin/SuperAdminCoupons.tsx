@@ -314,7 +314,7 @@ export default function SuperAdminCoupons() {
                       </div>
                       <div className="w-20 h-1.5 bg-gray-200 rounded-full mt-1">
                         <div
-                          className="h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full"
+                          className="h-full bg-linear-to-r from-red-500 to-orange-500 rounded-full"
                           style={{ width: `${(coupon.remainingHours / coupon.hours) * 100}%` }}
                         />
                       </div>
