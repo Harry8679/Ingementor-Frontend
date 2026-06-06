@@ -431,7 +431,7 @@ export default function SuperAdminCoupons() {
               </button>
               <button
                 onClick={handleSaveEdit}
-                className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:shadow-lg"
+                className="flex-1 px-4 py-2 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl hover:shadow-lg"
               >
                 Enregistrer
               </button>
