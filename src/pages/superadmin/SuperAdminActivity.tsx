@@ -339,7 +339,7 @@ export default function SuperAdminActivity() {
                 className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
               >
                 {/* Icon */}
-                <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${actionConfig.color}`}>
+                <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${actionConfig.color}`}>
                   <ActionIcon className="h-5 w-5" />
                 </div>
 
