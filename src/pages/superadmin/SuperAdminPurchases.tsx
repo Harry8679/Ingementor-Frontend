@@ -480,7 +480,7 @@ export default function SuperAdminPurchases() {
                     setShowDetailModal(false);
                     handleRefund(selectedPurchase);
                   }}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl"
+                  className="flex-1 px-4 py-2 bg-linear-to-r from-purple-500 to-indigo-500 text-white rounded-xl"
                 >
                   Rembourser
                 </button>
