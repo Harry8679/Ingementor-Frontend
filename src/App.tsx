@@ -36,8 +36,18 @@ import ParentSettings from './pages/parent/Parent_Settings';
 import ParentDashboard from './pages/parent/Parent_Dashboard';
 
 // Admin Pages
-import AdminLayout from './pages/admin/AdminLayout.tsx';
+import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
+
+// SuperAdmin Pages
+import SuperAdminLayout from './pages/superadmin/SuperAdminLayout';
+import SuperAdminDashboard from './pages/superadmin/SuperAdminDashboard';
+import SuperAdminAdmins from './pages/superadmin/SuperAdminAdmins';
+import SuperAdminCoupons from './pages/superadmin/SuperAdminCoupons';
+import SuperAdminPurchases from './pages/superadmin/SuperAdminPurchases';
+import SuperAdminPricing from './pages/superadmin/SuperAdminPricing';
+import SuperAdminPayouts from './pages/superadmin/SuperAdminPayouts';
+import SuperAdminActivity from './pages/superadmin/SuperAdminActivity';
 
 import DashboardRedirect from './components/DashboardRedirect';
 
@@ -59,9 +69,22 @@ function App() {
           {/* Pages admin à venir */}
         </Route>
 
-        {/* Super Admin Routes (même layout que Admin) */}
-        <Route path="/dashboard/super-admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
+        {/* Super Admin Routes */}
+        <Route path="/dashboard/super-admin" element={<SuperAdminLayout />}>
+          <Route index element={<SuperAdminDashboard />} />
+          <Route path="admins" element={<SuperAdminAdmins />} />
+          <Route path="coupons" element={<SuperAdminCoupons />} />
+          <Route path="purchases" element={<SuperAdminPurchases />} />
+          <Route path="pricing" element={<SuperAdminPricing />} />
+          <Route path="payouts" element={<SuperAdminPayouts />} />
+          <Route path="activity" element={<SuperAdminActivity />} />
+          {/* Pages communes à créer */}
+          <Route path="associations" element={<div className="p-8 text-center text-gray-500">Associations (à créer)</div>} />
+          <Route path="teachers" element={<div className="p-8 text-center text-gray-500">Professeurs (à créer)</div>} />
+          <Route path="students" element={<div className="p-8 text-center text-gray-500">Élèves (à créer)</div>} />
+          <Route path="parents" element={<div className="p-8 text-center text-gray-500">Parents (à créer)</div>} />
+          <Route path="stats" element={<div className="p-8 text-center text-gray-500">Statistiques (à créer)</div>} />
+          <Route path="settings" element={<div className="p-8 text-center text-gray-500">Paramètres (à créer)</div>} />
         </Route>
         
         {/* Dashboard Routes */}
