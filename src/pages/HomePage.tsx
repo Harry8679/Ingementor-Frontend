@@ -111,7 +111,7 @@ const HomePage = () => {
             </div>
 
             <div className="relative lg:h-[650px] hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-[3rem] transform rotate-6 opacity-20"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-blue-500 to-purple-600 rounded-[3rem] transform rotate-6 opacity-20"></div>
               <img
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&h=1200&fit=crop&q=80"
                 alt="Étudiants heureux"
@@ -119,11 +119,11 @@ const HomePage = () => {
               />
               <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-3xl shadow-2xl border-4 border-blue-100">
                 <div className="flex items-center space-x-4">
-                  <div className="bg-gradient-to-br from-green-400 to-emerald-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-green-400 to-emerald-500 p-4 rounded-2xl">
                     <StarIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <div className="font-black text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">4.9/5</div>
+                    <div className="font-black text-4xl bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">4.9/5</div>
                     <div className="text-sm text-gray-600 font-bold">12,000+ avis</div>
                   </div>
                 </div>
