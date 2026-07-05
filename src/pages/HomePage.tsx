@@ -232,7 +232,7 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <section className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-block bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full font-bold text-sm mb-8">
@@ -265,7 +265,7 @@ const HomePage = () => {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-xl">
+                <div className="bg-linear-to-br from-blue-600 to-purple-600 p-2 rounded-xl">
                   <AcademicCapIcon className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-2xl font-black text-white">IngéMentor</span>
