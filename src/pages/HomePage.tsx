@@ -144,10 +144,10 @@ const HomePage = () => {
               { number: '50k+', label: 'Cours réalisés', icon: CheckCircleIcon, color: 'from-pink-500 to-rose-500' },
             ].map((stat, idx) => (
               <div key={idx} className="text-center group cursor-pointer">
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <div className={`inline-flex items-center justify-center w-16 h-16 bg-linear-to-br ${stat.color} rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                   <stat.icon className="h-8 w-8 text-white" />
                 </div>
-                <div className="text-5xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-black bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 font-bold">{stat.label}</div>
@@ -158,10 +158,10 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-24 bg-linear-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20 space-y-4">
-            <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-bold text-sm mb-4">
+            <div className="inline-block bg-linear-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-bold text-sm mb-4">
               ⚡ Avantages exclusifs
             </div>
             <h2 className="text-5xl font-black text-gray-900">
@@ -215,7 +215,7 @@ const HomePage = () => {
                 key={idx}
                 className="group bg-white p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-transparent hover:-translate-y-2"
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}>
+                <div className={`inline-flex items-center justify-center w-16 h-16 bg-linear-to-br ${feature.color} rounded-2xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}>
                   <feature.icon className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-3">
