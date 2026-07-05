@@ -58,7 +58,7 @@ const HomePage = () => {
             <div className="space-y-8">
               <div className="inline-flex items-center space-x-2 bg-linear-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-full shadow-lg">
                 <FireIcon className="h-5 w-5 animate-pulse" />
-                <span className="font-bold text-sm">Plateforme N°1 en France</span>
+                <span className="font-bold text-sm">Plateforme montant en France</span>
               </div>
               
               <h1 className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight">
