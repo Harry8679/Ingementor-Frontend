@@ -104,8 +104,8 @@ export default function SuperAdminCoupons() {
       try {
         const [p, g, s] = await Promise.all([
           api.get('/api/admin/parents'),
-          api.get('/api/admin/stats/grades'),
-          api.get('/api/admin/stats/subjects'),
+          api.get('/api/admin/grades'),
+api.get('/api/admin/subjects'),
         ]);
         setParents(p.data.data || []);
         setGrades(g.data.data || []);
