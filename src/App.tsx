@@ -78,6 +78,7 @@ function App() {
           <Route path="pricing" element={<SuperAdminPricing />} />
           <Route path="payouts" element={<SuperAdminPayouts />} />
           <Route path="activity" element={<SuperAdminActivity />} />
+          <Route path="referentiel" element={<SuperAdminReferentiel />} />
           {/* Pages communes à créer */}
           <Route path="associations" element={<div className="p-8 text-center text-gray-500">Associations (à créer)</div>} />
           <Route path="teachers" element={<div className="p-8 text-center text-gray-500">Professeurs (à créer)</div>} />
