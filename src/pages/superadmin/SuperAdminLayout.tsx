@@ -49,6 +49,7 @@ const superAdminNavItems = [
   { name: 'Statistiques', href: '/dashboard/super-admin/stats', icon: BarChart3 },
   { name: 'Activité', href: '/dashboard/super-admin/activity', icon: Activity, superOnly: true },
   { name: 'Paramètres', href: '/dashboard/super-admin/settings', icon: Settings },
+  { name: 'Référentiel', href: '/dashboard/super-admin/referentiel', icon: Layers },
 ];
 
 export default function SuperAdminLayout() {
