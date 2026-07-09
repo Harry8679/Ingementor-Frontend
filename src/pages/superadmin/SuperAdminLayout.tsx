@@ -22,6 +22,7 @@ import {
   UserCog,
   Database,
   Activity,
+  Layers
 } from 'lucide-react';
 
 interface AdminUser {
