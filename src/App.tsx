@@ -48,9 +48,10 @@ import SuperAdminPurchases from './pages/superadmin/SuperAdminPurchases';
 import SuperAdminPricing from './pages/superadmin/SuperAdminPricing';
 import SuperAdminPayouts from './pages/superadmin/SuperAdminPayouts';
 import SuperAdminActivity from './pages/superadmin/SuperAdminActivity';
-import SuperAdminReferentiel from '../pages/superadmin/SuperAdminReferentiel';
+// import SuperAdminReferentiel from '../pages/superadmin/SuperAdminReferentiel';
 
 import DashboardRedirect from './components/DashboardRedirect';
+import SuperAdminReferentiel from './pages/superadmin/SuperAdminReferentiel';
 
 
 function App() {
