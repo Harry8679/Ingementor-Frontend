@@ -111,7 +111,9 @@ export default function SuperAdminCoupons() {
   const [priceError, setPriceError] = useState<string | null>(null);
   const [loadingPrice, setLoadingPrice] = useState(false);
 
-  const selectedChild = children.find((c) => String(c.id) === selectedChildId) ?? null;
+  const selectedChild = Array.isArray(children)
+    ? children.find((c) => String(c.id) === selectedChildId) ?? null
+    : null;
 
   // ==================== Effets ====================
 
@@ -149,7 +151,41 @@ export default function SuperAdminCoupons() {
       setSelectedChildId('');
       try {
         const res = await api.get(`/api/admin/associations/parent/${selectedParentId}/children`);
-        setChildren(res.data.data || []);
+
+        // Pour inspecter le format exact renvoyé par l'API (regarde la console)
+        console.log('Réponse children:', res.data);
+
+        // L'API peut renvoyer : data = [...]  OU  data = { children: [...] }  OU  data = { students: [...] }
+        const raw = res.data?.data ?? res.data;
+        const list = Array.isArray(raw)
+          ? raw
+          : Array.isArray(raw?.children)
+            ? raw.children
+            : Array.isArray(raw?.students)
+              ? raw.students
+              : [];
+
+        // Normalise chaque enfant : fullName + grade, quels que soient les noms de champs
+        const normalized: ChildRef[] = list.map((c: Record<string, unknown>) => {
+          const first = (c.firstName ?? c.first_name ?? '') as string;
+          const last = (c.lastName ?? c.last_name ?? '') as string;
+          const name =
+            ((c.fullName ?? c.full_name ?? c.name) as string) ||
+            `${first} ${last}`.trim() ||
+            'Élève';
+
+          const g = (c.grade ?? c.grade_level ?? null) as
+            | { id?: number; name?: string }
+            | null;
+
+          return {
+            id: Number(c.id),
+            fullName: name,
+            grade: g && g.id ? { id: Number(g.id), name: String(g.name ?? '') } : null,
+          };
+        });
+
+        setChildren(normalized);
       } catch (err) {
         console.error('Erreur chargement enfants:', err);
         setChildren([]);
