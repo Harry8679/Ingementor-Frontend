@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import api from '../../services/api';
 
-// ---- Types alignés sur AdminCouponController::serializeCoupon ----
+// ==================== Types (alignés sur l'API) ====================
 
 interface Coupon {
   id: number;
@@ -35,14 +35,29 @@ interface Coupon {
   subject: { id: number; name: string } | null;
 }
 
-interface RefItem {
-  id: number;
-  name: string;
-}
 interface ParentRef {
   id: number;
   fullName: string;
   email: string;
+}
+
+interface ChildRef {
+  id: number;
+  fullName: string;
+  grade: { id: number; name: string } | null;
+}
+
+interface SubjectRef {
+  id: number;
+  name: string;
+}
+
+interface PriceInfo {
+  hourly_rate: number;
+  teacher_share: number;
+  agency_share: number;
+  teacher_amount: number;
+  agency_amount: number;
 }
 
 const statusConfig: Record<
@@ -77,38 +92,43 @@ export default function SuperAdminCoupons() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  // Edit (uniquement la date d'expiration : 1 coupon = 1h, pas d'heures à changer)
   const [editForm, setEditForm] = useState({ expiresAt: '' });
   const [saving, setSaving] = useState(false);
 
-  // Création
+  // ---- Création en cascade ----
   const [creating, setCreating] = useState(false);
   const [parents, setParents] = useState<ParentRef[]>([]);
-  const [grades, setGrades] = useState<RefItem[]>([]);
-  const [subjects, setSubjects] = useState<RefItem[]>([]);
-  const [createForm, setCreateForm] = useState({
-    parent_id: '',
-    grade_id: '',
-    subject_id: '',
-    quantity: 1,
-  });
+  const [children, setChildren] = useState<ChildRef[]>([]);
+  const [subjects, setSubjects] = useState<SubjectRef[]>([]);
+
+  const [selectedParentId, setSelectedParentId] = useState('');
+  const [selectedChildId, setSelectedChildId] = useState('');
+  const [selectedSubjectId, setSelectedSubjectId] = useState('');
+  const [quantity, setQuantity] = useState(1);
+
+  const [loadingChildren, setLoadingChildren] = useState(false);
+  const [price, setPrice] = useState<PriceInfo | null>(null);
+  const [priceError, setPriceError] = useState<string | null>(null);
+  const [loadingPrice, setLoadingPrice] = useState(false);
+
+  const selectedChild = children.find((c) => String(c.id) === selectedChildId) ?? null;
+
+  // ==================== Effets ====================
 
   useEffect(() => {
     fetchCoupons();
   }, []);
 
-  // Charge les listes déroulantes quand la modale de création s'ouvre
+  // À l'ouverture de la modale : parents + matières
   useEffect(() => {
     if (!showCreateModal) return;
     const loadRefs = async () => {
       try {
-        const [p, g, s] = await Promise.all([
+        const [p, s] = await Promise.all([
           api.get('/api/admin/parents'),
-          api.get('/api/admin/grades'),
           api.get('/api/admin/subjects'),
         ]);
         setParents(p.data.data || []);
-        setGrades(g.data.data || []);
         setSubjects(s.data.data || []);
       } catch (err) {
         console.error('Erreur chargement listes:', err);
@@ -116,6 +136,61 @@ export default function SuperAdminCoupons() {
     };
     loadRefs();
   }, [showCreateModal]);
+
+  // Parent choisi → charge ses enfants
+  useEffect(() => {
+    if (!selectedParentId) {
+      setChildren([]);
+      setSelectedChildId('');
+      return;
+    }
+    const loadChildren = async () => {
+      setLoadingChildren(true);
+      setSelectedChildId('');
+      try {
+        const res = await api.get(`/api/admin/associations/parent/${selectedParentId}/children`);
+        setChildren(res.data.data || []);
+      } catch (err) {
+        console.error('Erreur chargement enfants:', err);
+        setChildren([]);
+      } finally {
+        setLoadingChildren(false);
+      }
+    };
+    loadChildren();
+  }, [selectedParentId]);
+
+  // Élève + matière → tarif automatique
+  useEffect(() => {
+    const gradeId = selectedChild?.grade?.id;
+    if (!gradeId || !selectedSubjectId) {
+      setPrice(null);
+      setPriceError(null);
+      return;
+    }
+    const loadPrice = async () => {
+      setLoadingPrice(true);
+      setPriceError(null);
+      try {
+        const res = await api.get('/api/admin/pricing-grid/lookup', {
+          params: { grade_id: gradeId, subject_id: Number(selectedSubjectId) },
+        });
+        setPrice(res.data.data);
+      } catch (err: unknown) {
+        setPrice(null);
+        setPriceError(
+          axios.isAxiosError(err)
+            ? err.response?.data?.message ?? 'Aucun tarif pour ce couple'
+            : 'Aucun tarif pour ce couple',
+        );
+      } finally {
+        setLoadingPrice(false);
+      }
+    };
+    loadPrice();
+  }, [selectedChild, selectedSubjectId]);
+
+  // ==================== Appels API ====================
 
   const fetchCoupons = async () => {
     try {
@@ -130,7 +205,50 @@ export default function SuperAdminCoupons() {
     }
   };
 
-  // ---- Édition (date d'expiration) ----
+  const resetCreateForm = () => {
+    setSelectedParentId('');
+    setSelectedChildId('');
+    setSelectedSubjectId('');
+    setQuantity(1);
+    setChildren([]);
+    setPrice(null);
+    setPriceError(null);
+  };
+
+  const handleCreateCoupon = async () => {
+    const gradeId = selectedChild?.grade?.id;
+
+    if (!selectedParentId || !selectedChildId || !gradeId || !selectedSubjectId) {
+      alert('Parent, élève et matière sont obligatoires.');
+      return;
+    }
+    if (!price) {
+      alert("Aucun tarif n'est défini pour cette classe et cette matière.");
+      return;
+    }
+
+    setCreating(true);
+    try {
+      const res = await api.post('/api/admin/coupons/create', {
+        parent_id: Number(selectedParentId),
+        student_id: Number(selectedChildId),
+        grade_id: gradeId,
+        subject_id: Number(selectedSubjectId),
+        quantity: Number(quantity),
+      });
+      alert(res.data.message);
+      setShowCreateModal(false);
+      resetCreateForm();
+      fetchCoupons();
+    } catch (err: unknown) {
+      const msg = axios.isAxiosError(err)
+        ? err.response?.data?.message ?? 'Erreur lors de la création'
+        : 'Erreur lors de la création';
+      alert(msg);
+    } finally {
+      setCreating(false);
+    }
+  };
 
   const handleEdit = (coupon: Coupon) => {
     setSelectedCoupon(coupon);
@@ -157,8 +275,6 @@ export default function SuperAdminCoupons() {
     }
   };
 
-  // ---- Annulation ----
-
   const handleCancel = (coupon: Coupon) => {
     setSelectedCoupon(coupon);
     setShowCancelModal(true);
@@ -182,37 +298,6 @@ export default function SuperAdminCoupons() {
     setSelectedCoupon(coupon);
     setShowDetailModal(true);
   };
-
-  // ---- Création ----
-
-  const handleCreateCoupon = async () => {
-    if (!createForm.parent_id || !createForm.grade_id || !createForm.subject_id) {
-      alert('Parent, niveau et matière sont obligatoires.');
-      return;
-    }
-    setCreating(true);
-    try {
-      const res = await api.post('/api/admin/coupons/create', {
-        parent_id: Number(createForm.parent_id),
-        grade_id: Number(createForm.grade_id),
-        subject_id: Number(createForm.subject_id),
-        quantity: Number(createForm.quantity),
-      });
-      alert(res.data.message);
-      setShowCreateModal(false);
-      setCreateForm({ parent_id: '', grade_id: '', subject_id: '', quantity: 1 });
-      fetchCoupons();
-    } catch (err: unknown) {
-      const msg = axios.isAxiosError(err)
-        ? err.response?.data?.message ?? 'Erreur lors de la création'
-        : 'Erreur lors de la création';
-      alert(msg);
-    } finally {
-      setCreating(false);
-    }
-  };
-
-  // ---- Filtrage ----
 
   const filteredCoupons = coupons.filter((coupon) => {
     const term = searchTerm.toLowerCase();
@@ -288,9 +373,7 @@ export default function SuperAdminCoupons() {
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
-                {status === 'all'
-                  ? 'Tous'
-                  : statusConfig[status as Coupon['status']]?.label}
+                {status === 'all' ? 'Tous' : statusConfig[status as Coupon['status']]?.label}
               </button>
             ))}
           </div>
@@ -323,7 +406,7 @@ export default function SuperAdminCoupons() {
         </div>
       </div>
 
-      {/* Coupons table */}
+      {/* Table */}
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -332,7 +415,7 @@ export default function SuperAdminCoupons() {
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Code</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Statut</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Niveau / Matière</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Parent</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Parent / Élève</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Montant</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Expiration</th>
                 <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase">Actions</th>
@@ -361,7 +444,9 @@ export default function SuperAdminCoupons() {
                       {coupon.parent ? (
                         <div>
                           <p className="font-medium text-gray-900">{coupon.parent.name}</p>
-                          <p className="text-xs text-gray-500">{coupon.parent.email}</p>
+                          <p className="text-xs text-gray-500">
+                            {coupon.student?.name ?? 'Élève non assigné'}
+                          </p>
                         </div>
                       ) : (
                         <span className="text-gray-400">Non assigné</span>
@@ -418,10 +503,10 @@ export default function SuperAdminCoupons() {
         )}
       </div>
 
-      {/* ==================== CREATE MODAL ==================== */}
+      {/* ==================== CREATE MODAL (cascade) ==================== */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <Plus className="h-6 w-6 text-red-500" />
@@ -429,75 +514,162 @@ export default function SuperAdminCoupons() {
               </h2>
               <p className="text-sm text-gray-500 mt-1">Vente en agence — 1 coupon = 1 heure</p>
             </div>
+
             <div className="p-6 space-y-4">
+              {/* Étape 1 : Parent */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Parent *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-red-700 text-xs font-bold mr-2">1</span>
+                  Parent *
+                </label>
                 <select
-                  value={createForm.parent_id}
-                  onChange={(e) => setCreateForm({ ...createForm, parent_id: e.target.value })}
+                  value={selectedParentId}
+                  onChange={(e) => setSelectedParentId(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
                 >
                   <option value="">Sélectionner un parent...</option>
                   {parents.map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.fullName} — {p.email}
+                      {p.fullName?.trim() ? `${p.fullName} — ${p.email}` : p.email}
                     </option>
                   ))}
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Niveau *</label>
-                  <select
-                    value={createForm.grade_id}
-                    onChange={(e) => setCreateForm({ ...createForm, grade_id: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
-                  >
-                    <option value="">Choisir...</option>
-                    {grades.map((g) => (
-                      <option key={g.id} value={g.id}>
-                        {g.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Matière *</label>
-                  <select
-                    value={createForm.subject_id}
-                    onChange={(e) => setCreateForm({ ...createForm, subject_id: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
-                  >
-                    <option value="">Choisir...</option>
-                    {subjects.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+
+              {/* Étape 2 : Élève */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-red-700 text-xs font-bold mr-2">2</span>
+                  Élève *
+                </label>
+                <select
+                  value={selectedChildId}
+                  onChange={(e) => setSelectedChildId(e.target.value)}
+                  disabled={!selectedParentId || loadingChildren}
+                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 disabled:bg-gray-50 disabled:text-gray-400"
+                >
+                  <option value="">
+                    {!selectedParentId
+                      ? "Choisis d'abord un parent"
+                      : loadingChildren
+                        ? 'Chargement...'
+                        : children.length === 0
+                          ? 'Aucun enfant rattaché'
+                          : 'Sélectionner un élève...'}
+                  </option>
+                  {children.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.fullName}
+                      {c.grade ? ` — ${c.grade.name}` : ' — (classe non renseignée)'}
+                    </option>
+                  ))}
+                </select>
+
+                {selectedChild && (
+                  <div className="mt-2">
+                    {selectedChild.grade ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium">
+                        <CheckCircle className="h-3.5 w-3.5" />
+                        Classe : {selectedChild.grade.name}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-700 rounded-full text-xs font-medium">
+                        <AlertCircle className="h-3.5 w-3.5" />
+                        Aucune classe renseignée pour cet élève
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Étape 3 : Matière */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-red-700 text-xs font-bold mr-2">3</span>
+                  Matière *
+                </label>
+                <select
+                  value={selectedSubjectId}
+                  onChange={(e) => setSelectedSubjectId(e.target.value)}
+                  disabled={!selectedChild?.grade}
+                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 disabled:bg-gray-50 disabled:text-gray-400"
+                >
+                  <option value="">
+                    {!selectedChild?.grade ? "Choisis d'abord un élève" : 'Sélectionner une matière...'}
+                  </option>
+                  {subjects.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Tarif automatique */}
+              {loadingPrice && (
+                <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-500">
+                  Recherche du tarif...
+                </div>
+              )}
+
+              {priceError && !loadingPrice && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 flex items-start gap-2">
+                  <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                  <span>{priceError}. Crée d'abord ce tarif dans la grille tarifaire.</span>
+                </div>
+              )}
+
+              {price && !loadingPrice && (
+                <div className="bg-linear-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4">
+                  <p className="text-sm font-semibold text-green-800">
+                    Tarif appliqué : {price.hourly_rate.toFixed(2)} €/h
+                  </p>
+                  <div className="mt-1 text-xs text-green-700 space-y-0.5">
+                    <p>Part professeur ({price.teacher_share}%) : {price.teacher_amount.toFixed(2)} €/h</p>
+                    <p>Part agence ({price.agency_share}%) : {price.agency_amount.toFixed(2)} €/h</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Étape 4 : Quantité */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-red-700 text-xs font-bold mr-2">4</span>
                   Quantité (nombre d'heures) *
                 </label>
                 <input
                   type="number"
                   min={1}
                   max={50}
-                  value={createForm.quantity}
-                  onChange={(e) => setCreateForm({ ...createForm, quantity: Number(e.target.value) })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  disabled={!price}
+                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 disabled:bg-gray-50"
                 />
                 <p className="text-xs text-gray-500 mt-1">Entre 1 et 50 coupons générés en une fois.</p>
               </div>
-              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-sm text-yellow-800">
-                Un tarif doit exister pour ce couple niveau/matière, sinon la création échoue.
-              </div>
+
+              {/* Total */}
+              {price && quantity > 0 && (
+                <div className="bg-gray-900 rounded-xl p-4 text-white">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-300">
+                      Total ({quantity} h × {price.hourly_rate.toFixed(2)} €)
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {(price.hourly_rate * quantity).toFixed(2)} €
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
+
             <div className="p-6 border-t border-gray-100 flex gap-3">
               <button
-                onClick={() => setShowCreateModal(false)}
+                onClick={() => {
+                  setShowCreateModal(false);
+                  resetCreateForm();
+                }}
                 disabled={creating}
                 className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 disabled:opacity-50"
               >
@@ -505,8 +677,8 @@ export default function SuperAdminCoupons() {
               </button>
               <button
                 onClick={handleCreateCoupon}
-                disabled={creating}
-                className="flex-1 px-4 py-2 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl hover:shadow-lg disabled:opacity-50"
+                disabled={creating || !price}
+                className="flex-1 px-4 py-2 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {creating ? 'Création...' : 'Créer'}
               </button>
@@ -515,7 +687,7 @@ export default function SuperAdminCoupons() {
         </div>
       )}
 
-      {/* ==================== EDIT MODAL (expiration) ==================== */}
+      {/* ==================== EDIT MODAL ==================== */}
       {showEditModal && selectedCoupon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4">
@@ -594,7 +766,7 @@ export default function SuperAdminCoupons() {
       {/* ==================== DETAIL MODAL ==================== */}
       {showDetailModal && selectedCoupon && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-100">
               <h2 className="text-xl font-bold text-gray-900">Détails du coupon</h2>
               <p className="font-mono text-orange-600 mt-1">{selectedCoupon.code}</p>
