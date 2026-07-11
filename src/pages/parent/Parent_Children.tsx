@@ -1,141 +1,197 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
-import { UserGroupIcon, PlusIcon, AcademicCapIcon, CalendarIcon } from '@heroicons/react/24/solid';
+import {
+  UserGroupIcon,
+  PlusIcon,
+  AcademicCapIcon,
+  ExclamationTriangleIcon,
+} from '@heroicons/react/24/solid';
+import api from '../../services/api';
 
-interface Child {
+// ---- Aligné sur ParentChildController::getChildren ----
+// Réponse : { children: [ { id, student: {...}, relationship, createdAt } ], total }
+
+interface StudentGrade {
+  id: number;
+  name: string;
+  level: string;
+}
+
+interface StudentInfo {
   id: number;
   firstName: string;
   lastName: string;
-  grade: string;
-  birthDate: string;
-  averageGrade: number;
-  attendance: number;
-  lessonCount: number;
+  fullName: string;
+  email: string;
+  phone: string | null;
+  grade: StudentGrade | null;
+}
+
+interface ChildLink {
+  id: number; // ID de la relation StudentParent (pas de l'élève !)
+  student: StudentInfo;
+  relationship: string | null;
+  createdAt: string | null;
 }
 
 const Children: React.FC = () => {
-  const [children] = useState<Child[]>([
-    { id: 1, firstName: 'Emma', lastName: 'Dupont', grade: '3ème', birthDate: '2010-05-15', averageGrade: 15.2, attendance: 98, lessonCount: 24 },
-    { id: 2, firstName: 'Lucas', lastName: 'Dupont', grade: 'Terminale', birthDate: '2007-08-22', averageGrade: 14.4, attendance: 95, lessonCount: 24 }
-  ]);
+  const [children, setChildren] = useState<ChildLink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchChildren();
+  }, []);
+
+  const fetchChildren = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await api.get('/parents/me/children');
+      // ⚠️ Pas d'enveloppe { success, data } ici : la réponse est { children, total }
+      setChildren(res.data.children || []);
+    } catch (err: unknown) {
+      const msg = axios.isAxiosError(err)
+        ? err.response?.data?.error ?? 'Impossible de charger vos enfants.'
+        : 'Impossible de charger vos enfants.';
+      setError(msg);
+      setChildren([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const initials = (student: StudentInfo) =>
+    `${student.firstName?.[0] ?? ''}${student.lastName?.[0] ?? ''}`.toUpperCase() || '?';
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-pink-50 to-rose-50">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="flex">
         <Sidebar />
-        <main className="flex-1 p-8 relative z-10">
-          <div className="max-w-7xl mx-auto space-y-8">
-            <div className="flex justify-between items-center">
+        <main className="flex-1 p-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                <UserGroupIcon className="h-8 w-8 text-pink-500" />
+                Mes Enfants
+              </h1>
+              <p className="text-gray-500 mt-1">Gérez les profils de vos enfants</p>
+            </div>
+            <Button onClick={() => alert('À brancher sur POST /parents/me/children')}>
+              <PlusIcon className="h-5 w-5 mr-2" />
+              Ajouter un enfant
+            </Button>
+          </div>
+
+          {/* Erreur */}
+          {error && (
+            <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 flex items-start gap-2">
+              <ExclamationTriangleIcon className="h-5 w-5 shrink-0" />
               <div>
-                <h1 className="text-5xl font-black text-gray-900">Mes Enfants 👶</h1>
-                <p className="text-xl text-gray-600 mt-2 font-medium">Gérez les profils de vos enfants</p>
+                <p>{error}</p>
+                <button
+                  onClick={fetchChildren}
+                  className="mt-2 rounded-lg bg-red-600 px-3 py-1 text-xs font-medium text-white hover:bg-red-700"
+                >
+                  Réessayer
+                </button>
               </div>
-              <Button><PlusIcon className="h-5 w-5 mr-2" />Ajouter un enfant</Button>
             </div>
+          )}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-pink-500 to-rose-500 p-4 rounded-2xl">
-                    <UserGroupIcon className="h-8 w-8 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-600">Total enfants</p>
-                    <p className="text-3xl font-black text-gray-900">{children.length}</p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
-                    <AcademicCapIcon className="h-8 w-8 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-600">Moyenne générale</p>
-                    <p className="text-3xl font-black text-gray-900">
-                      {(children.reduce((acc, c) => acc + c.averageGrade, 0) / children.length).toFixed(1)}/20
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
-                    <CalendarIcon className="h-8 w-8 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-600">Cours totaux</p>
-                    <p className="text-3xl font-black text-gray-900">
-                      {children.reduce((acc, c) => acc + c.lessonCount, 0)}
-                    </p>
-                  </div>
-                </div>
-              </Card>
+          {/* Chargement */}
+          {loading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[1, 2].map((i) => (
+                <div key={i} className="h-48 animate-pulse rounded-2xl bg-gray-200" />
+              ))}
             </div>
+          )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {children.map((child) => (
-                <Card key={child.id}>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-20 h-20 bg-linear-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
-                          <span className="text-3xl font-black text-white">{child.firstName[0]}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-black text-gray-900">{child.firstName} {child.lastName}</h3>
-                          <p className="text-gray-600 font-medium">{child.grade}</p>
-                          <p className="text-sm text-gray-500">Né le {new Date(child.birthDate).toLocaleDateString('fr-FR')}</p>
-                        </div>
-                      </div>
+          {/* Statistiques */}
+          {!loading && !error && (
+            <>
+              <div className="mb-8">
+                <Card>
+                  <div className="flex items-center gap-4 p-2">
+                    <div className="rounded-xl bg-pink-100 p-3">
+                      <UserGroupIcon className="h-6 w-6 text-pink-600" />
                     </div>
-
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="text-center p-3 bg-green-50 rounded-xl">
-                        <p className="text-2xl font-black text-gray-900">{child.averageGrade}/20</p>
-                        <p className="text-xs text-gray-600 font-bold mt-1">Moyenne</p>
-                      </div>
-                      <div className="text-center p-3 bg-blue-50 rounded-xl">
-                        <p className="text-2xl font-black text-gray-900">{child.attendance}%</p>
-                        <p className="text-xs text-gray-600 font-bold mt-1">Assiduité</p>
-                      </div>
-                      <div className="text-center p-3 bg-purple-50 rounded-xl">
-                        <p className="text-2xl font-black text-gray-900">{child.lessonCount}</p>
-                        <p className="text-xs text-gray-600 font-bold mt-1">Cours</p>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button variant="secondary" className="flex-1 text-sm">Voir détails</Button>
-                      <Button className="flex-1 text-sm">Notes</Button>
+                    <div>
+                      <p className="text-sm text-gray-500">Total enfants</p>
+                      <p className="text-3xl font-bold text-gray-900">{children.length}</p>
                     </div>
                   </div>
                 </Card>
-              ))}
-            </div>
-          </div>
+              </div>
+
+              {/* Liste des enfants */}
+              {children.length === 0 ? (
+                <Card>
+                  <div className="text-center py-12">
+                    <UserGroupIcon className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                    <p className="text-gray-500">Aucun enfant enregistré</p>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Ajoutez un enfant pour commencer à suivre sa scolarité.
+                    </p>
+                  </div>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {children.map((link) => {
+                    const child = link.student;
+                    return (
+                      <Card key={link.id}>
+                        <div className="p-2">
+                          <div className="flex items-start gap-4">
+                            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-pink-500 to-rose-500 text-xl font-bold text-white">
+                              {initials(child)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-xl font-bold text-gray-900 truncate">
+                                {child.fullName?.trim() || child.email}
+                              </h3>
+
+                              {/* Classe — la vraie donnée de la base */}
+                              {child.grade ? (
+                                <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                                  <AcademicCapIcon className="h-3.5 w-3.5" />
+                                  {child.grade.name}
+                                </span>
+                              ) : (
+                                <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700">
+                                  <ExclamationTriangleIcon className="h-3.5 w-3.5" />
+                                  Classe non renseignée
+                                </span>
+                              )}
+
+                              <p className="mt-2 text-sm text-gray-500 truncate">{child.email}</p>
+                              {child.phone && (
+                                <p className="text-sm text-gray-500">{child.phone}</p>
+                              )}
+                              {link.relationship && (
+                                <p className="mt-1 text-xs text-gray-400">
+                                  Lien : {link.relationship}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+            </>
+          )}
         </main>
       </div>
-
-      <style>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-      `}</style>
     </div>
   );
 };
