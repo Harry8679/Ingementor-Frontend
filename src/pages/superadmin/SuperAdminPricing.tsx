@@ -161,12 +161,14 @@ export default function SuperAdminPricing() {
     }
   };
 
-  // Exemple 10h calculé localement (toutes les valeurs sont définies → plus de NaN)
-  const example10h = (hourlyRate: number, teacherShare: number) => {
-    const total = hourlyRate * 10;
+  // Répartition pour 1 heure (toutes les valeurs sont définies → plus de NaN)
+  const perHour = (hourlyRate: number, teacherShare: number) => {
+    const total = hourlyRate;
     const teacher = (total * teacherShare) / 100;
     const agency = total - teacher;
-    return { total, teacher, agency };
+    // Prix "après crédit d'impôt" = 50% du prix brut (SOUS RÉSERVE d'agrément SAP)
+    const afterTaxCredit = total / 2;
+    return { total, teacher, agency, afterTaxCredit };
   };
 
   if (loading) {
@@ -210,7 +212,8 @@ export default function SuperAdminPricing() {
             <h3 className="font-semibold text-green-800">Répartition des revenus</h3>
             <p className="text-green-700 mt-1">
               Par défaut : <strong>50%</strong> pour le professeur, <strong>50%</strong> pour l'agence.
-              Ce ratio est ajustable tarif par tarif.
+              Ce ratio est ajustable tarif par tarif. Les prix saisis sont les prix
+              <strong> bruts</strong> (avant crédit d'impôt).
             </p>
           </div>
         </div>
@@ -226,7 +229,7 @@ export default function SuperAdminPricing() {
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Tarif/heure</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Part Prof</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Part Agence</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Exemple 10h</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Répartition / heure</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">Statut</th>
                 <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase">Actions</th>
               </tr>
@@ -236,7 +239,7 @@ export default function SuperAdminPricing() {
                 const isEditing = editingId === tier.id;
                 const rate = isEditing ? editForm.hourly_rate : tier.hourly_rate;
                 const share = isEditing ? editForm.teacher_share : tier.teacher_share;
-                const prices = example10h(rate, share);
+                const prices = perHour(rate, share);
 
                 return (
                   <tr key={tier.id} className={isEditing ? 'bg-orange-50' : 'hover:bg-gray-50'}>
@@ -287,9 +290,12 @@ export default function SuperAdminPricing() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm">
-                        <p className="font-medium text-gray-900">Total: {prices.total.toFixed(2)} €</p>
+                        <p className="font-medium text-gray-900">Total: {prices.total.toFixed(2)} €/h</p>
                         <p className="text-green-600">Prof: {prices.teacher.toFixed(2)} €</p>
                         <p className="text-orange-600">Agence: {prices.agency.toFixed(2)} €</p>
+                        <p className="text-blue-600 mt-1">
+                          Après crédit d'impôt: {prices.afterTaxCredit.toFixed(2)} €/h*
+                        </p>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -363,6 +369,13 @@ export default function SuperAdminPricing() {
         )}
       </div>
 
+      {/* Note légale crédit d'impôt */}
+      <p className="text-xs text-gray-400">
+        * Prix indicatif après crédit d'impôt de 50 %, sous réserve d'éligibilité
+        (agrément « services à la personne »). Le crédit d'impôt n'est applicable
+        qu'une fois l'agrément obtenu — à valider avec un expert-comptable.
+      </p>
+
       {/* Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -432,13 +445,16 @@ export default function SuperAdminPricing() {
               </div>
               <div className="bg-gray-50 rounded-xl p-4">
                 <p className="text-sm text-gray-600">
-                  Aperçu pour 10h : <strong>{(createForm.hourly_rate * 10).toFixed(2)} €</strong>
+                  Prix affiché : <strong>{createForm.hourly_rate.toFixed(2)} €/h</strong>
                 </p>
                 <p className="text-sm text-green-600">
-                  Prof: {((createForm.hourly_rate * 10 * createForm.teacher_share) / 100).toFixed(2)} €
+                  Prof: {((createForm.hourly_rate * createForm.teacher_share) / 100).toFixed(2)} €/h
                 </p>
                 <p className="text-sm text-orange-600">
-                  Agence: {((createForm.hourly_rate * 10 * (100 - createForm.teacher_share)) / 100).toFixed(2)} €
+                  Agence: {((createForm.hourly_rate * (100 - createForm.teacher_share)) / 100).toFixed(2)} €/h
+                </p>
+                <p className="text-sm text-blue-600 mt-1">
+                  Après crédit d'impôt : {(createForm.hourly_rate / 2).toFixed(2)} €/h*
                 </p>
               </div>
             </div>
