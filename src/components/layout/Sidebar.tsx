@@ -11,7 +11,8 @@ import {
   ClockIcon, 
   Cog6ToothIcon, 
   AcademicCapIcon,
-  CurrencyDollarIcon
+  CurrencyDollarIcon,
+  TicketIcon
 } from '@heroicons/react/24/solid';
 
 const Sidebar: React.FC = () => {
@@ -30,6 +31,7 @@ const Sidebar: React.FC = () => {
     { to: '/dashboard/teacher/profile', icon: UserIcon, label: 'Profil' },
     { to: '/dashboard/teacher/students', icon: UserGroupIcon, label: 'Mes élèves' },
     { to: '/dashboard/teacher/subjects', icon: BookOpenIcon, label: 'Matières' },
+    { name: 'Coupons', href: '/dashboard/teacher/coupons', icon: TicketIcon },
     { to: '/dashboard/teacher/availability', icon: ClockIcon, label: 'Disponibilités' },
     { to: '/dashboard/teacher/lessons', icon: CalendarIcon, label: 'Cours' },
     { to: '/dashboard/teacher/messages', icon: ChatBubbleLeftRightIcon, label: 'Messages' },
