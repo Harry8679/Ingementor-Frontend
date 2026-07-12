@@ -76,8 +76,8 @@ const Children: React.FC = () => {
     if (!showModal) return;
     const loadGrades = async () => {
       try {
-        const res = await api.get('/grades');
-        setGrades(res.data.data || []);
+        const res = await api.get('/parents/grades');
+        setGrades(res.data.grades || []);
       } catch (err) {
         console.error('Erreur chargement niveaux:', err);
         setGrades([]);
