@@ -106,12 +106,12 @@ const Children: React.FC = () => {
   const handleSubmit = async () => {
     setFormError(null);
 
-    if (!form.firstName || !form.lastName || !form.email || !form.password || !form.gradeId) {
-      setFormError('Prénom, nom, email, mot de passe et niveau sont obligatoires.');
+    if (!form.firstName || !form.lastName || !form.gradeId) {
+      setFormError('Prénom, nom et classe sont obligatoires.');
       return;
     }
-    if (form.password.length < 6) {
-      setFormError('Le mot de passe doit contenir au moins 6 caractères.');
+    if (form.email && form.password.length < 6) {
+      setFormError('Si tu renseignes un email, le mot de passe doit faire 6 caractères minimum.');
       return;
     }
 
@@ -120,9 +120,9 @@ const Children: React.FC = () => {
       await api.post('/parents/me/children', {
         firstName: form.firstName,
         lastName: form.lastName,
-        email: form.email,
-        password: form.password,
         gradeId: Number(form.gradeId),
+        email: form.email || undefined,
+        password: form.password || undefined,
         phone: form.phone || undefined,
         relationship: form.relationship,
       });
