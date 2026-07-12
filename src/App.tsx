@@ -113,6 +113,7 @@ function App() {
         <Route path="/dashboard/teacher/students" element={<TeacherStudents />} />
         <Route path="/dashboard/teacher/subjects" element={<TeacherSubjects />} />
         <Route path="/dashboard/teacher/lessons" element={<TeacherLessons />} />
+        <Route path="/dashboard/teacher/coupons" element={<TeacherCoupons />} />
         <Route path="/dashboard/teacher/availability" element={<TeacherAvailability />} />
         <Route path="/dashboard/teacher/messages" element={<TeacherMessages />} />
         <Route path="/dashboard/teacher/statistics" element={<TeacherStatistics />} />
