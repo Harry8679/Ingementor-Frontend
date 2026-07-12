@@ -52,6 +52,10 @@ import SuperAdminActivity from './pages/superadmin/SuperAdminActivity';
 import DashboardRedirect from './components/DashboardRedirect';
 import SuperAdminReferentiel from './pages/superadmin/SuperAdminReferentiel';
 
+// import TeacherCoupons from '../pages/teacher/TeacherCoupons';
+import TeacherCoupons from './pages/teacher/TeacherCoupons';
+
+
 
 function App() {
   return (
@@ -113,6 +117,7 @@ function App() {
         <Route path="/dashboard/teacher/messages" element={<TeacherMessages />} />
         <Route path="/dashboard/teacher/statistics" element={<TeacherStatistics />} />
         <Route path="/dashboard/teacher/settings" element={<TeacherSettings />} />
+        <Route path="coupons" element={<TeacherCoupons />} />
 
         {/* Parent Routes */}
         <Route path="/dashboard/parent/children" element={<ParentChildren />} />
