@@ -387,8 +387,8 @@ const TeacherCoupons: React.FC = () => {
                           {c.code}
                         </p>
                         <p className="text-sm text-gray-600 font-bold">
-                          {c.student ?? '—'}
-                          {c.subject ? ` · ${c.subject}` : ''}
+                          {label(c.student)}
+                          {c.subject ? ` · ${label(c.subject)}` : ''}
                         </p>
                       </div>
                     </div>
