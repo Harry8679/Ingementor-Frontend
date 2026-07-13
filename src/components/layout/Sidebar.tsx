@@ -59,6 +59,7 @@ const Sidebar: React.FC = () => {
     { to: '/dashboard/parent/grades', icon: AcademicCapIcon, label: 'Notes' },
     { to: '/dashboard/parent/lessons', icon: CalendarIcon, label: 'Cours' },
     { to: '/dashboard/parent/teachers', icon: UserIcon, label: 'Professeurs' },
+    { to: '/dashboard/parent/coupons', icon: TicketIcon, label: 'Coupons' },
     { to: '/dashboard/parent/messages', icon: ChatBubbleLeftRightIcon, label: 'Messages' },
     { to: '/dashboard/parent/payments', icon: CurrencyDollarIcon, label: 'Paiements' },
     { to: '/dashboard/parent/settings', icon: Cog6ToothIcon, label: 'Paramètres' },
