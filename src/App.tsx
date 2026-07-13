@@ -54,6 +54,7 @@ import SuperAdminReferentiel from './pages/superadmin/SuperAdminReferentiel';
 
 // import TeacherCoupons from '../pages/teacher/TeacherCoupons';
 import TeacherCoupons from './pages/teacher/TeacherCoupons';
+import Parent_Coupons from './pages/parent/Parent_Coupons';
 
 
 
@@ -128,6 +129,7 @@ function App() {
         <Route path="/dashboard/parent/messages" element={<ParentMessages />} />
         <Route path="/dashboard/parent/payments" element={<ParentPayments />} />
         <Route path="/dashboard/parent/settings" element={<ParentSettings />} />
+        <Route path="/dashboard/parent/coupons" element={<Parent_Coupons />} />
       </Routes>
     </BrowserRouter>
   );
