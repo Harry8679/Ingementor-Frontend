@@ -16,7 +16,7 @@ import StudentMessages from './pages/student/Student_Messages';
 import StudentSettings from './pages/student/Student_Settings';
 
 // Teacher Pages
-import TeacherProfile from './pages/teacher/Teacher_Profile';
+import TeacherProfile from './pages/teacher/Profile';
 import TeacherStudents from './pages/teacher/TeacherStudents';
 import TeacherSubjects from './pages/teacher/Teacher_Subject';
 import TeacherLessons from './pages/teacher/Teacher_Lessons';
