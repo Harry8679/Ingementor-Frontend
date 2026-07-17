@@ -24,7 +24,7 @@ import TeacherAvailability from './pages/teacher/Teacher_Availability';
 import TeacherMessages from './pages/teacher/Teacher_Messages';
 import TeacherStatistics from './pages/teacher/Teacher_Statistics';
 import TeacherSettings from './pages/teacher/Teacher_Settings';
-import TeacherProfile from './pages/teacher/Teacher_Profile';
+import TeacherProfile from './pages/teacher/Profile';
 
 // Parent Pages
 import ParentChildren from './pages/parent/Parent_Children';
