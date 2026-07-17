@@ -16,7 +16,7 @@ import StudentMessages from './pages/student/Student_Messages';
 import StudentSettings from './pages/student/Student_Settings';
 
 // Teacher Pages
-import TeacherProfile from './pages/teacher/Profile';
+// import TeacherProfile from './pages/teacher/Profile';
 import TeacherStudents from './pages/teacher/TeacherStudents';
 import TeacherSubjects from './pages/teacher/Teacher_Subject';
 import TeacherLessons from './pages/teacher/Teacher_Lessons';
@@ -24,6 +24,7 @@ import TeacherAvailability from './pages/teacher/Teacher_Availability';
 import TeacherMessages from './pages/teacher/Teacher_Messages';
 import TeacherStatistics from './pages/teacher/Teacher_Statistics';
 import TeacherSettings from './pages/teacher/Teacher_Settings';
+import TeacherProfile from './pages/teacher/Teacher_Profile';
 
 // Parent Pages
 import ParentChildren from './pages/parent/Parent_Children';
