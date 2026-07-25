@@ -1,86 +1,141 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from '../../components/layout/Navbar';
 import Sidebar from '../../components/layout/Sidebar';
 import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Spinner from '../../components/common/Spinner';
-import { 
+import {
   BookOpenIcon,
   PlusIcon,
   TrashIcon,
-  PencilIcon,
-  AcademicCapIcon,
-  CurrencyEuroIcon
+  XMarkIcon,
+  ExclamationTriangleIcon,
+  ArrowPathIcon,
+  CheckCircleIcon,
 } from '@heroicons/react/24/solid';
+import api from '../../services/api';
 
-interface Subject {
-  id: number;
+// ============================================================================
+//  GET    /api/teachers/me/subjects  → { subjects: [{ id, subjectId, name, description, icon }], total }
+//  POST   /api/teachers/me/subjects  → { subjectId }
+//  DELETE /api/teachers/me/subjects/{id}   (id = relation TeacherSubject)
+// ============================================================================
+
+interface TeacherSubject {
+  id: number;        // ID de la relation (pour le DELETE)
+  subjectId: number; // ID de la matière
   name: string;
-  description: string;
-  level: string;
-  hourlyRate: number;
-  studentCount: number;
-  lessonCount: number;
+  description: string | null;
+  icon: string | null;
+  createdAt: string | null;
 }
 
-const TeacherSubjects: React.FC = () => {
+interface CatalogSubject {
+  id: number;
+  name: string;
+}
+
+const Subjects: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [subjects, setSubjects] = useState<TeacherSubject[]>([]);
+
+  // Modale d'ajout
+  const [showModal, setShowModal] = useState(false);
+  const [catalog, setCatalog] = useState<CatalogSubject[]>([]);
+  const [selectedId, setSelectedId] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  // Suppression
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
     loadSubjects();
   }, []);
 
+  // Charge le catalogue quand la modale s'ouvre
+  useEffect(() => {
+    if (!showModal) return;
+    const loadCatalog = async () => {
+      try {
+        const res = await api.get('/api/admin/subjects');
+        setCatalog(res.data?.data ?? res.data?.subjects ?? []);
+      } catch {
+        // Fallback : un prof n'a peut-être pas accès à /api/admin/subjects (ROLE_ADMIN)
+        try {
+          const res = await api.get('/api/subjects');
+          setCatalog(res.data?.data ?? res.data?.subjects ?? res.data ?? []);
+        } catch (err) {
+          console.error('Impossible de charger le catalogue de matières:', err);
+          setCatalog([]);
+        }
+      }
+    };
+    loadCatalog();
+  }, [showModal]);
+
   const loadSubjects = async () => {
     try {
-      // TODO: API call
-      setSubjects([
-        {
-          id: 1,
-          name: 'Mathématiques',
-          description: 'Algèbre, géométrie, analyse',
-          level: 'Collège - Lycée',
-          hourlyRate: 35,
-          studentCount: 12,
-          lessonCount: 48
-        },
-        {
-          id: 2,
-          name: 'Physique-Chimie',
-          description: 'Mécanique, thermodynamique, chimie organique',
-          level: 'Lycée',
-          hourlyRate: 40,
-          studentCount: 8,
-          lessonCount: 32
-        },
-        {
-          id: 3,
-          name: 'Sciences de la Vie et de la Terre',
-          description: 'Biologie, géologie',
-          level: 'Collège - Lycée',
-          hourlyRate: 35,
-          studentCount: 6,
-          lessonCount: 24
-        }
-      ]);
-    } catch (error) {
-      console.error('Erreur chargement matières:', error);
+      setLoading(true);
+      setError(null);
+      const res = await api.get('/api/teachers/me/subjects');
+      const list = res.data?.subjects ?? res.data?.data ?? [];
+      setSubjects(Array.isArray(list) ? list : []);
+    } catch (err: unknown) {
+      const msg = axios.isAxiosError(err)
+        ? err.response?.data?.error ?? 'Impossible de charger vos matières.'
+        : 'Impossible de charger vos matières.';
+      setError(msg);
+      setSubjects([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDeleteSubject = async (id: number) => {
-    if (!confirm('Voulez-vous vraiment supprimer cette matière ?')) return;
-    
+  const handleAdd = async () => {
+    setFormError(null);
+    if (!selectedId) {
+      setFormError('Sélectionnez une matière.');
+      return;
+    }
+
+    setSaving(true);
     try {
-      // TODO: API call
-      setSubjects(subjects.filter(s => s.id !== id));
-    } catch (error) {
-      console.error('Erreur suppression:', error);
+      await api.post('/api/teachers/me/subjects', { subjectId: Number(selectedId) });
+      setShowModal(false);
+      setSelectedId('');
+      loadSubjects();
+    } catch (err: unknown) {
+      const msg = axios.isAxiosError(err)
+        ? err.response?.data?.error ?? "Erreur lors de l'ajout"
+        : "Erreur lors de l'ajout";
+      setFormError(msg);
+    } finally {
+      setSaving(false);
     }
   };
+
+  const handleRemove = async (id: number) => {
+    setDeletingId(id);
+    try {
+      await api.delete(`/api/teachers/me/subjects/${id}`);
+      loadSubjects();
+    } catch (err: unknown) {
+      const msg = axios.isAxiosError(err)
+        ? err.response?.data?.error ?? 'Erreur lors du retrait'
+        : 'Erreur lors du retrait';
+      alert(msg);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  // Matières du catalogue pas encore enseignées
+  const availableToAdd = catalog.filter(
+    (c) => !subjects.some((s) => s.subjectId === c.id),
+  );
 
   if (loading) {
     return (
@@ -94,212 +149,202 @@ const TeacherSubjects: React.FC = () => {
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-indigo-50">
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-      
+
       <Navbar />
       <div className="flex">
         <Sidebar />
         <main className="flex-1 p-8 relative z-10">
           <div className="max-w-7xl mx-auto space-y-8">
-            
             {/* Header */}
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <div>
-                <h1 className="text-5xl font-black text-gray-900">
-                  Mes Matières 📚
-                </h1>
+                <h1 className="text-5xl font-black text-gray-900">Mes Matières 📚</h1>
                 <p className="text-xl text-gray-600 mt-2 font-medium">
-                  Matières que vous enseignez
+                  Les matières que vous enseignez
                 </p>
               </div>
-              <Button onClick={() => setShowAddModal(true)}>
-                <PlusIcon className="h-5 w-5 mr-2" />
+              <Button onClick={() => setShowModal(true)}>
+                <PlusIcon className="h-5 w-5 mr-2 inline" />
                 Ajouter une matière
               </Button>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Erreur */}
+            {error && (
+              <div className="flex items-start gap-3 rounded-2xl border-2 border-red-200 bg-red-50 p-4">
+                <ExclamationTriangleIcon className="h-6 w-6 text-red-600 shrink-0" />
+                <div>
+                  <p className="font-bold text-red-700">{error}</p>
+                  <button
+                    onClick={loadSubjects}
+                    className="mt-2 rounded-xl bg-red-600 px-3 py-1 text-xs font-bold text-white hover:bg-red-700"
+                  >
+                    Réessayer
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Stat unique — réelle */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-blue-500 to-indigo-500 p-4 rounded-2xl">
+                  <div className="bg-linear-to-br from-purple-500 to-indigo-500 p-4 rounded-2xl">
                     <BookOpenIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-600">Matières</p>
+                    <p className="text-sm font-bold text-gray-600">Matières enseignées</p>
                     <p className="text-3xl font-black text-gray-900">{subjects.length}</p>
                   </div>
                 </div>
               </Card>
-
               <Card>
                 <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-green-500 to-emerald-500 p-4 rounded-2xl">
-                    <AcademicCapIcon className="h-8 w-8 text-white" />
+                  <div className="bg-linear-to-br from-blue-500 to-cyan-500 p-4 rounded-2xl">
+                    <ArrowPathIcon className="h-8 w-8 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-gray-600">Élèves total</p>
-                    <p className="text-3xl font-black text-gray-900">
-                      {subjects.reduce((acc, s) => acc + s.studentCount, 0)}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-center gap-4">
-                  <div className="bg-linear-to-br from-purple-500 to-pink-500 p-4 rounded-2xl">
-                    <CurrencyEuroIcon className="h-8 w-8 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-600">Tarif moyen</p>
-                    <p className="text-3xl font-black text-gray-900">
-                      {(subjects.reduce((acc, s) => acc + s.hourlyRate, 0) / subjects.length).toFixed(0)}€/h
-                    </p>
+                    <p className="text-sm font-bold text-gray-600">Actualiser</p>
+                    <button
+                      onClick={loadSubjects}
+                      className="text-lg font-black text-blue-600 hover:underline"
+                    >
+                      Recharger la liste
+                    </button>
                   </div>
                 </div>
               </Card>
             </div>
 
-            {/* Subjects List */}
+            {/* Liste des matières */}
             {subjects.length === 0 ? (
               <Card>
-                <div className="text-center py-12">
-                  <BookOpenIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-600 font-medium mb-4">Aucune matière ajoutée</p>
-                  <Button onClick={() => setShowAddModal(true)}>
-                    Ajouter votre première matière
-                  </Button>
+                <div className="py-16 text-center">
+                  <BookOpenIcon className="mx-auto mb-4 h-16 w-16 text-gray-200" />
+                  <p className="font-bold text-gray-500">Aucune matière enseignée</p>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Ajoutez les matières que vous enseignez pour pouvoir valider les coupons correspondants.
+                  </p>
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-linear-to-r from-purple-500 to-indigo-500 px-5 py-2.5 font-bold text-white shadow-lg shadow-purple-500/30 hover:shadow-xl transition-all"
+                  >
+                    <PlusIcon className="h-5 w-5" />
+                    Ajouter une matière
+                  </button>
                 </div>
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {subjects.map((subject) => (
-                  <Card key={subject.id}>
-                    <div className="space-y-4">
-                      {/* Header */}
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-linear-to-br from-purple-500 to-indigo-500 p-3 rounded-xl">
-                            <BookOpenIcon className="h-6 w-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-black text-gray-900">
-                              {subject.name}
-                            </h3>
-                            <p className="text-sm text-gray-600 font-medium">
-                              {subject.level}
-                            </p>
-                          </div>
+                {subjects.map((s) => (
+                  <Card key={s.id}>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-linear-to-br from-purple-500 to-indigo-500 p-3 rounded-2xl">
+                          <BookOpenIcon className="h-6 w-6 text-white" />
                         </div>
-                        
-                        <div className="flex gap-2">
-                          <button className="p-2 hover:bg-purple-50 rounded-lg transition-colors">
-                            <PencilIcon className="h-4 w-4 text-purple-600" />
-                          </button>
-                          <button 
-                            onClick={() => handleDeleteSubject(subject.id)}
-                            className="p-2 hover:bg-red-50 rounded-lg transition-colors"
-                          >
-                            <TrashIcon className="h-4 w-4 text-red-500" />
-                          </button>
-                        </div>
+                        <h3 className="text-xl font-black text-gray-900">{s.name}</h3>
                       </div>
-
-                      {/* Description */}
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {subject.description}
-                      </p>
-
-                      {/* Stats */}
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-center p-3 bg-blue-50 rounded-xl">
-                          <p className="text-2xl font-black text-gray-900">
-                            {subject.studentCount}
-                          </p>
-                          <p className="text-xs text-gray-600 font-bold mt-1">Élèves</p>
-                        </div>
-                        
-                        <div className="text-center p-3 bg-green-50 rounded-xl">
-                          <p className="text-2xl font-black text-gray-900">
-                            {subject.lessonCount}
-                          </p>
-                          <p className="text-xs text-gray-600 font-bold mt-1">Cours</p>
-                        </div>
-                        
-                        <div className="text-center p-3 bg-purple-50 rounded-xl">
-                          <p className="text-2xl font-black text-gray-900">
-                            {subject.hourlyRate}€
-                          </p>
-                          <p className="text-xs text-gray-600 font-bold mt-1">/ heure</p>
-                        </div>
-                      </div>
-
-                      {/* Actions */}
-                      <Button variant="secondary" className="w-full text-sm">
-                        Voir les élèves
-                      </Button>
+                      <button
+                        onClick={() => handleRemove(s.id)}
+                        disabled={deletingId === s.id}
+                        className="p-2 text-gray-300 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors disabled:opacity-50"
+                        title="Retirer cette matière"
+                      >
+                        {deletingId === s.id ? (
+                          <ArrowPathIcon className="h-5 w-5 animate-spin" />
+                        ) : (
+                          <TrashIcon className="h-5 w-5" />
+                        )}
+                      </button>
                     </div>
+                    {s.description && (
+                      <p className="mt-4 text-sm text-gray-600 font-medium">
+                        {s.description}
+                      </p>
+                    )}
                   </Card>
                 ))}
               </div>
             )}
-
-            {/* Total Revenue */}
-            <Card>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-black text-gray-900 mb-2">
-                    Revenus estimés par matière
-                  </h2>
-                  <p className="text-gray-600">Basé sur les cours donnés ce mois</p>
-                </div>
-              </div>
-              
-              <div className="mt-6 space-y-4">
-                {subjects.map((subject) => {
-                  const revenue = subject.lessonCount * subject.hourlyRate;
-                  const percentage = (revenue / subjects.reduce((acc, s) => acc + (s.lessonCount * s.hourlyRate), 0)) * 100;
-                  
-                  return (
-                    <div key={subject.id}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-bold text-gray-700">{subject.name}</span>
-                        <span className="text-sm font-black text-purple-600">{revenue}€</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
-                        <div 
-                          className="bg-linear-to-r from-purple-500 to-indigo-500 h-3 rounded-full transition-all"
-                          style={{ width: `${percentage}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
           </div>
-          {showAddModal && (
-            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                <Card className="w-full max-w-lg">
-                <h2 className="text-2xl font-black mb-4">Ajouter une matière</h2>
-
-                <p className="text-gray-600 mb-6">
-                    Formulaire à venir…
-                </p>
-
-                <div className="flex justify-end gap-2">
-                    <Button variant="secondary" onClick={() => setShowAddModal(false)}>
-                    Annuler
-                    </Button>
-                    <Button disabled>
-                    Enregistrer
-                    </Button>
-                </div>
-                </Card>
-            </div>
-          )}
         </main>
       </div>
+
+      {/* ==================== MODALE D'AJOUT ==================== */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-3xl bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-gray-100 p-6">
+              <h2 className="flex items-center gap-2 text-xl font-black text-gray-900">
+                <PlusIcon className="h-6 w-6 text-purple-500" />
+                Ajouter une matière
+              </h2>
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setFormError(null);
+                }}
+                className="rounded-lg p-1 text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4 p-6">
+              {formError && (
+                <div className="rounded-xl border-2 border-red-200 bg-red-50 p-3 text-sm font-bold text-red-700">
+                  {formError}
+                </div>
+              )}
+
+              <div>
+                <label className="mb-2 block text-sm font-bold text-gray-700">
+                  Matière à enseigner
+                </label>
+                <select
+                  value={selectedId}
+                  onChange={(e) => setSelectedId(e.target.value)}
+                  className="w-full rounded-2xl border-2 border-gray-200 px-4 py-3 font-medium focus:border-purple-500 focus:outline-none transition-colors"
+                >
+                  <option value="">Sélectionner...</option>
+                  {availableToAdd.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+                {availableToAdd.length === 0 && (
+                  <p className="mt-2 flex items-center gap-1.5 text-xs text-green-600 font-bold">
+                    <CheckCircleIcon className="h-4 w-4" />
+                    Vous enseignez déjà toutes les matières disponibles.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex gap-3 border-t border-gray-100 p-6">
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setFormError(null);
+                }}
+                disabled={saving}
+                className="flex-1 rounded-2xl border-2 border-gray-200 px-4 py-3 font-bold text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleAdd}
+                disabled={saving || !selectedId}
+                className="flex-1 rounded-2xl bg-linear-to-r from-purple-500 to-indigo-500 px-4 py-3 font-bold text-white shadow-lg shadow-purple-500/30 hover:shadow-xl transition-all disabled:opacity-50"
+              >
+                {saving ? 'Ajout...' : 'Ajouter'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes blob {
@@ -315,4 +360,4 @@ const TeacherSubjects: React.FC = () => {
   );
 };
 
-export default TeacherSubjects;
+export default Subjects;
