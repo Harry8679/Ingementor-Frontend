@@ -60,17 +60,11 @@ const Subjects: React.FC = () => {
     if (!showModal) return;
     const loadCatalog = async () => {
       try {
-        const res = await api.get('/api/admin/subjects');
-        setCatalog(res.data?.data ?? res.data?.subjects ?? []);
-      } catch {
-        // Fallback : un prof n'a peut-être pas accès à /api/admin/subjects (ROLE_ADMIN)
-        try {
-          const res = await api.get('/api/subjects');
-          setCatalog(res.data?.data ?? res.data?.subjects ?? res.data ?? []);
-        } catch (err) {
-          console.error('Impossible de charger le catalogue de matières:', err);
-          setCatalog([]);
-        }
+        const res = await api.get('/api/teachers/subjects/available');
+        setCatalog(res.data?.data ?? []);
+      } catch (err) {
+        console.error('Impossible de charger le catalogue de matières:', err);
+        setCatalog([]);
       }
     };
     loadCatalog();
