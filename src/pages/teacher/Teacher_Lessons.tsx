@@ -15,7 +15,7 @@ import {
   ArrowPathIcon,
   ExclamationTriangleIcon,
   PaperAirplaneIcon,
-  UserCircleIcon,
+  // UserCircleIcon,
 } from '@heroicons/react/24/solid';
 import api from '../../services/api';
 
