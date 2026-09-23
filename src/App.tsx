@@ -56,6 +56,7 @@ import SuperAdminReferentiel from './pages/superadmin/SuperAdminReferentiel';
 // import TeacherCoupons from '../pages/teacher/TeacherCoupons';
 import TeacherCoupons from './pages/teacher/TeacherCoupons';
 import Parent_Coupons from './pages/parent/Parent_Coupons';
+import SuperAdminAssociations from './pages/superadmin/SuperAdminAssociations';
 
 
 
@@ -87,7 +88,7 @@ function App() {
           <Route path="activity" element={<SuperAdminActivity />} />
           <Route path="referentiel" element={<SuperAdminReferentiel />} />
           {/* Pages communes à créer */}
-          <Route path="associations" element={<div className="p-8 text-center text-gray-500">Associations (à créer)</div>} />
+          <Route path="associations" element={<SuperAdminAssociations />} />
           <Route path="teachers" element={<div className="p-8 text-center text-gray-500">Professeurs (à créer)</div>} />
           <Route path="students" element={<div className="p-8 text-center text-gray-500">Élèves (à créer)</div>} />
           <Route path="parents" element={<div className="p-8 text-center text-gray-500">Parents (à créer)</div>} />
