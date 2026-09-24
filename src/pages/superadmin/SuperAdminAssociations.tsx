@@ -31,10 +31,12 @@ interface Teacher {
 }
 
 interface StudentLink {
-  id: number;
+  id: number;        // id de l'élève
+  linkId: number;    // id de la ligne TeacherStudent (pour le unlink ciblé)
   name: string;
   email: string;
   grade?: string | null;
+  subject?: string | null;
   parent?: { id: number; name: string } | null;
 }
 
@@ -166,14 +168,11 @@ export default function SuperAdminAssociations() {
     }
   };
 
-  const handleUnlink = async (studentId: number) => {
+  const handleUnlink = async (linkId: number) => {
     if (!selectedTeacher) return;
-    if (!window.confirm('Retirer cet élève du professeur ?')) return;
+    if (!window.confirm('Retirer cette matière pour cet élève ?')) return;
     try {
-      await api.post('/api/admin/associations/unlink/student-teacher', {
-        student_id: studentId,
-        teacher_id: selectedTeacher.id,
-      });
+      await api.delete(`/api/admin/associations/unlink/student-teacher/${linkId}`);
       selectTeacher(selectedTeacher);
       loadInitial();
     } catch (err) {
@@ -337,14 +336,21 @@ export default function SuperAdminAssociations() {
                 ) : (
                   <div className="divide-y divide-gray-100">
                     {students.map((s) => (
-                      <div key={s.id} className="flex items-center justify-between p-4">
+                      <div key={s.linkId} className="flex items-center justify-between p-4">
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-teal-500 text-white text-sm font-medium">
                             {initials(s.name)}
                           </div>
                           <div className="min-w-0">
-                            <p className="font-medium text-gray-900 truncate">{s.name}</p>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <p className="font-medium text-gray-900 truncate">{s.name}</p>
+                              {s.subject && (
+                                <span className="px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full text-xs font-medium">
+                                  {s.subject}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
                               {s.grade && (
                                 <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-full font-medium">
                                   {s.grade}
@@ -358,9 +364,9 @@ export default function SuperAdminAssociations() {
                           </div>
                         </div>
                         <button
-                          onClick={() => handleUnlink(s.id)}
+                          onClick={() => handleUnlink(s.linkId)}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors shrink-0"
-                          title="Retirer"
+                          title="Retirer cette matière"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
