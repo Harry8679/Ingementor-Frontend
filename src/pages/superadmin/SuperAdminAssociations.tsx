@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Link2,
   Users,
@@ -13,12 +13,13 @@ import {
 import api from '../../services/api';
 
 // ============================================================================
-//  Partie PROF ↔ ÉLÈVE (parent↔enfant sera ajouté ensuite)
-//  GET  /api/admin/associations/teachers/available          → { data:[{id,name,email,subjects}] }
-//  GET  /api/admin/associations/teacher/{id}/students       → { data:{ teacher, students:[...] } }
-//  GET  /api/admin/associations/students/without-teacher    → { data:[{id,name,email,grade}] }
-//  POST /api/admin/associations/link/student-teacher        → { student_id, teacher_id }
-//  POST /api/admin/associations/unlink/student-teacher      → { student_id, teacher_id }
+//  Partie PROF ↔ ÉLÈVE
+//  GET  /api/admin/associations/teachers/available
+//  GET  /api/admin/associations/teacher/{id}/students
+//  GET  /api/admin/associations/students/without-teacher
+//  GET  /api/admin/subjects                                (catalogue matières)
+//  POST /api/admin/associations/link/student-teacher     → { student_id, teacher_id, subject_id }
+//  POST /api/admin/associations/unlink/student-teacher   → { student_id, teacher_id }
 //  GET  /api/admin/associations/stats
 // ============================================================================
 
@@ -44,15 +45,18 @@ interface AvailableStudent {
   grade?: string | null;
 }
 
+interface SubjectRef {
+  id: number;
+  name: string;
+}
+
 interface Stats {
-  students: {
-    total: number;
-    with_teacher: number;
-    without_teacher: number;
-  };
+  students: { total: number; with_teacher: number; without_teacher: number };
   teachers: { total: number };
   parents: { total: number };
 }
+
+const PAGE_SIZE = 20; // élèves affichés par page dans la modale
 
 export default function SuperAdminAssociations() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
@@ -68,7 +72,11 @@ export default function SuperAdminAssociations() {
   // Modale de liaison
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [availableStudents, setAvailableStudents] = useState<AvailableStudent[]>([]);
-  const [selectedStudentId, setSelectedStudentId] = useState('');
+  const [subjects, setSubjects] = useState<SubjectRef[]>([]);
+  const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
+  const [selectedSubjectId, setSelectedSubjectId] = useState('');
+  const [studentQuery, setStudentQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [linking, setLinking] = useState(false);
   const [linkError, setLinkError] = useState<string | null>(null);
 
@@ -109,14 +117,22 @@ export default function SuperAdminAssociations() {
 
   const openLinkModal = async () => {
     setLinkError(null);
-    setSelectedStudentId('');
+    setSelectedStudentId(null);
+    setSelectedSubjectId('');
+    setStudentQuery('');
+    setVisibleCount(PAGE_SIZE);
     setShowLinkModal(true);
     try {
-      const res = await api.get('/api/admin/associations/students/without-teacher');
-      setAvailableStudents(res.data?.data ?? []);
+      const [st, sub] = await Promise.all([
+        api.get('/api/admin/associations/students/without-teacher'),
+        api.get('/api/admin/subjects'),
+      ]);
+      setAvailableStudents(st.data?.data ?? []);
+      setSubjects(sub.data?.data ?? sub.data?.subjects ?? []);
     } catch (err) {
-      console.error('Erreur chargement élèves disponibles:', err);
+      console.error('Erreur chargement modale:', err);
       setAvailableStudents([]);
+      setSubjects([]);
     }
   };
 
@@ -125,16 +141,21 @@ export default function SuperAdminAssociations() {
       setLinkError('Sélectionnez un élève.');
       return;
     }
+    if (!selectedSubjectId) {
+      setLinkError('Sélectionnez une matière.');
+      return;
+    }
     setLinking(true);
     setLinkError(null);
     try {
       await api.post('/api/admin/associations/link/student-teacher', {
-        student_id: Number(selectedStudentId),
+        student_id: selectedStudentId,
         teacher_id: selectedTeacher.id,
+        subject_id: Number(selectedSubjectId),
       });
       setShowLinkModal(false);
-      selectTeacher(selectedTeacher); // recharge la liste
-      loadInitial(); // met à jour les stats
+      selectTeacher(selectedTeacher);
+      loadInitial();
     } catch (err) {
       const msg =
         (err as { response?: { data?: { message?: string } } })?.response?.data?.message ??
@@ -166,6 +187,20 @@ export default function SuperAdminAssociations() {
       t.name.toLowerCase().includes(teacherSearch.toLowerCase()) ||
       t.email.toLowerCase().includes(teacherSearch.toLowerCase()),
   );
+
+  // Recherche + pagination des élèves dans la modale
+  const filteredStudents = useMemo(() => {
+    const q = studentQuery.trim().toLowerCase();
+    if (!q) return availableStudents;
+    return availableStudents.filter(
+      (s) =>
+        s.name.toLowerCase().includes(q) ||
+        s.email.toLowerCase().includes(q) ||
+        (s.grade ?? '').toLowerCase().includes(q),
+    );
+  }, [availableStudents, studentQuery]);
+
+  const visibleStudents = filteredStudents.slice(0, visibleCount);
 
   const initials = (name: string) =>
     name
@@ -265,7 +300,7 @@ export default function SuperAdminAssociations() {
           </div>
         </div>
 
-        {/* Colonne droite : élèves du prof sélectionné */}
+        {/* Colonne droite : élèves du prof */}
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           {!selectedTeacher ? (
             <div className="flex flex-col items-center justify-center h-full py-20 text-center">
@@ -342,7 +377,7 @@ export default function SuperAdminAssociations() {
       {/* Modale de liaison */}
       {showLinkModal && selectedTeacher && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col">
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
               <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
                 <UserPlus className="h-5 w-5 text-red-500" />
@@ -356,7 +391,7 @@ export default function SuperAdminAssociations() {
               </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 overflow-y-auto">
               {linkError && (
                 <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-700">
                   <AlertCircle className="h-4 w-4 shrink-0" />
@@ -364,28 +399,82 @@ export default function SuperAdminAssociations() {
                 </div>
               )}
 
+              {/* Matière */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Élève sans professeur
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Matière</label>
                 <select
-                  value={selectedStudentId}
-                  onChange={(e) => setSelectedStudentId(e.target.value)}
+                  value={selectedSubjectId}
+                  onChange={(e) => setSelectedSubjectId(e.target.value)}
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
                 >
-                  <option value="">Sélectionner...</option>
-                  {availableStudents.map((s) => (
+                  <option value="">Sélectionner une matière...</option>
+                  {subjects.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
-                      {s.grade ? ` — ${s.grade}` : ''}
                     </option>
                   ))}
                 </select>
-                {availableStudents.length === 0 && (
-                  <p className="mt-1 text-xs text-gray-400">
-                    Tous les élèves ont déjà un professeur.
-                  </p>
-                )}
+              </div>
+
+              {/* Recherche d'élève */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Élève sans professeur ({filteredStudents.length})
+                </label>
+                <div className="relative mb-2">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Rechercher par nom, email, classe..."
+                    value={studentQuery}
+                    onChange={(e) => {
+                      setStudentQuery(e.target.value);
+                      setVisibleCount(PAGE_SIZE);
+                    }}
+                    className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+
+                <div className="max-h-64 overflow-y-auto border border-gray-100 rounded-xl divide-y divide-gray-100">
+                  {filteredStudents.length === 0 ? (
+                    <p className="p-4 text-center text-gray-400 text-sm">
+                      Aucun élève disponible
+                    </p>
+                  ) : (
+                    <>
+                      {visibleStudents.map((s) => (
+                        <button
+                          key={s.id}
+                          onClick={() => setSelectedStudentId(s.id)}
+                          className={`w-full flex items-center gap-3 p-3 text-left transition-colors ${
+                            selectedStudentId === s.id
+                              ? 'bg-red-50 ring-1 ring-red-300'
+                              : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-teal-500 text-white text-xs font-medium">
+                            {initials(s.name)}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate">{s.name}</p>
+                            <p className="text-xs text-gray-500 truncate">
+                              {s.grade ? `${s.grade} · ` : ''}
+                              {s.email}
+                            </p>
+                          </div>
+                        </button>
+                      ))}
+                      {visibleCount < filteredStudents.length && (
+                        <button
+                          onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                          className="w-full p-3 text-sm font-medium text-red-600 hover:bg-red-50"
+                        >
+                          Voir plus ({filteredStudents.length - visibleCount} restants)
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -399,7 +488,7 @@ export default function SuperAdminAssociations() {
               </button>
               <button
                 onClick={handleLink}
-                disabled={linking || !selectedStudentId}
+                disabled={linking || !selectedStudentId || !selectedSubjectId}
                 className="flex-1 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all disabled:opacity-50"
               >
                 {linking ? 'Association...' : 'Associer'}
