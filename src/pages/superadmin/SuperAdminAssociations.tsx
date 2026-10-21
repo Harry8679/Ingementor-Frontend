@@ -76,7 +76,7 @@ export default function SuperAdminAssociations() {
   const [availableStudents, setAvailableStudents] = useState<AvailableStudent[]>([]);
   const [subjects, setSubjects] = useState<SubjectRef[]>([]);
   const [selectedStudentId, setSelectedStudentId] = useState<number | null>(null);
-  const [selectedSubjectId, setSelectedSubjectId] = useState('');
+  const [selectedSubjectIds, setSelectedSubjectIds] = useState<number[]>([]);
   const [studentQuery, setStudentQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [linking, setLinking] = useState(false);
@@ -120,13 +120,13 @@ export default function SuperAdminAssociations() {
   const openLinkModal = async () => {
     setLinkError(null);
     setSelectedStudentId(null);
-    setSelectedSubjectId('');
+    setSelectedSubjectIds([]);
     setStudentQuery('');
     setVisibleCount(PAGE_SIZE);
     setShowLinkModal(true);
     try {
       const [st, sub] = await Promise.all([
-        api.get('/api/admin/associations/students/without-teacher'),
+        api.get('/api/admin/associations/students/all'),
         api.get('/api/admin/subjects'),
       ]);
       setAvailableStudents(st.data?.data ?? []);
@@ -138,34 +138,53 @@ export default function SuperAdminAssociations() {
     }
   };
 
+  const toggleSubject = (id: number) => {
+    setSelectedSubjectIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  };
+
   const handleLink = async () => {
     if (!selectedTeacher || !selectedStudentId) {
       setLinkError('Sélectionnez un élève.');
       return;
     }
-    if (!selectedSubjectId) {
-      setLinkError('Sélectionnez une matière.');
+    if (selectedSubjectIds.length === 0) {
+      setLinkError('Sélectionnez au moins une matière.');
       return;
     }
     setLinking(true);
     setLinkError(null);
-    try {
-      await api.post('/api/admin/associations/link/student-teacher', {
-        student_id: selectedStudentId,
-        teacher_id: selectedTeacher.id,
-        subject_id: Number(selectedSubjectId),
-      });
-      setShowLinkModal(false);
-      selectTeacher(selectedTeacher);
-      loadInitial();
-    } catch (err) {
-      const msg =
-        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ??
-        'Erreur lors de la liaison';
-      setLinkError(msg);
-    } finally {
-      setLinking(false);
+
+    const results = await Promise.allSettled(
+      selectedSubjectIds.map((subjectId) =>
+        api.post('/api/admin/associations/link/student-teacher', {
+          student_id: selectedStudentId,
+          teacher_id: selectedTeacher!.id,
+          subject_id: subjectId,
+        }),
+      ),
+    );
+
+    // On considère un rejet "déjà associé" comme non bloquant
+    const realErrors = results.filter(
+      (r) =>
+        r.status === 'rejected' &&
+        !String(
+          (r.reason as { response?: { data?: { message?: string } } })?.response?.data?.message ?? '',
+        ).includes('déjà'),
+    );
+
+    setLinking(false);
+
+    if (realErrors.length > 0) {
+      setLinkError('Certaines matières n\'ont pas pu être associées.');
+      return;
     }
+
+    setShowLinkModal(false);
+    selectTeacher(selectedTeacher);
+    loadInitial();
   };
 
   const handleUnlink = async (linkId: number) => {
@@ -405,27 +424,37 @@ export default function SuperAdminAssociations() {
                 </div>
               )}
 
-              {/* Matière */}
+              {/* Matières (choix multiple) */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Matière</label>
-                <select
-                  value={selectedSubjectId}
-                  onChange={(e) => setSelectedSubjectId(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500"
-                >
-                  <option value="">Sélectionner une matière...</option>
-                  {subjects.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Matières ({selectedSubjectIds.length} sélectionnée
+                  {selectedSubjectIds.length > 1 ? 's' : ''})
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {subjects.map((sub) => {
+                    const active = selectedSubjectIds.includes(sub.id);
+                    return (
+                      <button
+                        key={sub.id}
+                        type="button"
+                        onClick={() => toggleSubject(sub.id)}
+                        className={`px-3 py-1.5 rounded-full text-sm font-medium border-2 transition-colors ${
+                          active
+                            ? 'bg-red-500 border-red-500 text-white'
+                            : 'bg-white border-gray-200 text-gray-600 hover:border-red-300'
+                        }`}
+                      >
+                        {sub.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Recherche d'élève */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Élève sans professeur ({filteredStudents.length})
+                  Élève ({filteredStudents.length})
                 </label>
                 <div className="relative mb-2">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -494,7 +523,7 @@ export default function SuperAdminAssociations() {
               </button>
               <button
                 onClick={handleLink}
-                disabled={linking || !selectedStudentId || !selectedSubjectId}
+                disabled={linking || !selectedStudentId || selectedSubjectIds.length === 0}
                 className="flex-1 px-4 py-2.5 bg-linear-to-r from-red-500 to-orange-500 text-white rounded-xl font-medium shadow-lg shadow-red-500/30 hover:shadow-xl transition-all disabled:opacity-50"
               >
                 {linking ? 'Association...' : 'Associer'}
